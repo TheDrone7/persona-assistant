@@ -83,7 +83,7 @@ class PersonaShadow {
       affinities: resistances,
       name: name,
       areaEncountered: json['area'] as String,
-      drops: Map<String, int>.from(json['drops'] ?? {}),
+      drops: Map<String, int>.from(json['dodds'] ?? {}),
       experience: json['exp'],
       level: json['lvl'],
       arcana: arcana,

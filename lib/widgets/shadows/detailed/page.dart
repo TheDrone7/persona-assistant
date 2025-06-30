@@ -6,6 +6,7 @@ import 'stats.dart';
 import 'affinities.dart';
 import 'ailments.dart';
 import 'skills.dart';
+import 'drops.dart';
 
 class DetailedShadowPage extends StatelessWidget {
   final PersonaShadow shadow;
@@ -79,6 +80,25 @@ class DetailedShadowPage extends StatelessWidget {
             ),
           ),
           DetailedShadowPageAilmentsBox(ailments: shadow.ailments),
+          ...(shadow.drops.isNotEmpty
+              ? [
+                  SizedBox(height: 16.0),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 18.0,
+                      vertical: 4.0,
+                    ),
+                    child: Text(
+                      'Drops',
+                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.onSecondary,
+                      ),
+                    ),
+                  ),
+                  DetailedShadowPageDropsList(drops: shadow.drops),
+                ]
+              : []),
           SizedBox(height: 16.0),
           Padding(
             padding: const EdgeInsets.symmetric(
