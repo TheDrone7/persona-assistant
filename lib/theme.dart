@@ -18,10 +18,10 @@ ThemeData catpuccinTheme() {
         fontSize: 22,
         fontWeight: FontWeight.normal,
       ),
-      iconTheme: IconThemeData(color: flavor.overlay1),
       backgroundColor: flavor.crust,
       foregroundColor: flavor.mantle,
     ),
+    iconTheme: IconThemeData(color: flavor.overlay2),
     colorScheme: ColorScheme(
       brightness: Brightness.light,
       primary: flavor.crust,
