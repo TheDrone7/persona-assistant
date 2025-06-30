@@ -4,6 +4,7 @@ import 'package:persona_data/lib.dart';
 import 'arcana.dart';
 import 'stats.dart';
 import 'affinities.dart';
+import 'ailments.dart';
 import 'skills.dart';
 
 class DetailedShadowPage extends StatelessWidget {
@@ -46,6 +47,7 @@ class DetailedShadowPage extends StatelessWidget {
             stats: shadow.stats,
             hp: shadow.hp,
             mp: shadow.mp,
+            xp: shadow.experience,
           ),
           SizedBox(height: 16.0),
           Padding(
@@ -62,6 +64,21 @@ class DetailedShadowPage extends StatelessWidget {
             ),
           ),
           DetailedShadowPageAffinitiesBox(affinities: shadow.affinities),
+          SizedBox(height: 16.0),
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 18.0,
+              vertical: 4.0,
+            ),
+            child: Text(
+              'Ailment Affinities',
+              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).colorScheme.onSecondary,
+              ),
+            ),
+          ),
+          DetailedShadowPageAilmentsBox(ailments: shadow.ailments),
           SizedBox(height: 16.0),
           Padding(
             padding: const EdgeInsets.symmetric(

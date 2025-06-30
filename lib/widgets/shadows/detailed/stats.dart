@@ -5,12 +5,14 @@ class DetailedShadowPageStatsBox extends StatelessWidget {
   final Map<PersonaStats, int> stats;
   final int hp;
   final int mp;
+  final int xp;
 
   const DetailedShadowPageStatsBox({
     super.key,
     required this.stats,
     required this.hp,
     required this.mp,
+    required this.xp,
   });
 
   @override
@@ -50,6 +52,8 @@ class DetailedShadowPageStatsBox extends StatelessWidget {
               1: FlexColumnWidth(),
               2: FlexColumnWidth(),
               3: FlexColumnWidth(),
+              4: FlexColumnWidth(),
+              5: FlexColumnWidth(),
             },
             defaultVerticalAlignment: TableCellVerticalAlignment.middle,
             children: [
@@ -59,6 +63,8 @@ class DetailedShadowPageStatsBox extends StatelessWidget {
                   statTableCell(hp.toString()),
                   statTableCell('MP', isBold: true),
                   statTableCell(mp.toString()),
+                  statTableCell('XP', isBold: true),
+                  statTableCell(xp.toString()),
                 ],
               ),
             ],
