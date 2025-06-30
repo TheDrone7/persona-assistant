@@ -1,0 +1,22 @@
+{
+	"folders": [
+		{
+			"path": ".",
+      "name": "Persona Assistant",
+		},
+		{
+			"path": "packages/persona_data",
+      "name": "Data Package"
+		}
+	],
+  "settings": {
+    "files.exclude": {
+      "**/.git": true,
+      "**/.svn": true,
+      "**/.hg": true,
+      "**/.DS_Store": true,
+      "**/Thumbs.db": true,
+      "**/packages": true
+    }
+  }
+}
