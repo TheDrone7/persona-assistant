@@ -6,15 +6,15 @@ import 'stats.dart';
 import 'affinities.dart';
 import 'skills.dart';
 
-class DetailedPersonaPage extends StatelessWidget {
-  final Persona persona;
-  const DetailedPersonaPage({super.key, required this.persona});
+class DetailedShadowPage extends StatelessWidget {
+  final PersonaShadow shadow;
+  const DetailedShadowPage({super.key, required this.shadow});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(persona.name),
+        title: Text(shadow.name),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () => Navigator.of(context).pop(),
@@ -22,9 +22,11 @@ class DetailedPersonaPage extends StatelessWidget {
       ),
       body: ListView(
         children: [
-          DetailedPersonaPageArcanaBox(
-            arcanaName: persona.arcana,
-            level: persona.level,
+          DetailedShadowPageArcanaBox(
+            arcanaName: shadow.arcana,
+            level: shadow.level,
+            areaEncountered: shadow.areaEncountered,
+            isBoss: shadow.isBoss,
           ),
           SizedBox(height: 16.0),
           Padding(
@@ -33,14 +35,18 @@ class DetailedPersonaPage extends StatelessWidget {
               vertical: 4.0,
             ),
             child: Text(
-              'Persona Stats',
+              'Shadow Stats',
               style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                 fontWeight: FontWeight.bold,
                 color: Theme.of(context).colorScheme.onSecondary,
               ),
             ),
           ),
-          DetailedPersonaPageStatsBox(stats: persona.stats),
+          DetailedShadowPageStatsBox(
+            stats: shadow.stats,
+            hp: shadow.hp,
+            mp: shadow.mp,
+          ),
           SizedBox(height: 16.0),
           Padding(
             padding: const EdgeInsets.symmetric(
@@ -55,7 +61,7 @@ class DetailedPersonaPage extends StatelessWidget {
               ),
             ),
           ),
-          DetailedPersonaPageAffinitiesBox(affinities: persona.resistances),
+          DetailedShadowPageAffinitiesBox(affinities: shadow.affinities),
           SizedBox(height: 16.0),
           Padding(
             padding: const EdgeInsets.symmetric(
@@ -70,7 +76,7 @@ class DetailedPersonaPage extends StatelessWidget {
               ),
             ),
           ),
-          DetailedPersonaPageSkillsList(skills: persona.skills),
+          DetailedShadowPageSkillsList(skills: shadow.skills),
           SizedBox(height: 16.0),
         ],
       ),

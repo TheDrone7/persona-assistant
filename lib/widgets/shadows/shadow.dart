@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:persona_data/lib.dart';
 
-// import 'detailed/page.dart';
+import 'detailed/page.dart';
 
 class ShadowListItem extends StatelessWidget {
   const ShadowListItem({super.key, required this.shadow});
@@ -32,11 +32,11 @@ class ShadowListItem extends StatelessWidget {
             : shadow.areaEncountered.toLowerCase().contains('tutorial')
             ? Theme.of(context).colorScheme.primary.withAlpha(80)
             : null,
-        // onTap: () => Navigator.of(context).push(
-        //   MaterialPageRoute(
-        //     builder: (context) => DetailedPersonaPage(persona: persona),
-        //   ),
-        // ),
+        onTap: () => Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => DetailedShadowPage(shadow: shadow),
+          ),
+        ),
       ),
     );
   }

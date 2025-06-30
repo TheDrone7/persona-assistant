@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 
-class DetailedPersonaPageArcanaBox extends StatelessWidget {
+class DetailedShadowPageArcanaBox extends StatelessWidget {
   final String arcanaName;
+  final String areaEncountered;
   final int level;
+  final bool isBoss;
 
-  const DetailedPersonaPageArcanaBox({
+  const DetailedShadowPageArcanaBox({
     super.key,
     required this.arcanaName,
     required this.level,
+    required this.areaEncountered,
+    this.isBoss = false,
   });
 
   @override
@@ -22,7 +26,7 @@ class DetailedPersonaPageArcanaBox extends StatelessWidget {
         'assets/p3r/images/arcana/${arcanaName.toLowerCase()}.png',
       ),
       title: Text(
-        arcanaName == 'Hanged' ? 'Hanged Man' : arcanaName,
+        'Level $level${isBoss ? ' Boss' : ''}',
         style: Theme.of(context).textTheme.headlineMedium!.copyWith(
           color: Theme.of(context).colorScheme.onPrimary,
         ),
@@ -31,10 +35,10 @@ class DetailedPersonaPageArcanaBox extends StatelessWidget {
       subtitle: Padding(
         padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 0.0),
         child: Text(
-          'Level $level',
+          '${arcanaName == 'Hanged' ? 'Hanged Man' : arcanaName} • $areaEncountered',
           style: Theme.of(context).textTheme.bodyLarge!.copyWith(
             color: Theme.of(context).colorScheme.onSurface,
-            fontWeight: FontWeight.bold
+            fontWeight: FontWeight.bold,
           ),
         ),
       ),

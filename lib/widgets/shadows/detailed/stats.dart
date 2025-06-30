@@ -1,32 +1,38 @@
-import 'dart:math';
-import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:persona_data/lib.dart';
 
-class DetailedPersonaPageStatsBox extends StatelessWidget {
+class DetailedShadowPageStatsBox extends StatelessWidget {
   final Map<PersonaStats, int> stats;
+  final int hp;
+  final int mp;
 
-  const DetailedPersonaPageStatsBox({super.key, required this.stats});
+  const DetailedShadowPageStatsBox({
+    super.key,
+    required this.stats,
+    required this.hp,
+    required this.mp,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final formatter = NumberFormat.currency(
-      locale: 'en_US',
-      symbol: '¥',
-      decimalDigits: 0,
-    );
-    final price =
-        2000 + pow(stats.values.toList().reduce((acc, val) => acc + val), 2);
-
     final tStyle = Theme.of(
       context,
     ).textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.bold);
 
-    Container statTableCell(String text) {
+    Container statTableCell(String text, {bool isBold = false}) {
       return Container(
         padding: EdgeInsetsGeometry.all(8.0),
         color: Theme.of(context).listTileTheme.tileColor!.withAlpha(100),
-        child: Center(child: Text(text, style: tStyle)),
+        child: Center(
+          child: Text(
+            text,
+            style: tStyle.copyWith(
+              color: isBold
+                  ? Theme.of(context).colorScheme.onSecondary
+                  : Theme.of(context).colorScheme.onSurface,
+            ),
+          ),
+        ),
       );
     }
 
@@ -44,17 +50,40 @@ class DetailedPersonaPageStatsBox extends StatelessWidget {
               1: FlexColumnWidth(),
               2: FlexColumnWidth(),
               3: FlexColumnWidth(),
+            },
+            defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+            children: [
+              TableRow(
+                children: [
+                  statTableCell('HP', isBold: true),
+                  statTableCell(hp.toString()),
+                  statTableCell('MP', isBold: true),
+                  statTableCell(mp.toString()),
+                ],
+              ),
+            ],
+          ),
+          SizedBox(height: 8.0),
+          Table(
+            border: TableBorder.all(
+              color: Theme.of(context).dividerColor.withAlpha(50),
+            ),
+            columnWidths: const <int, TableColumnWidth>{
+              0: FlexColumnWidth(),
+              1: FlexColumnWidth(),
+              2: FlexColumnWidth(),
+              3: FlexColumnWidth(),
               4: FlexColumnWidth(),
             },
             defaultVerticalAlignment: TableCellVerticalAlignment.middle,
             children: [
               TableRow(
                 children: [
-                  statTableCell('Str'),
-                  statTableCell('Mag'),
-                  statTableCell('End'),
-                  statTableCell('Agi'),
-                  statTableCell('Lck'),
+                  statTableCell('Str', isBold: true),
+                  statTableCell('Mag', isBold: true),
+                  statTableCell('End', isBold: true),
+                  statTableCell('Agi', isBold: true),
+                  statTableCell('Lck', isBold: true),
                 ],
               ),
               TableRow(
@@ -71,25 +100,6 @@ class DetailedPersonaPageStatsBox extends StatelessWidget {
                 ],
               ),
             ],
-          ),
-          Container(
-            padding: EdgeInsetsGeometry.symmetric(
-              vertical: 8.0,
-              horizontal: 16.0,
-            ),
-            decoration: BoxDecoration(
-              color: Theme.of(context).listTileTheme.tileColor!.withAlpha(100),
-              border: Border.all(
-                color: Theme.of(context).dividerColor.withAlpha(50),
-              ),
-            ),
-            child: Row(
-              children: [
-                Text('Estimated price:', style: tStyle),
-                const SizedBox(width: 20.0),
-                Text(' ${formatter.format(price)}', style: tStyle),
-              ],
-            ),
           ),
         ],
       ),

@@ -1,69 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:persona_data/lib.dart';
 
-import 'package:persona_assistant/widgets/skills/detailed/page.dart';
-
-class DetailedPersonaPageSkillsList extends StatelessWidget {
-  final Map<PersonaSkill, int> skills;
-  const DetailedPersonaPageSkillsList({super.key, required this.skills});
+class DetailedShadowPageSkillsList extends StatelessWidget {
+  final List<String> skills;
+  const DetailedShadowPageSkillsList({super.key, required this.skills});
 
   @override
   Widget build(BuildContext context) {
     final tStyle = Theme.of(context).textTheme.bodyLarge!;
 
-    TableRow skillListHeader() {
+    TableRow skillRow(String skill) {
       return TableRow(
         children: [
           Container(
-            padding: EdgeInsetsGeometry.all(8.0),
+            padding: EdgeInsetsGeometry.symmetric(horizontal: 16.0, vertical: 8.0),
             color: Theme.of(context).listTileTheme.tileColor!.withAlpha(100),
-            child: Center(
-              child: Text(
-                'Level',
-                style: tStyle.copyWith(fontWeight: FontWeight.bold),
-              ),
-            ),
-          ),
-          Container(
-            padding: EdgeInsetsGeometry.all(8.0),
-            color: Theme.of(context).listTileTheme.tileColor!.withAlpha(100),
-            child: Text(
-              'Skill name',
-              style: tStyle.copyWith(fontWeight: FontWeight.bold),
-            ),
-          ),
-        ],
-      );
-    }
-
-    TableRow skillRow(MapEntry<PersonaSkill, int> entry) {
-      final skill = entry.key;
-      final level = entry.value;
-      return TableRow(
-        children: [
-          GestureDetector(
-            onTap: () => showModalBottomSheet(
-              context: context,
-              builder: (context) => DetailedSkillPage(skill: skill),
-            ),
-            child: Container(
-              padding: EdgeInsetsGeometry.all(8.0),
-              color: Theme.of(context).listTileTheme.tileColor!.withAlpha(100),
-              child: Center(
-                child: Text(level > 0 ? level.toString() : '-', style: tStyle),
-              ),
-            ),
-          ),
-          GestureDetector(
-            onTap: () => showModalBottomSheet(
-              context: context,
-              builder: (context) => DetailedSkillPage(skill: skill),
-            ),
-            child: Container(
-              padding: EdgeInsetsGeometry.all(8.0),
-              color: Theme.of(context).listTileTheme.tileColor!.withAlpha(100),
-              child: Text(skill.name, style: tStyle),
-            ),
+            child: Text(skill, style: tStyle),
           ),
         ],
       );
@@ -75,15 +26,9 @@ class DetailedPersonaPageSkillsList extends StatelessWidget {
         border: TableBorder.all(
           color: Theme.of(context).dividerColor.withAlpha(50),
         ),
-        columnWidths: const <int, TableColumnWidth>{
-          0: FlexColumnWidth(1.0),
-          1: FlexColumnWidth(4.0),
-        },
+        columnWidths: const <int, TableColumnWidth>{0: FlexColumnWidth(1.0)},
         defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-        children: [
-          skillListHeader(),
-          ...skills.entries.where((entry) => entry.value < 100).map(skillRow),
-        ],
+        children: [...skills.map(skillRow)],
       ),
     );
   }

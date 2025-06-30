@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:persona_data/lib.dart';
 import 'package:catppuccin_flutter/catppuccin_flutter.dart';
 
-class DetailedPersonaPageAffinitiesBox extends StatelessWidget {
+class DetailedShadowPageAffinitiesBox extends StatelessWidget {
   final Map<CombatElement, Affinity> affinities;
-  const DetailedPersonaPageAffinitiesBox({super.key, required this.affinities});
+  const DetailedShadowPageAffinitiesBox({super.key, required this.affinities});
 
   @override
   Widget build(BuildContext context) {
