@@ -34,6 +34,14 @@ mixin _$AppState on _AppState, Store {
         () => super.filteredPersonas,
         name: '_AppState.filteredPersonas',
       )).value;
+  Computed<List<PersonaSkill>>? _$filteredSkillsComputed;
+
+  @override
+  List<PersonaSkill> get filteredSkills =>
+      (_$filteredSkillsComputed ??= Computed<List<PersonaSkill>>(
+        () => super.filteredSkills,
+        name: '_AppState.filteredSkills',
+      )).value;
 
   late final _$personaDataAtom = Atom(
     name: '_AppState.personaData',
@@ -143,6 +151,42 @@ mixin _$AppState on _AppState, Store {
     });
   }
 
+  late final _$skillSortOrderAtom = Atom(
+    name: '_AppState.skillSortOrder',
+    context: context,
+  );
+
+  @override
+  String get skillSortOrder {
+    _$skillSortOrderAtom.reportRead();
+    return super.skillSortOrder;
+  }
+
+  @override
+  set skillSortOrder(String value) {
+    _$skillSortOrderAtom.reportWrite(value, super.skillSortOrder, () {
+      super.skillSortOrder = value;
+    });
+  }
+
+  late final _$skillFilterAtom = Atom(
+    name: '_AppState.skillFilter',
+    context: context,
+  );
+
+  @override
+  String get skillFilter {
+    _$skillFilterAtom.reportRead();
+    return super.skillFilter;
+  }
+
+  @override
+  set skillFilter(String value) {
+    _$skillFilterAtom.reportWrite(value, super.skillFilter, () {
+      super.skillFilter = value;
+    });
+  }
+
   late final _$initializeAsyncAction = AsyncAction(
     '_AppState.initialize',
     context: context,
@@ -219,6 +263,30 @@ mixin _$AppState on _AppState, Store {
   }
 
   @override
+  void setSkillSortOrder(String order) {
+    final _$actionInfo = _$_AppStateActionController.startAction(
+      name: '_AppState.setSkillSortOrder',
+    );
+    try {
+      return super.setSkillSortOrder(order);
+    } finally {
+      _$_AppStateActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void setSkillFilter(String filter) {
+    final _$actionInfo = _$_AppStateActionController.startAction(
+      name: '_AppState.setSkillFilter',
+    );
+    try {
+      return super.setSkillFilter(filter);
+    } finally {
+      _$_AppStateActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 personaData: ${personaData},
@@ -227,9 +295,12 @@ scaffoldKey: ${scaffoldKey},
 searchQuery: ${searchQuery},
 personaArcanaFilter: ${personaArcanaFilter},
 personaSortOrder: ${personaSortOrder},
+skillSortOrder: ${skillSortOrder},
+skillFilter: ${skillFilter},
 currentScreen: ${currentScreen},
 currentFilters: ${currentFilters},
-filteredPersonas: ${filteredPersonas}
+filteredPersonas: ${filteredPersonas},
+filteredSkills: ${filteredSkills}
     ''';
   }
 }

@@ -7,6 +7,7 @@ import '../widgets/skills/list.dart';
 import '../widgets/personas/list.dart';
 import '../widgets/shadows/list.dart';
 import '../widgets/personas/filters.dart';
+import '../widgets/skills/filters.dart';
 
 part 'state.g.dart';
 
@@ -27,6 +28,11 @@ abstract class _AppState with Store {
   String personaArcanaFilter = 'All';
   @observable
   String personaSortOrder = 'arcana';
+
+  @observable
+  String skillSortOrder = 'default';
+  @observable
+  String skillFilter = 'all';
 
   @action
   void setScreenIndex(int index) {
@@ -63,6 +69,16 @@ abstract class _AppState with Store {
     personaSortOrder = order;
   }
 
+  @action
+  void setSkillSortOrder(String order) {
+    skillSortOrder = order;
+  }
+
+  @action
+  void setSkillFilter(String filter) {
+    skillFilter = filter;
+  }
+
   @computed
   Widget get currentScreen {
     switch (screenIndex) {
@@ -84,6 +100,8 @@ abstract class _AppState with Store {
     switch (screenIndex) {
       case 0:
         return PersonaFilters();
+      case 1:
+        return PersonaSkillFilters();
       default:
         return SizedBox.shrink(); // No filters for other screens
     }
@@ -102,10 +120,10 @@ abstract class _AppState with Store {
 
     // Apply sort order
     switch (personaSortOrder) {
-      case 'level (01 - 99)':
+      case 'level (△)':
         personas.sort((a, b) => a.level.compareTo(b.level));
         break;
-      case 'level (99 - 01)':
+      case 'level (▽)':
         personas.sort((a, b) => b.level.compareTo(a.level));
         break;
       case 'name (a - z)':
@@ -132,5 +150,56 @@ abstract class _AppState with Store {
     }
 
     return personas;
+  }
+
+  @computed
+  List<PersonaSkill> get filteredSkills {
+    List<PersonaSkill> skills = personaData.skills.values.toList();
+
+    // Apply skill filter
+    if (skillFilter != 'all') {
+      skills = skills
+          .where(
+            (s) =>
+                s.type.name.toLowerCase() == skillFilter ||
+                s.element.name.toLowerCase() == skillFilter,
+          )
+          .toList();
+    }
+
+    // Apply sort order
+    switch (skillSortOrder) {
+      case 'name (a - z)':
+        skills.sort((a, b) => a.name.compareTo(b.name));
+        break;
+      case 'name (z - a)':
+        skills.sort((a, b) => b.name.compareTo(a.name));
+        break;
+      case 'cost (△)':
+        skills.sort((a, b) => a.cost.compareTo(b.cost));
+        break;
+      case 'cost (▽)':
+        skills.sort(
+          (a, b) => a.costType.index.compareTo(b.costType.index) != 0
+              ? a.costType.index.compareTo(b.costType.index)
+              : b.cost.compareTo(a.cost),
+        );
+        break;
+      case 'rank (▽)':
+        skills.sort((a, b) => a.rank.compareTo(b.rank));
+        break;
+      case 'rank (△)':
+        skills.sort((a, b) => b.rank.compareTo(a.rank));
+        break;
+      default:
+        skills.sort(
+          (a, b) => a.element.index.compareTo(b.element.index) != 0
+              ? a.element.index.compareTo(b.element.index)
+              : a.name.compareTo(b.name),
+        );
+        break;
+    }
+
+    return skills;
   }
 }

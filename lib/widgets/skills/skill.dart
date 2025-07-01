@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:persona_data/lib.dart';
 
-import 'package:persona_assistant/extensions.dart';
+import 'package:persona_assistant/types/extensions.dart';
 import 'detailed/page.dart';
 
 class SkillListItem extends StatelessWidget {

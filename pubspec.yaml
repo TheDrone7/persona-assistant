@@ -15,6 +15,7 @@ dependencies:
   mobx: ^2.5.0
   flutter_mobx: ^2.3.0
   intl: ^0.20.2
+  font_awesome_flutter: ^10.8.0
   persona_data:
     path: ./packages/persona_data
 

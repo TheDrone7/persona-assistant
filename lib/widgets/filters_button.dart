@@ -4,7 +4,8 @@ class FiltersButton extends StatelessWidget {
   final Widget child;
   final VoidCallback onPressed;
   final Color? backgroundColor;
-  final IconData? icon;
+  final Widget? icon;
+  final IconAlignment iconAlignment;
 
   const FiltersButton({
     super.key,
@@ -12,6 +13,7 @@ class FiltersButton extends StatelessWidget {
     required this.onPressed,
     this.backgroundColor,
     this.icon,
+    this.iconAlignment = IconAlignment.start,
   });
 
   @override
@@ -59,8 +61,9 @@ class FiltersButton extends StatelessWidget {
         minimumSize: WidgetStatePropertyAll<Size>(const Size(0, 24.0)),
         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
       ),
-      icon: Icon(icon),
+      icon: icon,
       label: child,
+      iconAlignment: iconAlignment,
     );
   }
 }

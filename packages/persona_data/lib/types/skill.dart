@@ -34,7 +34,7 @@ enum SkillTarget {
 /// - `hp`: Using the skill costs HP.
 /// - `gauge`: Using the skill costs a gauge (like a special meter).
 /// - `none`: The skill has no cost.
-enum SkillCostType { sp, hp, gauge, none }
+enum SkillCostType { gauge, hp, sp, none }
 
 /// Represents a Persona's skill.
 class PersonaSkill {

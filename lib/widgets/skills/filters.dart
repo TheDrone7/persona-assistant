@@ -2,23 +2,32 @@ import 'package:flutter/material.dart ';
 import 'package:provider/provider.dart';
 
 import 'package:persona_assistant/state/state.dart';
-import 'package:persona_assistant/types/filters.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import '../filters_button.dart';
+import 'package:persona_data/lib.dart';
 
-class PersonaFilters extends StatelessWidget {
-  const PersonaFilters({super.key});
+class PersonaSkillFilters extends StatelessWidget {
+  const PersonaSkillFilters({super.key});
 
   @override
   Widget build(BuildContext context) {
     final AppState state = Provider.of<AppState>(context);
+    final List<String> sortOptions = [
+      'default',
+      'name (a - z)',
+      'name (z - a)',
+      'cost (▽)',
+      'cost (△)',
+      'rank (▽)',
+      'rank (△)',
+    ];
 
-    final List<SortOption> sortOptions = [
-      SortOption(label: 'Arcana', value: 'arcana'),
-      SortOption(label: 'Level', value: 'level_asc'),
-      SortOption(label: 'Level', value: 'level_desc'),
-      SortOption(label: 'Name', value: 'name_asc'),
-      SortOption(label: 'Name', value: 'name_desc'),
+    final List<String> skillTypes = [
+      'all',
+      ...CombatElement.values.map((e) => e.name.toLowerCase()),
+      ...SkillType.values
+          .where((e) => e != SkillType.attack)
+          .map((e) => e.name.toLowerCase()),
     ];
 
     return Padding(
@@ -43,11 +52,11 @@ class PersonaFilters extends StatelessWidget {
                         itemBuilder: (context, index) => Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: FiltersButton(
-                            key: Key(sortOptions[index].value),
-                            child: Text(sortOptions[index].label.toUpperCase()),
+                            key: Key(sortOptions[index]),
+                            child: Text(sortOptions[index].toUpperCase()),
                             onPressed: () {
-                              state.setPersonaSortOrder(
-                                sortOptions[index].value.toLowerCase(),
+                              state.setSkillSortOrder(
+                                sortOptions[index].toLowerCase(),
                               );
                               Navigator.pop(context);
                             },
@@ -58,7 +67,7 @@ class PersonaFilters extends StatelessWidget {
                   );
                 },
                 child: Observer(
-                  builder: (_) => Text(state.personaSortOrder.toUpperCase()),
+                  builder: (_) => Text(state.skillSortOrder.toUpperCase()),
                 ),
               ),
             ),
@@ -75,26 +84,15 @@ class PersonaFilters extends StatelessWidget {
                           horizontal: 8.0,
                           vertical: 20.0,
                         ),
-                        itemCount: state.personaData.arcana.length + 1,
+                        itemCount: skillTypes.length,
                         itemBuilder: (context, index) => Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: FiltersButton(
-                            key: Key(
-                              index == 0
-                                  ? 'All'
-                                  : state.personaData.arcana[index - 1],
-                            ),
-                            child: Text(
-                              index == 0
-                                  ? 'ALL'
-                                  : state.personaData.arcana[index - 1]
-                                        .toUpperCase(),
-                            ),
+                            key: Key(skillTypes[index].toLowerCase()),
+                            child: Text(skillTypes[index].toUpperCase()),
                             onPressed: () {
-                              state.setPersonaArcanaFilter(
-                                index == 0
-                                    ? 'All'
-                                    : state.personaData.arcana[index - 1],
+                              state.setSkillFilter(
+                                skillTypes[index].toLowerCase(),
                               );
                               Navigator.pop(context);
                             },
@@ -105,7 +103,7 @@ class PersonaFilters extends StatelessWidget {
                   );
                 },
                 child: Observer(
-                  builder: (_) => Text(state.personaArcanaFilter.toUpperCase()),
+                  builder: (_) => Text(state.skillFilter.toUpperCase()),
                 ),
               ),
             ),

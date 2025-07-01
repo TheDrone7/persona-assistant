@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:persona_assistant/extensions.dart';
+import 'package:persona_assistant/types/extensions.dart';
 
 class DetailedSkillTypeBox extends StatelessWidget {
   final String iconName;

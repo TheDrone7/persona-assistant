@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:persona_assistant/extensions.dart';
+import 'package:persona_assistant/types/extensions.dart';
 
 class DetailedSkillEffectBox extends StatelessWidget {
   final String effectText;
