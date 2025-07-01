@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 import 'package:persona_assistant/types/filters.dart';
 import 'package:persona_assistant/constants/sort_options.dart';
-import 'package:persona_assistant/constants/filter_choices.dart';
+import 'package:persona_assistant/constants/filter_options.dart';
 
 // Pages
 import '../widgets/skills/list.dart';
@@ -35,9 +35,9 @@ abstract class _AppState with Store {
   SortOption personaSortOrder = personaSortOptions.first;
 
   @observable
-  String skillSortOrder = 'default';
+  SortOption skillSortOrder = skillSortOptions.first;
   @observable
-  String skillFilter = 'all';
+  FilterOption skillFilter = skillFilterOptions.first;
 
   @action
   void setScreenIndex(int index) {
@@ -78,12 +78,12 @@ abstract class _AppState with Store {
   }
 
   @action
-  void setSkillSortOrder(String order) {
+  void setSkillSortOrder(SortOption order) {
     skillSortOrder = order;
   }
 
   @action
-  void setSkillFilter(String filter) {
+  void setSkillFilter(FilterOption filter) {
     skillFilter = filter;
   }
 
@@ -165,38 +165,59 @@ abstract class _AppState with Store {
     List<PersonaSkill> skills = personaData.skills.values.toList();
 
     // Apply skill filter
-    if (skillFilter != 'all') {
-      skills = skills
-          .where(
-            (s) =>
-                s.type.name.toLowerCase() == skillFilter ||
-                s.element.name.toLowerCase() == skillFilter,
-          )
-          .toList();
+    if (skillFilter.value != 'all') {
+      // Check if the filter is a combat element
+      final isCombat = CombatElement.values.any(
+        (e) => e.name.toLowerCase() == skillFilter.value.toLowerCase(),
+      );
+
+      if (isCombat) {
+        skills = skills
+            .where(
+              (s) =>
+                  s.element.name.toLowerCase() == skillFilter.value &&
+                  s.type == SkillType.attack,
+            )
+            .toList();
+      } else {
+        skills = skills
+            .where((s) => s.type.name.toLowerCase() == skillFilter.value)
+            .toList();
+      }
     }
 
     // Apply sort order
-    switch (skillSortOrder) {
-      case 'name (a - z)':
+    switch (skillSortOrder.value) {
+      case 'name_asc':
         skills.sort((a, b) => a.name.compareTo(b.name));
         break;
-      case 'name (z - a)':
+      case 'name_desc':
         skills.sort((a, b) => b.name.compareTo(a.name));
         break;
-      case 'cost (△)':
-        skills.sort((a, b) => a.cost.compareTo(b.cost));
+      case 'cost_asc':
+        skills.sort((a, b) {
+          final aType = a.costType.index == 3 ? -1 : a.costType.index;
+          final bType = b.costType.index == 3 ? -1 : b.costType.index;
+          return bType.compareTo(aType) != 0
+              ? bType.compareTo(aType)
+              : a.cost.compareTo(b.cost);
+        });
         break;
-      case 'cost (▽)':
+      case 'cost_desc':
         skills.sort(
           (a, b) => a.costType.index.compareTo(b.costType.index) != 0
               ? a.costType.index.compareTo(b.costType.index)
               : b.cost.compareTo(a.cost),
         );
         break;
-      case 'rank (▽)':
-        skills.sort((a, b) => a.rank.compareTo(b.rank));
+      case 'rank_asc':
+        skills.sort(
+          (a, b) => (a.rank == 0 ? (-1 >>> 1) : a.rank).compareTo(
+            (b.rank == 0 ? (-1 >>> 1) : b.rank),
+          ),
+        );
         break;
-      case 'rank (△)':
+      case 'rank_desc':
         skills.sort((a, b) => b.rank.compareTo(a.rank));
         break;
       default:

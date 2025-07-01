@@ -206,9 +206,9 @@ class PersonaSkill {
 
     int cost = secondLine[1];
     SkillCostType costType;
-    if (cost < 1000) {
+    if (cost > 0 && cost < 1000) {
       costType = SkillCostType.hp;
-    } else if (cost < 2000) {
+    } else if (cost > 1000 && cost < 2000) {
       costType = SkillCostType.sp;
       cost -= 1000; // Adjust cost for SP
     } else if (cost == 2001) {
@@ -216,7 +216,7 @@ class PersonaSkill {
       cost = 0; // Gauge skills typically don't have a cost value
     } else {
       costType = SkillCostType.none;
-      cost = 0; // No cost for skills with type 'none'
+      cost = 0;
     }
 
     int power = secondLine[2];
@@ -243,7 +243,7 @@ class PersonaSkill {
       effectNum,
       effectType,
       power,
-      skillType
+      skillType,
     );
 
     if (skillType == SkillType.recovery &&
@@ -284,7 +284,13 @@ class PersonaSkill {
 }
 
 /// Parse the skill effect text from the format string.
-String _parseSkillEffect(String format, int num, String text, int pwr, SkillType type) {
+String _parseSkillEffect(
+  String format,
+  int num,
+  String text,
+  int pwr,
+  SkillType type,
+) {
   // Handle placebo skills
   if (format == '-' && pwr == 0) {
     return '';

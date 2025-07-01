@@ -29,3 +29,40 @@ final List<SortOption> personaSortOptions = [
   ),
 ];
 
+final List<SortOption> skillSortOptions = [
+  SortOption(
+    label: 'Default',
+    value: 'default',
+    icon: FaIcon(FontAwesomeIcons.arrowDownWideShort),
+  ),
+  SortOption(
+    label: 'Name',
+    value: 'name_asc',
+    icon: FaIcon(FontAwesomeIcons.arrowDownShortWide),
+  ),
+  SortOption(
+    label: 'Name',
+    value: 'name_desc',
+    icon: FaIcon(FontAwesomeIcons.arrowUpWideShort),
+  ),
+  SortOption(
+    label: 'Cost',
+    value: 'cost_asc',
+    icon: FaIcon(FontAwesomeIcons.arrowDownShortWide),
+  ),
+  SortOption(
+    label: 'Cost',
+    value: 'cost_desc',
+    icon: FaIcon(FontAwesomeIcons.arrowUpWideShort),
+  ),
+  SortOption(
+    label: 'Rank',
+    value: 'rank_asc',
+    icon: FaIcon(FontAwesomeIcons.arrowDownShortWide),
+  ),
+  SortOption(
+    label: 'Rank',
+    value: 'rank_desc',
+    icon: FaIcon(FontAwesomeIcons.arrowUpWideShort),
+  ),
+];

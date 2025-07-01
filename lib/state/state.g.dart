@@ -157,13 +157,13 @@ mixin _$AppState on _AppState, Store {
   );
 
   @override
-  String get skillSortOrder {
+  SortOption get skillSortOrder {
     _$skillSortOrderAtom.reportRead();
     return super.skillSortOrder;
   }
 
   @override
-  set skillSortOrder(String value) {
+  set skillSortOrder(SortOption value) {
     _$skillSortOrderAtom.reportWrite(value, super.skillSortOrder, () {
       super.skillSortOrder = value;
     });
@@ -175,13 +175,13 @@ mixin _$AppState on _AppState, Store {
   );
 
   @override
-  String get skillFilter {
+  FilterOption get skillFilter {
     _$skillFilterAtom.reportRead();
     return super.skillFilter;
   }
 
   @override
-  set skillFilter(String value) {
+  set skillFilter(FilterOption value) {
     _$skillFilterAtom.reportWrite(value, super.skillFilter, () {
       super.skillFilter = value;
     });
@@ -263,7 +263,7 @@ mixin _$AppState on _AppState, Store {
   }
 
   @override
-  void setSkillSortOrder(String order) {
+  void setSkillSortOrder(SortOption order) {
     final _$actionInfo = _$_AppStateActionController.startAction(
       name: '_AppState.setSkillSortOrder',
     );
@@ -275,7 +275,7 @@ mixin _$AppState on _AppState, Store {
   }
 
   @override
-  void setSkillFilter(String filter) {
+  void setSkillFilter(FilterOption filter) {
     final _$actionInfo = _$_AppStateActionController.startAction(
       name: '_AppState.setSkillFilter',
     );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:persona_data/lib.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'arcana.dart';
 import 'stats.dart';
@@ -16,7 +17,7 @@ class DetailedPersonaPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(persona.name),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: FaIcon(FontAwesomeIcons.arrowLeft),
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),
