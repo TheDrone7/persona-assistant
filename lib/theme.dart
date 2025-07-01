@@ -20,6 +20,7 @@ ThemeData catpuccinTheme() {
       ),
       backgroundColor: flavor.crust,
       foregroundColor: flavor.mantle,
+      iconTheme: IconThemeData(color: flavor.overlay2),
     ),
     iconTheme: IconThemeData(color: flavor.overlay2),
     colorScheme: ColorScheme(

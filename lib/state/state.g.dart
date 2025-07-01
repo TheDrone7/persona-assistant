@@ -19,6 +19,13 @@ mixin _$AppState on _AppState, Store {
     () => super.currentScreen,
     name: '_AppState.currentScreen',
   )).value;
+  Computed<Widget>? _$currentFiltersComputed;
+
+  @override
+  Widget get currentFilters => (_$currentFiltersComputed ??= Computed<Widget>(
+    () => super.currentFilters,
+    name: '_AppState.currentFilters',
+  )).value;
 
   late final _$personaDataAtom = Atom(
     name: '_AppState.personaData',
@@ -74,6 +81,60 @@ mixin _$AppState on _AppState, Store {
     });
   }
 
+  late final _$searchQueryAtom = Atom(
+    name: '_AppState.searchQuery',
+    context: context,
+  );
+
+  @override
+  String get searchQuery {
+    _$searchQueryAtom.reportRead();
+    return super.searchQuery;
+  }
+
+  @override
+  set searchQuery(String value) {
+    _$searchQueryAtom.reportWrite(value, super.searchQuery, () {
+      super.searchQuery = value;
+    });
+  }
+
+  late final _$personaArcanaFilterAtom = Atom(
+    name: '_AppState.personaArcanaFilter',
+    context: context,
+  );
+
+  @override
+  String get personaArcanaFilter {
+    _$personaArcanaFilterAtom.reportRead();
+    return super.personaArcanaFilter;
+  }
+
+  @override
+  set personaArcanaFilter(String value) {
+    _$personaArcanaFilterAtom.reportWrite(value, super.personaArcanaFilter, () {
+      super.personaArcanaFilter = value;
+    });
+  }
+
+  late final _$personaSortOrderAtom = Atom(
+    name: '_AppState.personaSortOrder',
+    context: context,
+  );
+
+  @override
+  String get personaSortOrder {
+    _$personaSortOrderAtom.reportRead();
+    return super.personaSortOrder;
+  }
+
+  @override
+  set personaSortOrder(String value) {
+    _$personaSortOrderAtom.reportWrite(value, super.personaSortOrder, () {
+      super.personaSortOrder = value;
+    });
+  }
+
   late final _$initializeAsyncAction = AsyncAction(
     '_AppState.initialize',
     context: context,
@@ -126,12 +187,40 @@ mixin _$AppState on _AppState, Store {
   }
 
   @override
+  void setPersonaArcanaFilter(String filter) {
+    final _$actionInfo = _$_AppStateActionController.startAction(
+      name: '_AppState.setPersonaArcanaFilter',
+    );
+    try {
+      return super.setPersonaArcanaFilter(filter);
+    } finally {
+      _$_AppStateActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void setPersonaSortOrder(String order) {
+    final _$actionInfo = _$_AppStateActionController.startAction(
+      name: '_AppState.setPersonaSortOrder',
+    );
+    try {
+      return super.setPersonaSortOrder(order);
+    } finally {
+      _$_AppStateActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 personaData: ${personaData},
 screenIndex: ${screenIndex},
 scaffoldKey: ${scaffoldKey},
-currentScreen: ${currentScreen}
+searchQuery: ${searchQuery},
+personaArcanaFilter: ${personaArcanaFilter},
+personaSortOrder: ${personaSortOrder},
+currentScreen: ${currentScreen},
+currentFilters: ${currentFilters}
     ''';
   }
 }

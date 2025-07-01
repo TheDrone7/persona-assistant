@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_single_quotes
-
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
@@ -24,7 +22,7 @@ class NavigationHomePage extends StatelessWidget {
             Padding(
               padding: EdgeInsetsGeometry.fromLTRB(16, 12, 16, 0),
               child: Text(
-                "Persona Assistant",
+                'Persona Assistant',
                 style: Theme.of(context).textTheme.headlineMedium!.copyWith(
                   fontWeight: FontWeight.w400,
                 ),
@@ -51,6 +49,10 @@ class NavigationHomePage extends StatelessWidget {
         ),
         title: Observer(
           builder: (_) => Text(destinations[state.screenIndex].label),
+        ),
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(48.0),
+          child: Observer(builder: (_) => state.currentFilters),
         ),
       ),
       body: Observer(
