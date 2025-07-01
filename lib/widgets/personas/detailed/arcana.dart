@@ -34,7 +34,7 @@ class DetailedPersonaPageArcanaBox extends StatelessWidget {
           'Level $level',
           style: Theme.of(context).textTheme.bodyLarge!.copyWith(
             color: Theme.of(context).colorScheme.onSurface,
-            fontWeight: FontWeight.bold
+            fontWeight: FontWeight.bold,
           ),
         ),
       ),

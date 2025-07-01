@@ -12,7 +12,10 @@ class DetailedShadowPageSkillsList extends StatelessWidget {
       return TableRow(
         children: [
           Container(
-            padding: EdgeInsetsGeometry.symmetric(horizontal: 16.0, vertical: 8.0),
+            padding: EdgeInsetsGeometry.symmetric(
+              horizontal: 16.0,
+              vertical: 8.0,
+            ),
             color: Theme.of(context).listTileTheme.tileColor!.withAlpha(100),
             child: Text(skill, style: tStyle),
           ),
