@@ -26,7 +26,7 @@ class FiltersButton extends StatelessWidget {
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
           ),
           padding: WidgetStatePropertyAll<EdgeInsetsGeometry>(
-            const EdgeInsets.symmetric(horizontal: 20.0, vertical: 0.0),
+            const EdgeInsets.symmetric(horizontal: 20.0, vertical: 4.0),
           ),
           backgroundColor: WidgetStatePropertyAll<Color>(
             backgroundColor ??
@@ -49,7 +49,7 @@ class FiltersButton extends StatelessWidget {
           RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
         ),
         padding: WidgetStatePropertyAll<EdgeInsetsGeometry>(
-          const EdgeInsets.symmetric(horizontal: 20.0, vertical: 0.0),
+          const EdgeInsets.symmetric(horizontal: 20.0, vertical: 4.0),
         ),
         backgroundColor: WidgetStatePropertyAll<Color>(
           backgroundColor ??
