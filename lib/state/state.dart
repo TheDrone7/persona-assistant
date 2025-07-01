@@ -26,7 +26,7 @@ abstract class _AppState with Store {
   @observable
   String personaArcanaFilter = 'All';
   @observable
-  String personaSortOrder = 'default';
+  String personaSortOrder = 'arcana';
 
   @action
   void setScreenIndex(int index) {
@@ -87,5 +87,50 @@ abstract class _AppState with Store {
       default:
         return SizedBox.shrink(); // No filters for other screens
     }
+  }
+
+  @computed
+  List<Persona> get filteredPersonas {
+    List<Persona> personas = personaData.personas.values.toList();
+
+    // Apply arcana filter
+    if (personaArcanaFilter != 'All') {
+      personas = personas
+          .where((p) => p.arcana == personaArcanaFilter)
+          .toList();
+    }
+
+    // Apply sort order
+    switch (personaSortOrder) {
+      case 'level (01 - 99)':
+        personas.sort((a, b) => a.level.compareTo(b.level));
+        break;
+      case 'level (99 - 01)':
+        personas.sort((a, b) => b.level.compareTo(a.level));
+        break;
+      case 'name (a - z)':
+        personas.sort((a, b) => a.name.compareTo(b.name));
+        break;
+      case 'name (z - a)':
+        personas.sort((a, b) => b.name.compareTo(a.name));
+        break;
+      default:
+        personas.sort(
+          (a, b) =>
+              (personaData.arcana.indexOf(a.arcana) -
+                      personaData.arcana.indexOf(b.arcana)) !=
+                  0
+              ? personaData.arcana.indexOf(a.arcana) -
+                    personaData.arcana.indexOf(b.arcana)
+              : (a.unlockMethod.index - b.unlockMethod.index) != 0
+              ? a.unlockMethod.index - b.unlockMethod.index
+              : (a.level - b.level) != 0
+              ? a.level - b.level
+              : a.name.compareTo(b.name),
+        );
+        break;
+    }
+
+    return personas;
   }
 }

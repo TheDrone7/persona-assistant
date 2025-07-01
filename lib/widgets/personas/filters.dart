@@ -12,7 +12,6 @@ class PersonaFilters extends StatelessWidget {
   Widget build(BuildContext context) {
     final AppState state = Provider.of<AppState>(context);
     final List<String> sortOptions = [
-      'default',
       'arcana',
       'level (01 - 99)',
       'level (99 - 01)',

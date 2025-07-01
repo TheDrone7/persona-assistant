@@ -26,6 +26,14 @@ mixin _$AppState on _AppState, Store {
     () => super.currentFilters,
     name: '_AppState.currentFilters',
   )).value;
+  Computed<List<Persona>>? _$filteredPersonasComputed;
+
+  @override
+  List<Persona> get filteredPersonas =>
+      (_$filteredPersonasComputed ??= Computed<List<Persona>>(
+        () => super.filteredPersonas,
+        name: '_AppState.filteredPersonas',
+      )).value;
 
   late final _$personaDataAtom = Atom(
     name: '_AppState.personaData',
@@ -220,7 +228,8 @@ searchQuery: ${searchQuery},
 personaArcanaFilter: ${personaArcanaFilter},
 personaSortOrder: ${personaSortOrder},
 currentScreen: ${currentScreen},
-currentFilters: ${currentFilters}
+currentFilters: ${currentFilters},
+filteredPersonas: ${filteredPersonas}
     ''';
   }
 }
