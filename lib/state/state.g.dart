@@ -42,6 +42,14 @@ mixin _$AppState on _AppState, Store {
         () => super.filteredSkills,
         name: '_AppState.filteredSkills',
       )).value;
+  Computed<List<PersonaShadow>>? _$filteredShadowsComputed;
+
+  @override
+  List<PersonaShadow> get filteredShadows =>
+      (_$filteredShadowsComputed ??= Computed<List<PersonaShadow>>(
+        () => super.filteredShadows,
+        name: '_AppState.filteredShadows',
+      )).value;
 
   late final _$personaDataAtom = Atom(
     name: '_AppState.personaData',
@@ -187,6 +195,42 @@ mixin _$AppState on _AppState, Store {
     });
   }
 
+  late final _$shadowSortOrderAtom = Atom(
+    name: '_AppState.shadowSortOrder',
+    context: context,
+  );
+
+  @override
+  SortOption get shadowSortOrder {
+    _$shadowSortOrderAtom.reportRead();
+    return super.shadowSortOrder;
+  }
+
+  @override
+  set shadowSortOrder(SortOption value) {
+    _$shadowSortOrderAtom.reportWrite(value, super.shadowSortOrder, () {
+      super.shadowSortOrder = value;
+    });
+  }
+
+  late final _$shadowFilterAtom = Atom(
+    name: '_AppState.shadowFilter',
+    context: context,
+  );
+
+  @override
+  FilterOption get shadowFilter {
+    _$shadowFilterAtom.reportRead();
+    return super.shadowFilter;
+  }
+
+  @override
+  set shadowFilter(FilterOption value) {
+    _$shadowFilterAtom.reportWrite(value, super.shadowFilter, () {
+      super.shadowFilter = value;
+    });
+  }
+
   late final _$initializeAsyncAction = AsyncAction(
     '_AppState.initialize',
     context: context,
@@ -287,6 +331,30 @@ mixin _$AppState on _AppState, Store {
   }
 
   @override
+  void setShadowSortOrder(SortOption order) {
+    final _$actionInfo = _$_AppStateActionController.startAction(
+      name: '_AppState.setShadowSortOrder',
+    );
+    try {
+      return super.setShadowSortOrder(order);
+    } finally {
+      _$_AppStateActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void setShadowFilter(FilterOption filter) {
+    final _$actionInfo = _$_AppStateActionController.startAction(
+      name: '_AppState.setShadowFilter',
+    );
+    try {
+      return super.setShadowFilter(filter);
+    } finally {
+      _$_AppStateActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 personaData: ${personaData},
@@ -297,10 +365,13 @@ personaArcanaFilter: ${personaArcanaFilter},
 personaSortOrder: ${personaSortOrder},
 skillSortOrder: ${skillSortOrder},
 skillFilter: ${skillFilter},
+shadowSortOrder: ${shadowSortOrder},
+shadowFilter: ${shadowFilter},
 currentScreen: ${currentScreen},
 currentFilters: ${currentFilters},
 filteredPersonas: ${filteredPersonas},
-filteredSkills: ${filteredSkills}
+filteredSkills: ${filteredSkills},
+filteredShadows: ${filteredShadows}
     ''';
   }
 }

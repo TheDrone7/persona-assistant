@@ -66,3 +66,31 @@ final List<SortOption> skillSortOptions = [
     icon: FaIcon(FontAwesomeIcons.arrowUpWideShort),
   ),
 ];
+
+final List<SortOption> shadowSortOptions = [
+  SortOption(
+    label: 'Level',
+    value: 'level_asc',
+    icon: FaIcon(FontAwesomeIcons.arrowDownShortWide),
+  ),
+  SortOption(
+    label: 'Level',
+    value: 'level_desc',
+    icon: FaIcon(FontAwesomeIcons.arrowUpWideShort),
+  ),
+  SortOption(
+    label: 'Name',
+    value: 'name_asc',
+    icon: FaIcon(FontAwesomeIcons.arrowDownShortWide),
+  ),
+  SortOption(
+    label: 'Name',
+    value: 'name_desc',
+    icon: FaIcon(FontAwesomeIcons.arrowUpWideShort),
+  ),
+  SortOption(
+    label: 'Arcana',
+    value: 'arcana',
+    icon: FaIcon(FontAwesomeIcons.arrowDownWideShort),
+  ),
+];

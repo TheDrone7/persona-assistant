@@ -24,3 +24,18 @@ final List<FilterOption> skillFilterOptions = [
         ),
       ),
 ];
+
+final List<FilterOption> shadowFilterOptions = [
+  FilterOption(label: 'All', value: 'all'),
+  FilterOption(label: 'Thebel', value: 'thebel'),
+  FilterOption(label: 'Monorail', value: 'monorail'),
+  FilterOption(label: 'Arqa', value: 'arqa'),
+  FilterOption(label: 'Yabbashah', value: 'yabbashah'),
+  FilterOption(label: 'Tziah', value: 'tziah'),
+  FilterOption(label: 'Harabah', value: 'harabah'),
+  FilterOption(label: 'Adamah', value: 'adamah'),
+  FilterOption(label: 'Tutorial', value: 'tutorial'),
+  FilterOption(label: 'Ultimate', value: 'ultimate'),
+  FilterOption(label: 'Boss', value: 'boss'),
+  FilterOption(label: 'Other', value: 'unknown'),
+];

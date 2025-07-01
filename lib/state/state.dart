@@ -13,6 +13,7 @@ import '../widgets/personas/list.dart';
 import '../widgets/shadows/list.dart';
 import '../widgets/personas/filters.dart';
 import '../widgets/skills/filters.dart';
+import '../widgets/shadows/filters.dart';
 
 part 'state.g.dart';
 
@@ -38,6 +39,11 @@ abstract class _AppState with Store {
   SortOption skillSortOrder = skillSortOptions.first;
   @observable
   FilterOption skillFilter = skillFilterOptions.first;
+
+  @observable
+  SortOption shadowSortOrder = shadowSortOptions.first;
+  @observable
+  FilterOption shadowFilter = shadowFilterOptions.first;
 
   @action
   void setScreenIndex(int index) {
@@ -87,6 +93,16 @@ abstract class _AppState with Store {
     skillFilter = filter;
   }
 
+  @action
+  void setShadowSortOrder(SortOption order) {
+    shadowSortOrder = order;
+  }
+
+  @action
+  void setShadowFilter(FilterOption filter) {
+    shadowFilter = filter;
+  }
+
   @computed
   Widget get currentScreen {
     switch (screenIndex) {
@@ -110,6 +126,8 @@ abstract class _AppState with Store {
         return PersonaFilters();
       case 1:
         return PersonaSkillFilters();
+      case 2:
+        return ShadowFilters();
       default:
         return SizedBox.shrink(); // No filters for other screens
     }
@@ -230,5 +248,76 @@ abstract class _AppState with Store {
     }
 
     return skills;
+  }
+
+  @computed
+  List<PersonaShadow> get filteredShadows {
+    List<PersonaShadow> shadows = personaData.shadows.values.toList();
+
+    // Apply shadow filter
+    if (shadowFilter.value != 'all' && shadowFilter.value != 'boss') {
+      shadows = shadows
+          .where(
+            (s) =>
+                s.areaEncountered.toLowerCase().startsWith(shadowFilter.value),
+          )
+          .toList();
+    } else if (shadowFilter.value == 'boss') {
+      shadows = shadows.where((s) => s.isBoss).toList();
+    }
+
+    // Apply sort order
+    switch (shadowSortOrder.value) {
+      case 'level_desc':
+        shadows.sort(
+          (a, b) => b.level.compareTo(a.level) != 0
+              ? b.level.compareTo(a.level)
+              : a.name.compareTo(b.name),
+        );
+        break;
+      case 'name_asc':
+        shadows.sort(
+          (a, b) => a.name.compareTo(b.name) != 0
+              ? a.name.compareTo(b.name)
+              : a.level.compareTo(b.level),
+        );
+        break;
+      case 'name_desc':
+        shadows.sort(
+          (a, b) => b.name.compareTo(a.name) != 0
+              ? b.name.compareTo(a.name)
+              : a.level.compareTo(b.level),
+        );
+        break;
+      case 'arcana':
+        shadows.sort((a, b) {
+          final aArcana = personaData.arcana.indexWhere(
+            (arc) => arc.toLowerCase() == a.arcana.toLowerCase(),
+          );
+          final bArcana = personaData.arcana.indexWhere(
+            (arc) => arc.toLowerCase() == b.arcana.toLowerCase(),
+          );
+          if (aArcana != bArcana) {
+            return aArcana.compareTo(bArcana);
+          }
+          if (a.level != b.level) {
+            return a.level.compareTo(b.level);
+          }
+          if (a.name != b.name) {
+            return a.name.compareTo(b.name);
+          }
+          return 0; // If all are equal, maintain original order
+        });
+        break;
+      default:
+        shadows.sort(
+          (a, b) => a.level.compareTo(b.level) != 0
+              ? a.level.compareTo(b.level)
+              : a.name.compareTo(b.name),
+        );
+        break;
+    }
+
+    return shadows;
   }
 }
