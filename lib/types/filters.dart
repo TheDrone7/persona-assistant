@@ -3,7 +3,7 @@ import 'package:flutter/material.dart%20';
 class SortOption {
   final String label;
   final String value;
-  final IconData? icon;
+  final Widget? icon;
   final bool isDefault;
 
   SortOption({
@@ -17,11 +17,6 @@ class SortOption {
 class FilterOption {
   final String label;
   final String value;
-  final IconData? icon;
 
-  FilterOption({
-    required this.label,
-    required this.value,
-    this.icon,
-  });
+  FilterOption({required this.label, required this.value});
 }

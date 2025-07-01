@@ -121,13 +121,13 @@ mixin _$AppState on _AppState, Store {
   );
 
   @override
-  String get personaArcanaFilter {
+  FilterOption get personaArcanaFilter {
     _$personaArcanaFilterAtom.reportRead();
     return super.personaArcanaFilter;
   }
 
   @override
-  set personaArcanaFilter(String value) {
+  set personaArcanaFilter(FilterOption value) {
     _$personaArcanaFilterAtom.reportWrite(value, super.personaArcanaFilter, () {
       super.personaArcanaFilter = value;
     });
@@ -139,13 +139,13 @@ mixin _$AppState on _AppState, Store {
   );
 
   @override
-  String get personaSortOrder {
+  SortOption get personaSortOrder {
     _$personaSortOrderAtom.reportRead();
     return super.personaSortOrder;
   }
 
   @override
-  set personaSortOrder(String value) {
+  set personaSortOrder(SortOption value) {
     _$personaSortOrderAtom.reportWrite(value, super.personaSortOrder, () {
       super.personaSortOrder = value;
     });
@@ -239,7 +239,7 @@ mixin _$AppState on _AppState, Store {
   }
 
   @override
-  void setPersonaArcanaFilter(String filter) {
+  void setPersonaArcanaFilter(FilterOption filter) {
     final _$actionInfo = _$_AppStateActionController.startAction(
       name: '_AppState.setPersonaArcanaFilter',
     );

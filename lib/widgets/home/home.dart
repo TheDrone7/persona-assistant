@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'navigation.dart';
 import 'package:persona_assistant/state/state.dart';
@@ -44,7 +45,7 @@ class NavigationHomePage extends StatelessWidget {
       ),
       appBar: AppBar(
         leading: IconButton(
-          icon: const Icon(Icons.menu),
+          icon: const FaIcon(FontAwesomeIcons.bars),
           onPressed: state.openDrawer,
         ),
         title: Observer(

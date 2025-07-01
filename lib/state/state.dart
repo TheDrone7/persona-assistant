@@ -1,6 +1,11 @@
 import 'package:mobx/mobx.dart';
+import 'package:persona_assistant/types/extensions.dart';
 import 'package:persona_data/lib.dart';
 import 'package:flutter/material.dart';
+
+import 'package:persona_assistant/types/filters.dart';
+import 'package:persona_assistant/constants/sort_options.dart';
+import 'package:persona_assistant/constants/filter_choices.dart';
 
 // Pages
 import '../widgets/skills/list.dart';
@@ -25,9 +30,9 @@ abstract class _AppState with Store {
   @observable
   String searchQuery = '';
   @observable
-  String personaArcanaFilter = 'All';
+  FilterOption personaArcanaFilter = personaFilterOptions.first;
   @observable
-  String personaSortOrder = 'arcana';
+  SortOption personaSortOrder = personaSortOptions.first;
 
   @observable
   String skillSortOrder = 'default';
@@ -60,13 +65,16 @@ abstract class _AppState with Store {
   }
 
   @action
-  void setPersonaArcanaFilter(String filter) {
+  void setPersonaArcanaFilter(FilterOption filter) {
     personaArcanaFilter = filter;
   }
 
   @action
   void setPersonaSortOrder(String order) {
-    personaSortOrder = order;
+    personaSortOrder = personaSortOptions.firstWhere(
+      (option) => option.value.toLowerCase() == order.toLowerCase(),
+      orElse: () => personaSortOptions.first,
+    );
   }
 
   @action
@@ -112,24 +120,24 @@ abstract class _AppState with Store {
     List<Persona> personas = personaData.personas.values.toList();
 
     // Apply arcana filter
-    if (personaArcanaFilter != 'All') {
+    if (personaArcanaFilter.value != 'all') {
       personas = personas
-          .where((p) => p.arcana == personaArcanaFilter)
+          .where((p) => p.arcana == personaArcanaFilter.value.capitalize())
           .toList();
     }
 
     // Apply sort order
-    switch (personaSortOrder) {
-      case 'level (△)':
+    switch (personaSortOrder.value) {
+      case 'level_asc':
         personas.sort((a, b) => a.level.compareTo(b.level));
         break;
-      case 'level (▽)':
+      case 'level_desc':
         personas.sort((a, b) => b.level.compareTo(a.level));
         break;
-      case 'name (a - z)':
+      case 'name_asc':
         personas.sort((a, b) => a.name.compareTo(b.name));
         break;
-      case 'name (z - a)':
+      case 'name_desc':
         personas.sort((a, b) => b.name.compareTo(a.name));
         break;
       default:

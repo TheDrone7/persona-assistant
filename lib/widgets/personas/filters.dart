@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart ';
 import 'package:provider/provider.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
 import 'package:persona_assistant/state/state.dart';
-import 'package:persona_assistant/types/filters.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:persona_assistant/constants/sort_options.dart';
+import 'package:persona_assistant/constants/filter_choices.dart';
 import '../filters_button.dart';
 
 class PersonaFilters extends StatelessWidget {
@@ -13,14 +15,6 @@ class PersonaFilters extends StatelessWidget {
   Widget build(BuildContext context) {
     final AppState state = Provider.of<AppState>(context);
 
-    final List<SortOption> sortOptions = [
-      SortOption(label: 'Arcana', value: 'arcana'),
-      SortOption(label: 'Level', value: 'level_asc'),
-      SortOption(label: 'Level', value: 'level_desc'),
-      SortOption(label: 'Name', value: 'name_asc'),
-      SortOption(label: 'Name', value: 'name_desc'),
-    ];
-
     return Padding(
       padding: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
       child: IntrinsicHeight(
@@ -29,7 +23,11 @@ class PersonaFilters extends StatelessWidget {
           children: [
             Expanded(
               child: FiltersButton(
-                icon: Icon(Icons.sort),
+                icon: Observer(
+                  builder: (_) =>
+                      state.personaSortOrder.icon ??
+                      FaIcon(FontAwesomeIcons.sort),
+                ),
                 onPressed: () {
                   showModalBottomSheet(
                     context: context,
@@ -39,15 +37,18 @@ class PersonaFilters extends StatelessWidget {
                           horizontal: 8.0,
                           vertical: 20.0,
                         ),
-                        itemCount: sortOptions.length,
+                        itemCount: personaSortOptions.length,
                         itemBuilder: (context, index) => Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: FiltersButton(
-                            key: Key(sortOptions[index].value),
-                            child: Text(sortOptions[index].label.toUpperCase()),
+                            key: Key(personaSortOptions[index].value),
+                            icon: personaSortOptions[index].icon,
+                            child: Text(
+                              personaSortOptions[index].label.toUpperCase(),
+                            ),
                             onPressed: () {
                               state.setPersonaSortOrder(
-                                sortOptions[index].value.toLowerCase(),
+                                personaSortOptions[index].value.toLowerCase(),
                               );
                               Navigator.pop(context);
                             },
@@ -58,14 +59,15 @@ class PersonaFilters extends StatelessWidget {
                   );
                 },
                 child: Observer(
-                  builder: (_) => Text(state.personaSortOrder.toUpperCase()),
+                  builder: (_) =>
+                      Text(state.personaSortOrder.label.toUpperCase()),
                 ),
               ),
             ),
             VerticalDivider(),
             Expanded(
               child: FiltersButton(
-                icon: Icon(Icons.filter_list),
+                icon: FaIcon(FontAwesomeIcons.filter),
                 onPressed: () {
                   showModalBottomSheet(
                     context: context,
@@ -75,26 +77,17 @@ class PersonaFilters extends StatelessWidget {
                           horizontal: 8.0,
                           vertical: 20.0,
                         ),
-                        itemCount: state.personaData.arcana.length + 1,
+                        itemCount: personaFilterOptions.length,
                         itemBuilder: (context, index) => Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: FiltersButton(
-                            key: Key(
-                              index == 0
-                                  ? 'All'
-                                  : state.personaData.arcana[index - 1],
-                            ),
+                            key: Key(personaFilterOptions[index].value),
                             child: Text(
-                              index == 0
-                                  ? 'ALL'
-                                  : state.personaData.arcana[index - 1]
-                                        .toUpperCase(),
+                              personaFilterOptions[index].label.toUpperCase(),
                             ),
                             onPressed: () {
                               state.setPersonaArcanaFilter(
-                                index == 0
-                                    ? 'All'
-                                    : state.personaData.arcana[index - 1],
+                                personaFilterOptions[index],
                               );
                               Navigator.pop(context);
                             },
@@ -105,7 +98,8 @@ class PersonaFilters extends StatelessWidget {
                   );
                 },
                 child: Observer(
-                  builder: (_) => Text(state.personaArcanaFilter.toUpperCase()),
+                  builder: (_) =>
+                      Text(state.personaArcanaFilter.label.toUpperCase()),
                 ),
               ),
             ),
