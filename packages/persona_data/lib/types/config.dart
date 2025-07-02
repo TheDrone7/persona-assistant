@@ -45,7 +45,13 @@ enum InheritanceElement {
   dark,
   ailment,
   recovery,
-  support,
+  support;
+
+  @override
+  String toString() => name[0].toUpperCase() + name.substring(1);
+
+  /// Returns the path to the image of the inheritance element (must be prefixed with the proper asset location).
+  String get imagePath => 'images/skills/${name.toLowerCase()}.png';
 }
 
 /// The arcana that personas and shadows can belong to.
@@ -180,7 +186,7 @@ enum InheritanceTypes {
   }
 
   /// Create an InheritanceTypes from a string name.
-  static InheritanceTypes fromString(String code) {
+  static InheritanceTypes fromString(String? code) {
     for (var value in InheritanceTypes.values) {
       if (value.name == code) {
         return value;

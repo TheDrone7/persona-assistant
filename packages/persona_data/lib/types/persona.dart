@@ -18,6 +18,7 @@ class Persona {
     required this.stats,
     this.fusionCondition,
     this.unlockMethod = PersonaUnlockMethod.level,
+    this.inheritanceType = InheritanceTypes.none,
   });
 
   /// The name of the Persona.
@@ -46,6 +47,9 @@ class Persona {
 
   /// The base stats of the Persona.
   final Map<PersonaStats, int> stats;
+
+  /// The types of skills this persona can inherit when fused.
+  final InheritanceTypes inheritanceType;
 
   /// A shorter form of the condition for unlocking the persona.
   /// Should be used alongside the `fusionCondition` if it is not null.
@@ -112,6 +116,7 @@ class Persona {
       resistances: resistances,
       skills: skills,
       stats: stats,
+      inheritanceType: InheritanceTypes.fromString(json['inherits'] as String?),
     );
   }
 }

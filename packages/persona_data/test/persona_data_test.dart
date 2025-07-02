@@ -52,6 +52,7 @@ void main() {
       expect(persona.conditionShort, 'DLC');
       expect(persona.arcana.imagePath, 'images/arcana/fool.png');
       expect(persona.level, 23);
+      expect(persona.inheritanceType, InheritanceTypes.darkA);
 
       // Check resistances
       expect(persona.resistances[CombatElement.light], ResistanceCode.w);
