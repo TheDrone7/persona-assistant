@@ -9,6 +9,10 @@ import 'types/shadow.dart';
 
 /// The base class for managing all Persona data.
 class PersonaData {
+  final String _rootDir;
+
+  PersonaData(this._rootDir);
+
   final Map<int, PersonaSkill> _skills = {};
   final Map<String, Persona> _personas = {};
   final Map<String, PersonaShadow> _shadows = {};
@@ -41,7 +45,7 @@ class PersonaData {
   Future<void> loadSkills() async {
     try {
       final String stringData = await rootBundle.loadString(
-        'assets/p3r/jsons/skill-data.json',
+        '${_rootDir}skill-data.json',
       );
       final Map<String, dynamic> jsonData = jsonDecode(stringData);
       if (jsonData.isEmpty) {
@@ -86,7 +90,7 @@ class PersonaData {
 
     try {
       final String stringData = await rootBundle.loadString(
-        'assets/p3r/jsons/enemy-data.json',
+        '${_rootDir}enemy-data.json',
       );
       final Map<String, dynamic> jsonData = jsonDecode(stringData);
       if (jsonData.isEmpty) {
@@ -124,9 +128,9 @@ class PersonaData {
 
   /// Read the personas from the data source.
   /// Sources:
-  /// - `assets/p3r/jsons/demon-data.json` (Base persona data)
-  /// - `assets/p3r/jsons/demon-unlocks.json` (Unlock conditions)
-  /// - `assets/p3r/jsons/party-data.json` (Party personas)
+  /// - `jsons/demon-data.json` (Base persona data)
+  /// - `jsons/demon-unlocks.json` (Unlock conditions)
+  /// - `jsons/party-data.json` (Party personas)
   Future<void> loadPersonas() async {
     if (_skills.isEmpty) {
       await loadSkills();
@@ -134,13 +138,13 @@ class PersonaData {
 
     try {
       final String stringData = await rootBundle.loadString(
-        'assets/p3r/jsons/demon-data.json',
+        '${_rootDir}demon-data.json',
       );
       final unlockString = await rootBundle.loadString(
-        'assets/p3r/jsons/demon-unlocks.json',
+        '${_rootDir}demon-unlocks.json',
       );
       final partyString = await rootBundle.loadString(
-        'assets/p3r/jsons/party-data.json',
+        '${_rootDir}party-data.json',
       );
       final Map<String, dynamic> jsonData = jsonDecode(stringData);
       final List<dynamic> unlockData = jsonDecode(unlockString);

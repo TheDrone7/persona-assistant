@@ -4,7 +4,7 @@ import 'package:persona_data/lib.dart';
 
 final List<FilterOption> personaFilterOptions = [
   FilterOption(label: 'All', value: 'all'),
-  ...PersonaData().arcana.map(
+  ...PersonaData('assets/p3r/jsons').arcana.map(
     (a) => FilterOption(label: a.capitalize(), value: a.toLowerCase()),
   ),
 ];

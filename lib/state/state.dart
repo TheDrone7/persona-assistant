@@ -21,7 +21,7 @@ class AppState extends _AppState with _$AppState {}
 
 abstract class _AppState with Store {
   @observable
-  PersonaData personaData = PersonaData();
+  PersonaData personaData = PersonaData('assets/p3r/jsons/');
 
   @observable
   int screenIndex = 0;
