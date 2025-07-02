@@ -1,4 +1,4 @@
-import 'element.dart';
+import 'config.dart';
 import 'affinities.dart';
 
 /// A Persona's stats

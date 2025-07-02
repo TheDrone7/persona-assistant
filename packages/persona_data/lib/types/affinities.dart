@@ -1,4 +1,4 @@
-import 'element.dart';
+import 'config.dart';
 
 enum Affinity { weak, resist, nullify, repel, absorb, normal }
 

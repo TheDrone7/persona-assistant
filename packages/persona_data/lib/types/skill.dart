@@ -1,4 +1,4 @@
-import 'package:persona_data/types/element.dart';
+import 'config.dart';
 
 /// Represents the type of the skill.
 /// - `attack`: Offensive skills that deal damage.
@@ -214,7 +214,7 @@ class PersonaSkill {
     } else if (cost > 1000 && cost < 2000) {
       costType = SkillCostType.sp;
       cost -= 1000; // Adjust cost for SP
-    } else if (cost == 2001) {
+    } else if (cost > 2000) {
       costType = SkillCostType.gauge;
       cost = 0; // Gauge skills typically don't have a cost value
     } else {
