@@ -10,7 +10,6 @@ import 'types/shadow.dart';
 /// The base class for managing all Persona data.
 class PersonaData {
   final String _rootDir;
-
   PersonaData(this._rootDir);
 
   final Map<int, PersonaSkill> _skills = {};
@@ -225,6 +224,19 @@ class PersonaData {
       if (kDebugMode) {
         debugPrint('Error loading personas: $e');
       }
+    }
+  }
+
+  Future<void> initialize() async {
+    await loadSkills();
+    await loadPersonas();
+    await loadShadows();
+  }
+
+  Future<void> updatePreferences() async {
+    // Ensure that the data is loaded before updating these.
+    if (_skills.isEmpty || _personas.isEmpty || _shadows.isEmpty) {
+      await initialize();
     }
   }
 

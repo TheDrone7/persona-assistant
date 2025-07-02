@@ -52,9 +52,7 @@ abstract class _AppState with Store {
 
   @action
   Future<void> initialize() async {
-    await personaData.loadSkills();
-    await personaData.loadPersonas();
-    await personaData.loadShadows();
+    await personaData.initialize();
   }
 
   @action
@@ -180,7 +178,9 @@ abstract class _AppState with Store {
 
   @computed
   List<PersonaSkill> get filteredSkills {
-    List<PersonaSkill> skills = personaData.skills.values.toList();
+    List<PersonaSkill> skills = personaData.skills.values
+        .where((skill) => !skill.isUnique)
+        .toList();
 
     // Apply skill filter
     if (skillFilter.value != 'all') {

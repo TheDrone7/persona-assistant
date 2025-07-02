@@ -199,7 +199,7 @@ class PersonaSkill {
       throw ArgumentError('Invalid skill data format');
     }
 
-    int rank = 0;
+    int rank = 99;
     if (secondLine[0] > 0) {
       rank = secondLine[0];
     }
@@ -281,6 +281,8 @@ class PersonaSkill {
       icon: iconName,
     );
   }
+
+  bool get isUnique => rank > 89;
 }
 
 /// Parse the skill effect text from the format string.
@@ -348,7 +350,7 @@ String _parseSkillEffect(
       return 'Grants immunity to $text.';
     case 'FMTDodgeElem':
       return 'Evasion against $text damage x${effectNum.toStringAsFixed(2)}.';
-    case 'FMTPersonaCounter':
+    case 'FMTPersonaCounterN':
       return '${effectNum.toInt()}% chance to repel $text attack.';
     case 'FMTRegenerateN':
       return 'Recovers ${effectNum.toInt()}% HP at the start of each turn.';

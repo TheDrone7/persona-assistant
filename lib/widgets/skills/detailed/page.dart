@@ -5,6 +5,7 @@ import 'typebox.dart';
 import 'statbox.dart';
 import 'targetbox.dart';
 import 'effect.dart';
+import 'card.dart';
 
 class DetailedSkillPage extends StatelessWidget {
   final PersonaSkill skill;
@@ -12,26 +13,26 @@ class DetailedSkillPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 500.0,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          DetailedSkillTypeBox(iconName: skill.icon, skillName: skill.name),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              children: [
-                DetailedSkillStatBox(skill: skill),
+    return ListView(
+      children: [
+        DetailedSkillTypeBox(iconName: skill.icon, skillName: skill.name),
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              DetailedSkillStatBox(skill: skill),
+              SizedBox(height: 16.0),
+              DetailedSkillTargetBox(target: skill.target),
+              if (skill.skillCard != null) ...[
                 SizedBox(height: 16.0),
-                DetailedSkillTargetBox(target: skill.target),
-                SizedBox(height: 16.0),
-                DetailedSkillEffectBox(effectText: skill.effect),
+                DetailedSkillCardBox(skillCard: skill.skillCard!),
               ],
-            ),
+              SizedBox(height: 16.0),
+              DetailedSkillEffectBox(effectText: skill.effect),
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
