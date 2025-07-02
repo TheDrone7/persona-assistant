@@ -50,7 +50,7 @@ void main() {
       expect(persona!.name, 'Arsene');
       expect(persona.arcana, 'Fool');
       expect(persona.conditionShort, 'DLC');
-      expect(persona.arcanaIcon, 'fool.png');
+      expect(persona.arcana.imagePath, 'images/arcana/fool.png');
       expect(persona.level, 23);
 
       // Check resistances

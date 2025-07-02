@@ -1,5 +1,4 @@
 import 'package:mobx/mobx.dart';
-import 'package:persona_assistant/types/extensions.dart';
 import 'package:persona_data/lib.dart';
 import 'package:flutter/material.dart';
 
@@ -138,7 +137,7 @@ abstract class _AppState with Store {
     // Apply arcana filter
     if (personaArcanaFilter.value != 'all') {
       personas = personas
-          .where((p) => p.arcana == personaArcanaFilter.value.capitalize())
+          .where((p) => p.arcana.name == personaArcanaFilter.value)
           .toList();
     }
 
@@ -158,15 +157,8 @@ abstract class _AppState with Store {
         break;
       default:
         personas.sort((a, b) {
-          final arcA = Arcana.values.indexWhere(
-            (arc) => a.arcana.toLowerCase() == arc.name,
-          );
-          final arcB = Arcana.values.indexWhere(
-            (arc) => b.arcana.toLowerCase() == arc.name,
-          );
-
-          return (arcA - arcB) != 0
-              ? arcA - arcB
+          return (a.arcana.index - b.arcana.index) != 0
+              ? a.arcana.index - b.arcana.index
               : (a.unlockMethod.index - b.unlockMethod.index) != 0
               ? a.unlockMethod.index - b.unlockMethod.index
               : (a.level - b.level) != 0

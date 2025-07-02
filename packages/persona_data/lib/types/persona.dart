@@ -24,7 +24,7 @@ class Persona {
   final String name;
 
   /// The arcana of the Persona.
-  final String arcana;
+  final Arcana arcana;
 
   /// The method used to unlock the Persona.
   final PersonaUnlockMethod unlockMethod;
@@ -66,10 +66,6 @@ class Persona {
     }
   }
 
-  /// The icon for the arcana of the Persona.
-  /// Needs to be prefixed with the path to the icons.
-  String get arcanaIcon => '${arcana.toLowerCase()}.png';
-
   /// Creates a Persona from a JSON object.
   /// The [name] is used as the key to find the Persona in the JSON.
   /// The [allSkills] list is used to find the skills by name.
@@ -109,7 +105,7 @@ class Persona {
 
     return Persona(
       name: name,
-      arcana: arcana,
+      arcana: Arcana.fromString(arcana),
       level: level,
       fusionCondition: fusionCondition,
       unlockMethod: unlockMethod,

@@ -25,7 +25,7 @@ class DetailedPersonaPage extends StatelessWidget {
       body: ListView(
         children: [
           DetailedPersonaPageArcanaBox(
-            arcanaName: persona.arcana,
+            arcana: persona.arcana,
             level: persona.level,
           ),
           SizedBox(height: 16.0),

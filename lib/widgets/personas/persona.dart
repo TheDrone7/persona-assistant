@@ -10,7 +10,7 @@ class PersonaListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String iconPath = 'assets/p3r/images/arcana/${persona.arcanaIcon}';
+    String iconPath = 'assets/p3r/${persona.arcana.imagePath}';
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 12.0),
@@ -26,7 +26,11 @@ class PersonaListItem extends StatelessWidget {
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(persona.arcana == 'Hanged' ? 'Hanged Man' : persona.arcana),
+            Text(
+              persona.arcana == Arcana.hanged
+                  ? 'Hanged Man'
+                  : persona.arcana.toString(),
+            ),
             SizedBox(height: 4.0),
             Text(
               persona.unlockMethod == PersonaUnlockMethod.level
