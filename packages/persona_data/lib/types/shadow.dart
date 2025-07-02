@@ -5,10 +5,10 @@ import 'persona.dart';
 /// Represents a Shadow in the game.
 class PersonaShadow {
   /// The shadow's resistances to various ailments.
-  final Map<Ailment, Affinity> ailments;
+  final Map<Ailment, ResistanceCode> ailments;
 
   /// The shadow's resistances to combat elements.
-  final Map<CombatElement, Affinity> affinities;
+  final Map<CombatElement, ResistanceCode> affinities;
 
   /// The name of the shadow.
   final String name;
@@ -26,7 +26,7 @@ class PersonaShadow {
   final int level;
 
   /// The arcana of the shadow.
-  final String arcana;
+  final Arcana arcana;
 
   /// The skills that the shadow can use (some shadows may have unique skills so these are not linked to PersonaSkills).
   final List<String> skills;
@@ -59,16 +59,13 @@ class PersonaShadow {
     this.isBoss = false,
   });
 
-  /// Returns the icon for the arcana of this shadow.
-  String get arcanaIcon => '${arcana.toLowerCase()}.png';
-
   /// Parses the resistances from a string representation.
   factory PersonaShadow.fromJson(String name, Map<String, dynamic> json) {
-    Map<CombatElement, Affinity> resistances = parseResistances(
+    Map<CombatElement, ResistanceCode> resistances = parseResistances(
       json['resists'] as String,
     );
-    Map<Ailment, Affinity> ailments = parseAilments(
-      (json['ailments'] ?? '------') as String,
+    Map<Ailment, ResistanceCode> ailments = parseAilments(
+      json['ailments'] as String?,
     );
 
     List<int> jsonStats = List<int>.from(json['stats']);
@@ -86,7 +83,7 @@ class PersonaShadow {
       drops: Map<String, int>.from(json['dodds'] ?? {}),
       experience: json['exp'],
       level: json['lvl'],
-      arcana: arcana,
+      arcana: Arcana.fromString(arcana),
       skills: List<String>.from(json['skills']),
       hp: jsonStats[0],
       mp: jsonStats[1],

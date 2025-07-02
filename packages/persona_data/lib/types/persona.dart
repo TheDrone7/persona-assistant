@@ -37,7 +37,7 @@ class Persona {
   final int level;
 
   /// The resistances of the Persona to various elements.
-  final Map<CombatElement, Affinity> resistances;
+  final Map<CombatElement, ResistanceCode> resistances;
 
   /// The skills that the Persona can learn.
   /// The keys are the skill names, and the values are the levels at which they are learned.
@@ -78,8 +78,8 @@ class Persona {
   ) {
     int level = json['lvl'] as int;
 
-    Map<CombatElement, Affinity> resistances = parseResistances(
-      json['resists'] as String,
+    Map<CombatElement, ResistanceCode> resistances = parseResistances(
+      json['resists'] as String?,
     );
 
     Map<String, int> skills = {};

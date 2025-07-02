@@ -7,7 +7,21 @@ import 'config.dart';
 /// - `special`: Unique skills that don't fit into the other categories.
 /// - `passive`: Skills that provide passive effects without direct action.
 /// - `ailment`: Skills that inflict status ailments on enemies.
-enum SkillType { attack, support, recovery, special, passive, ailment }
+enum SkillType {
+  attack,
+  ailment,
+  support,
+  recovery,
+  special,
+  passive;
+
+  String get imagePath =>
+      'images/skills/${name == 'attack'
+          ? 'almighty'
+          : name == 'special'
+          ? 'navi'
+          : name.toLowerCase()}.png';
+}
 
 /// Represents the target of the skill.
 /// - `singleFoe`: Targets a single enemy.
@@ -54,7 +68,6 @@ class PersonaSkill {
     this.minHits = 1,
     this.maxHits = 1,
     this.skillCard,
-    required this.icon,
   });
 
   /// The unique identifier for the skill.
@@ -62,10 +75,6 @@ class PersonaSkill {
 
   /// The name of the skill.
   final String name;
-
-  /// The name of the skill icon file.
-  /// Needs to be prefixed with the path to skill icons.
-  final String icon;
 
   /// The type of the skill (e.g., attack, support, recovery).
   final SkillType type;
@@ -141,31 +150,24 @@ class PersonaSkill {
     );
 
     SkillType skillType;
-    String iconName = '';
     switch (type) {
       case 'sup':
         skillType = SkillType.support;
-        iconName = 'support.png';
         break;
       case 'pas':
         skillType = SkillType.passive;
-        iconName = 'passive.png';
         break;
       case 'ail':
         skillType = SkillType.ailment;
-        iconName = 'ailment.png';
         break;
       case 'rec':
         skillType = SkillType.recovery;
-        iconName = 'recovery.png';
         break;
       case 'spe':
         skillType = SkillType.special;
-        iconName = 'navi.png';
         break;
       default:
         skillType = SkillType.attack;
-        iconName = '${element.name}.png';
     }
 
     String targetStr = firstLine[2].toLowerCase();
@@ -281,12 +283,17 @@ class PersonaSkill {
       critChance: critChance,
       rank: rank,
       skillCard: skillCard,
-      icon: iconName,
     );
   }
 
+  /// Check if the skill is unique.
   bool get isUnique => rank > 89;
 
+  /// A path to the image for the skill icon.
+  String get imagePath =>
+      type == SkillType.attack ? element.imagePath : type.imagePath;
+
+  /// Adds a persona that can learn this skill and the level at which it learns it.
   void addPersona(String personaName, int lvl) {
     if (!personas.containsKey(personaName)) {
       personas[personaName] = lvl;

@@ -26,7 +26,7 @@ class DetailedShadowPage extends StatelessWidget {
       body: ListView(
         children: [
           DetailedShadowPageArcanaBox(
-            arcanaName: shadow.arcana,
+            arcana: shadow.arcana,
             level: shadow.level,
             areaEncountered: shadow.areaEncountered,
             isBoss: shadow.isBoss,

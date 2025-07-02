@@ -3,7 +3,7 @@ import 'package:persona_data/lib.dart';
 import 'package:catppuccin_flutter/catppuccin_flutter.dart';
 
 class DetailedShadowPageAilmentsBox extends StatelessWidget {
-  final Map<Ailment, Affinity> ailments;
+  final Map<Ailment, ResistanceCode> ailments;
   const DetailedShadowPageAilmentsBox({super.key, required this.ailments});
 
   @override
@@ -13,21 +13,30 @@ class DetailedShadowPageAilmentsBox extends StatelessWidget {
     ).textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.bold);
     final flavor = catppuccin.mocha;
 
-    Text affinityText(Ailment element) {
-      switch (ailments[element]) {
-        case Affinity.weak:
+    Text affinityText(Ailment ailment) {
+      switch (ailments[ailment]!.short) {
+        case 'Wk':
           return Text('Wk', style: tStyle.copyWith(color: flavor.red));
-        case Affinity.resist:
+        case 'Rs':
           return Text('Rs', style: tStyle.copyWith(color: flavor.yellow));
-        case Affinity.nullify:
+        case 'Nu':
           return Text('Nu', style: tStyle.copyWith(color: flavor.lavender));
-        case Affinity.repel:
+        case 'Rp':
           return Text('Rp', style: tStyle.copyWith(color: flavor.sky));
-        case Affinity.absorb:
+        case 'Dr':
           return Text('Dr', style: tStyle.copyWith(color: flavor.green));
         default:
           return Text('-', style: tStyle);
       }
+    }
+
+    Text affinityDamage(Ailment ailment) {
+      return Text(
+        ailments[ailment]!.damageValue > 0
+            ? '${ailments[ailment]!.damageValue}%'
+            : '-',
+        style: tStyle.copyWith(fontWeight: FontWeight.normal),
+      );
     }
 
     Container affinityTableCell(Widget child) {
@@ -55,24 +64,21 @@ class DetailedShadowPageAilmentsBox extends StatelessWidget {
         defaultVerticalAlignment: TableCellVerticalAlignment.middle,
         children: [
           TableRow(
-            children: [
-              affinityTableCell(Text('Cha', style: tStyle)),
-              affinityTableCell(Text('Poi', style: tStyle)),
-              affinityTableCell(Text('Dis', style: tStyle)),
-              affinityTableCell(Text('Con', style: tStyle)),
-              affinityTableCell(Text('Fea', style: tStyle)),
-              affinityTableCell(Text('Rag', style: tStyle)),
-            ],
+            children: Ailment.values
+                .map(
+                  (a) => affinityTableCell(Text(a.toString(), style: tStyle)),
+                )
+                .toList(),
           ),
           TableRow(
-            children: [
-              affinityTableCell(affinityText(Ailment.charm)),
-              affinityTableCell(affinityText(Ailment.poison)),
-              affinityTableCell(affinityText(Ailment.distress)),
-              affinityTableCell(affinityText(Ailment.confusion)),
-              affinityTableCell(affinityText(Ailment.fear)),
-              affinityTableCell(affinityText(Ailment.rage)),
-            ],
+            children: Ailment.values
+                .map((a) => affinityTableCell(affinityText(a)))
+                .toList(),
+          ),
+          TableRow(
+            children: Ailment.values
+                .map((a) => affinityTableCell(affinityDamage(a)))
+                .toList(),
           ),
         ],
       ),

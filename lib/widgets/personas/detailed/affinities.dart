@@ -3,7 +3,7 @@ import 'package:persona_data/lib.dart';
 import 'package:catppuccin_flutter/catppuccin_flutter.dart';
 
 class DetailedPersonaPageAffinitiesBox extends StatelessWidget {
-  final Map<CombatElement, Affinity> affinities;
+  final Map<CombatElement, ResistanceCode> affinities;
   const DetailedPersonaPageAffinitiesBox({super.key, required this.affinities});
 
   @override
@@ -14,16 +14,16 @@ class DetailedPersonaPageAffinitiesBox extends StatelessWidget {
     final flavor = catppuccin.mocha;
 
     Text affinityText(CombatElement element) {
-      switch (affinities[element]) {
-        case Affinity.weak:
+      switch (affinities[element]!.short) {
+        case 'Wk':
           return Text('Wk', style: tStyle.copyWith(color: flavor.red));
-        case Affinity.resist:
+        case 'Rs':
           return Text('Rs', style: tStyle.copyWith(color: flavor.yellow));
-        case Affinity.nullify:
+        case 'Nu':
           return Text('Nu', style: tStyle.copyWith(color: flavor.lavender));
-        case Affinity.repel:
+        case 'Rp':
           return Text('Rp', style: tStyle.copyWith(color: flavor.sky));
-        case Affinity.absorb:
+        case 'Dr':
           return Text('Dr', style: tStyle.copyWith(color: flavor.green));
         default:
           return Text('-', style: tStyle);
@@ -54,60 +54,36 @@ class DetailedPersonaPageAffinitiesBox extends StatelessWidget {
         defaultVerticalAlignment: TableCellVerticalAlignment.middle,
         children: [
           TableRow(
-            children: [
-              affinityTableCell(
-                Image.asset('assets/p3r/images/skills/slash.png'),
-              ),
-              affinityTableCell(
-                Image.asset('assets/p3r/images/skills/strike.png'),
-              ),
-              affinityTableCell(
-                Image.asset('assets/p3r/images/skills/pierce.png'),
-              ),
-              affinityTableCell(
-                Image.asset('assets/p3r/images/skills/fire.png'),
-              ),
-              affinityTableCell(
-                Image.asset('assets/p3r/images/skills/ice.png'),
-              ),
-            ],
+            children: CombatElement.values
+                .sublist(0, 5)
+                .map(
+                  (e) => affinityTableCell(
+                    Image.asset('assets/p3r/${e.imagePath}'),
+                  ),
+                )
+                .toList(),
           ),
           TableRow(
-            children: [
-              affinityTableCell(affinityText(CombatElement.slash)),
-              affinityTableCell(affinityText(CombatElement.strike)),
-              affinityTableCell(affinityText(CombatElement.pierce)),
-              affinityTableCell(affinityText(CombatElement.fire)),
-              affinityTableCell(affinityText(CombatElement.ice)),
-            ],
+            children: CombatElement.values
+                .sublist(0, 5)
+                .map((e) => affinityTableCell(affinityText(e)))
+                .toList(),
           ),
           TableRow(
-            children: [
-              affinityTableCell(
-                Image.asset('assets/p3r/images/skills/electric.png'),
-              ),
-              affinityTableCell(
-                Image.asset('assets/p3r/images/skills/wind.png'),
-              ),
-              affinityTableCell(
-                Image.asset('assets/p3r/images/skills/light.png'),
-              ),
-              affinityTableCell(
-                Image.asset('assets/p3r/images/skills/dark.png'),
-              ),
-              affinityTableCell(
-                Image.asset('assets/p3r/images/skills/almighty.png'),
-              ),
-            ],
+            children: CombatElement.values
+                .sublist(5)
+                .map(
+                  (e) => affinityTableCell(
+                    Image.asset('assets/p3r/${e.imagePath}'),
+                  ),
+                )
+                .toList(),
           ),
           TableRow(
-            children: [
-              affinityTableCell(affinityText(CombatElement.electric)),
-              affinityTableCell(affinityText(CombatElement.wind)),
-              affinityTableCell(affinityText(CombatElement.light)),
-              affinityTableCell(affinityText(CombatElement.dark)),
-              affinityTableCell(affinityText(CombatElement.almighty)),
-            ],
+            children: CombatElement.values
+                .sublist(5)
+                .map((e) => affinityTableCell(affinityText(e)))
+                .toList(),
           ),
         ],
       ),

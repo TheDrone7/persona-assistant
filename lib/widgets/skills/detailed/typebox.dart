@@ -2,18 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:persona_assistant/types/extensions.dart';
 
 class DetailedSkillTypeBox extends StatelessWidget {
-  final String iconName;
+  final String imagePath;
   final String skillName;
 
   const DetailedSkillTypeBox({
     super.key,
-    required this.iconName,
+    required this.imagePath,
     required this.skillName,
   });
 
   @override
   Widget build(BuildContext context) {
-    final String typeName = iconName.split('.').first.capitalize();
+    final String typeName = imagePath
+        .split('.')
+        .first
+        .split('/')
+        .last
+        .capitalize();
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.vertical(
@@ -33,7 +38,7 @@ class DetailedSkillTypeBox extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Image.asset('assets/p3r/images/skills/$iconName'),
+            Image.asset('assets/p3r/$imagePath'),
             const SizedBox(width: 20.0),
             Expanded(
               child: Column(

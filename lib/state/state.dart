@@ -235,7 +235,9 @@ abstract class _AppState with Store {
         break;
       default:
         skills.sort(
-          (a, b) => a.element.index.compareTo(b.element.index) != 0
+          (a, b) => a.type.index.compareTo(b.type.index) != 0
+              ? a.type.index.compareTo(b.type.index)
+              : a.element.index.compareTo(b.element.index) != 0
               ? a.element.index.compareTo(b.element.index)
               : a.name.compareTo(b.name),
         );
@@ -286,14 +288,8 @@ abstract class _AppState with Store {
         break;
       case 'arcana':
         shadows.sort((a, b) {
-          final aArcana = Arcana.values.indexWhere(
-            (arc) => arc.name == a.arcana.toLowerCase(),
-          );
-          final bArcana = Arcana.values.indexWhere(
-            (arc) => arc.name == b.arcana.toLowerCase(),
-          );
-          if (aArcana != bArcana) {
-            return aArcana.compareTo(bArcana);
+          if (a.arcana.index != b.arcana.index) {
+            return a.arcana.index.compareTo(b.arcana.index);
           }
           if (a.level != b.level) {
             return a.level.compareTo(b.level);

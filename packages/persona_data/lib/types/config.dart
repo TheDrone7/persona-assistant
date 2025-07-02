@@ -10,11 +10,26 @@ enum CombatElement {
   wind,
   light,
   dark,
-  almighty,
+  almighty;
+
+  @override
+  String toString() => name[0].toUpperCase() + name.substring(1);
+
+  String get imagePath => 'images/skills/${name.toLowerCase()}.png';
 }
 
 /// The ailments personas or shadows can be resistant to or weak against.
-enum Ailment { charm, poison, distress, confusion, fear, rage }
+enum Ailment {
+  charm,
+  poison,
+  distress,
+  confusion,
+  fear,
+  rage;
+
+  @override
+  String toString() => name[0].toUpperCase() + name.substring(1, 3);
+}
 
 /// The affinities that can be inherited by a persona when fusing.
 /// These are similar to combat elements but there is no almighty element here.
@@ -80,32 +95,37 @@ enum Arcana {
 
 /// Resistance codes used in the shadow and persona data
 enum ResistanceCode {
-  normal('-', {'-': 100, '_': 100}),
-  weak('Wk', {'w': 125, 'v': 200, 'V': 200, 'u': 250, 'z': 1275}),
-  resist('Rs', {'s': 50, 'S': 50, 't': 25, 'T': 25}),
-  absorb('Ab', {'d': -200}),
-  nullify('Nu', {'n': 0}),
-  repel('Rp', {'r': -100});
+  x('-', 'normal', 100),
+  w('Wk', 'weak', 125),
+  v('Wk', 'weak', 200),
+  u('Wk', 'weak', 250),
+  z('Wk', 'weak', 1275),
+  s('Rs', 'resist', 50),
+  t('Rs', 'resist', 25),
+  d('Dr', 'drain', -200),
+  n('Nu', 'nullify', 0),
+  r('Rp', 'repel', -100);
 
   /// A short representation of the resistance code for display purposes.
   final String short;
 
-  /// A map of aliases for the resistance code, where the key is the alias
-  /// and the value is the %damage for that resistance code.
-  final Map<String, int> aliases;
-  const ResistanceCode(this.short, this.aliases);
+  /// The longer name for the resistance code, used for aliases.
+  final String desc;
+
+  /// The percentage damage value associated with this resistance code.
+  final int damageValue;
+
+  const ResistanceCode(this.short, this.desc, this.damageValue);
 
   @override
   String toString() => short;
 
-  static ResistanceCode fromString(String code) {
-    for (var value in ResistanceCode.values) {
-      if (value.aliases.containsKey(code)) {
-        return value;
-      }
-    }
-    return ResistanceCode.normal;
-  }
+  /// Returns a ResistanceCode from a single letter.
+  static ResistanceCode fromString(String code) =>
+      ResistanceCode.values.firstWhere(
+        (resistance) => resistance.name == code.toLowerCase(),
+        orElse: () => ResistanceCode.x,
+      );
 }
 
 /// The types of skills that a persona can inherit when fusing.

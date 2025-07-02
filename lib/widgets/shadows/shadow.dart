@@ -10,7 +10,7 @@ class ShadowListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String iconPath = 'assets/p3r/images/arcana/${shadow.arcanaIcon}';
+    String iconPath = 'assets/p3r/${shadow.arcana.imagePath}';
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 12.0),
@@ -24,7 +24,7 @@ class ShadowListItem extends StatelessWidget {
           ),
         ),
         subtitle: Text(
-          'Lvl ${shadow.level} • ${shadow.arcana == 'Hanged' ? 'Hanged Man' : shadow.arcana} at ${shadow.areaEncountered}',
+          'Lvl ${shadow.level} • ${shadow.arcana == Arcana.hanged ? 'Hanged Man' : shadow.arcana.toString()} at ${shadow.areaEncountered}',
         ),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
         tileColor: shadow.isBoss

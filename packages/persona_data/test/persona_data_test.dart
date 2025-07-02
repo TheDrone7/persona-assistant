@@ -38,7 +38,7 @@ void main() {
       expect(skill.maxHits, 1);
       expect(skill.critChance, 0);
 
-      expect(skill.icon, 'fire.png');
+      expect(skill.imagePath, 'images/skills/fire.png');
       expect(skill.skillCard, 'Sword 2');
     });
 
@@ -48,15 +48,15 @@ void main() {
 
       // Check basic properties
       expect(persona!.name, 'Arsene');
-      expect(persona.arcana, 'Fool');
+      expect(persona.arcana, Arcana.fool);
       expect(persona.conditionShort, 'DLC');
       expect(persona.arcana.imagePath, 'images/arcana/fool.png');
       expect(persona.level, 23);
 
       // Check resistances
-      expect(persona.resistances[CombatElement.light], Affinity.weak);
-      expect(persona.resistances[CombatElement.dark], Affinity.resist);
-      expect(persona.resistances[CombatElement.slash], Affinity.normal);
+      expect(persona.resistances[CombatElement.light], ResistanceCode.w);
+      expect(persona.resistances[CombatElement.dark], ResistanceCode.s);
+      expect(persona.resistances[CombatElement.slash], ResistanceCode.x);
 
       // Check stats
       expect(persona.stats[PersonaStats.strength], 17);

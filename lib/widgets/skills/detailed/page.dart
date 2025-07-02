@@ -16,7 +16,7 @@ class DetailedSkillPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(
       children: [
-        DetailedSkillTypeBox(iconName: skill.icon, skillName: skill.name),
+        DetailedSkillTypeBox(imagePath: skill.imagePath, skillName: skill.name),
         Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(

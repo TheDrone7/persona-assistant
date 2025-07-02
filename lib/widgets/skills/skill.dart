@@ -25,7 +25,7 @@ class SkillListItem extends StatelessWidget {
       effect = effect.replaceFirst('X', 'x');
     }
 
-    String iconPath = 'assets/p3r/images/skills/${skill.icon}';
+    String iconPath = 'assets/p3r/${skill.imagePath}';
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 12.0),
