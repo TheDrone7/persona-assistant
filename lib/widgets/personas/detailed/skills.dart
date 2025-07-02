@@ -1,15 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:persona_assistant/state/state.dart';
 import 'package:persona_data/lib.dart';
+import 'package:provider/provider.dart';
 
 import 'package:persona_assistant/widgets/skills/detailed/page.dart';
 
 class DetailedPersonaPageSkillsList extends StatelessWidget {
-  final Map<PersonaSkill, int> skills;
+  final Map<String, int> skills;
   const DetailedPersonaPageSkillsList({super.key, required this.skills});
 
   @override
   Widget build(BuildContext context) {
     final tStyle = Theme.of(context).textTheme.bodyLarge!;
+    final AppState state = Provider.of(context);
+    final Map<PersonaSkill, int> personaSkills = skills.map((name, level) {
+      final skill = state.personaData.skills.values.firstWhere(
+        (skill) => skill.name == name,
+      );
+      return MapEntry(skill, level);
+    });
 
     TableRow skillListHeader() {
       return TableRow(
@@ -82,7 +91,9 @@ class DetailedPersonaPageSkillsList extends StatelessWidget {
         defaultVerticalAlignment: TableCellVerticalAlignment.middle,
         children: [
           skillListHeader(),
-          ...skills.entries.where((entry) => entry.value < 100).map(skillRow),
+          ...personaSkills.entries
+              .where((entry) => entry.value < 100)
+              .map(skillRow),
         ],
       ),
     );

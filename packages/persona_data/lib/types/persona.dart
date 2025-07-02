@@ -1,6 +1,5 @@
-import 'package:persona_data/types/element.dart';
-import 'package:persona_data/types/affinities.dart';
-import 'package:persona_data/types/skill.dart';
+import 'element.dart';
+import 'affinities.dart';
 
 /// A Persona's stats
 enum PersonaStats { strength, magic, endurance, agility, luck }
@@ -41,9 +40,9 @@ class Persona {
   final Map<CombatElement, Affinity> resistances;
 
   /// The skills that the Persona can learn.
-  /// The keys are the skills, and the values are the levels at which they are learned.
+  /// The keys are the skill names, and the values are the levels at which they are learned.
   /// Level 0 means the skill is an innate skill (Persona knows it already when fused or obtained).
-  final Map<PersonaSkill, int> skills;
+  final Map<String, int> skills;
 
   /// The base stats of the Persona.
   final Map<PersonaStats, int> stats;
@@ -78,7 +77,6 @@ class Persona {
   factory Persona.fromJson(
     String name,
     Map<String, dynamic> json,
-    List<PersonaSkill> allSkills,
     PersonaUnlockMethod unlockMethod,
     String? fusionCondition,
   ) {
@@ -88,11 +86,10 @@ class Persona {
       json['resists'] as String,
     );
 
-    Map<PersonaSkill, int> skills = {};
+    Map<String, int> skills = {};
     Map<String, dynamic> skillsJson = Map<String, dynamic>.from(json['skills']);
     for (var entry in skillsJson.entries) {
-      PersonaSkill skill = allSkills.firstWhere((s) => s.name == entry.key);
-      skills[skill] = (entry.value.toDouble()).floor().toInt();
+      skills[entry.key] = (entry.value.toDouble()).floor().toInt();
     }
 
     List<int> jsonStats = List<int>.from(json['stats']);

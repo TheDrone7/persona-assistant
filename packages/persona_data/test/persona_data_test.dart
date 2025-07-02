@@ -20,7 +20,7 @@ void main() {
     });
 
     test('Skills should have correct properties', () {
-      PersonaSkill? skill = personaData.skills[10];
+      PersonaSkill? skill = personaData.skills['Agi'];
       expect(skill, isNotNull);
 
       expect(skill!.name, 'Agi');
@@ -68,8 +68,7 @@ void main() {
       // Check skills
       expect(persona.skills.length, 7);
       for (var skill in persona.skills.keys) {
-        expect(skill, isA<PersonaSkill>());
-        expect(skill.name.isNotEmpty, true);
+        expect(skill.isNotEmpty, true);
       }
     });
   });

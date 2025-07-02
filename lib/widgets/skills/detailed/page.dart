@@ -6,6 +6,7 @@ import 'statbox.dart';
 import 'targetbox.dart';
 import 'effect.dart';
 import 'card.dart';
+import 'learnt.dart';
 
 class DetailedSkillPage extends StatelessWidget {
   final PersonaSkill skill;
@@ -29,6 +30,8 @@ class DetailedSkillPage extends StatelessWidget {
               ],
               SizedBox(height: 16.0),
               DetailedSkillEffectBox(effectText: skill.effect),
+              SizedBox(height: 16.0),
+              DetailedSkillLearntBox(personas: skill.personas),
             ],
           ),
         ),

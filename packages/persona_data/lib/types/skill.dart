@@ -112,6 +112,9 @@ class PersonaSkill {
   /// The skill card
   final String? skillCard;
 
+  /// The personas that can learn this skill.
+  final Map<String, int> personas = {};
+
   /// Creates a PersonaSkill instance from a JSON object.
   ///
   /// The JSON object is as expected from skill-data.json asset file.
@@ -283,6 +286,12 @@ class PersonaSkill {
   }
 
   bool get isUnique => rank > 89;
+
+  void addPersona(String personaName, int lvl) {
+    if (!personas.containsKey(personaName)) {
+      personas[personaName] = lvl;
+    }
+  }
 }
 
 /// Parse the skill effect text from the format string.

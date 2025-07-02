@@ -12,7 +12,7 @@ class PersonaData {
   final String _rootDir;
   PersonaData(this._rootDir);
 
-  final Map<int, PersonaSkill> _skills = {};
+  final Map<String, PersonaSkill> _skills = {};
   final Map<String, Persona> _personas = {};
   final Map<String, PersonaShadow> _shadows = {};
   final List<String> _arcana = [
@@ -63,7 +63,7 @@ class PersonaData {
         if (value is Map<String, dynamic>) {
           final skill = PersonaSkill.fromJson(int.parse(key), value);
           if (skill.effect.trim().isNotEmpty) {
-            _skills[skill.id] = skill;
+            _skills[skill.name] = skill;
           }
         } else {
           if (kDebugMode) {
@@ -203,15 +203,22 @@ class PersonaData {
           final persona = Persona.fromJson(
             key,
             value,
-            _skills.values.toList(),
             unlockMethods[key] ?? PersonaUnlockMethod.level,
             unlockConditions[key],
           );
           _personas[key] = persona;
-        } else {
-          if (kDebugMode) {
-            debugPrint('Invalid persona data for key: $key');
+
+          for (MapEntry<String, int> entry in persona.skills.entries) {
+            final skillName = entry.key;
+            final skill = _skills[skillName];
+            if (skill != null) {
+              skill.addPersona(key, entry.value);
+            } else if (kDebugMode) {
+              debugPrint('Skill $skillName not found for persona $key');
+            }
           }
+        } else if (kDebugMode) {
+          debugPrint('Invalid persona data for key: $key');
         }
       }
 
@@ -240,7 +247,7 @@ class PersonaData {
     }
   }
 
-  Map<int, PersonaSkill> get skills => _skills;
+  Map<String, PersonaSkill> get skills => _skills;
   Map<String, Persona> get personas => _personas;
   Map<String, PersonaShadow> get shadows => _shadows;
   List<String> get arcana => _arcana;
