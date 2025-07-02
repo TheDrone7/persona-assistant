@@ -6,6 +6,7 @@ import 'arcana.dart';
 import 'stats.dart';
 import 'affinities.dart';
 import 'skills.dart';
+import 'inherits.dart';
 
 class DetailedPersonaPage extends StatelessWidget {
   final Persona persona;
@@ -73,6 +74,21 @@ class DetailedPersonaPage extends StatelessWidget {
             ),
           ),
           DetailedPersonaPageSkillsList(skills: persona.skills),
+          SizedBox(height: 16.0),
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 18.0,
+              vertical: 4.0,
+            ),
+            child: Text(
+              'Fusion Inheritance Types',
+              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).colorScheme.onSecondary,
+              ),
+            ),
+          ),
+          DetailedPersonaPageInheritanceBox(inherits: persona.inheritanceType),
           SizedBox(height: 16.0),
         ],
       ),
