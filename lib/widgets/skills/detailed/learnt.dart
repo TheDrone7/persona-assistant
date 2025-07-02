@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:persona_assistant/widgets/personas/detailed/page.dart';
+import 'package:provider/provider.dart';
+import 'package:persona_assistant/state/state.dart';
 
 class DetailedSkillLearntBox extends StatelessWidget {
   final Map<String, int> personas;
@@ -8,6 +11,7 @@ class DetailedSkillLearntBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final tStyle = Theme.of(context).textTheme.bodyLarge!;
+    final AppState state = Provider.of(context);
 
     TableRow skillListHeader() {
       return TableRow(
@@ -43,21 +47,38 @@ class DetailedSkillLearntBox extends StatelessWidget {
     TableRow skillRow(MapEntry<String, int> entry) {
       final personaName = entry.key;
       final level = entry.value;
+
+      final personaData = state.personaData.personas[personaName]!;
+
       return TableRow(
         children: [
-          Container(
-            padding: EdgeInsetsGeometry.symmetric(
-              vertical: 8.0,
-              horizontal: 16.0,
+          GestureDetector(
+            onTap: () => Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => DetailedPersonaPage(persona: personaData),
+              ),
             ),
-            color: Theme.of(context).listTileTheme.tileColor!.withAlpha(100),
-            child: Text(personaName, style: tStyle),
+            child: Container(
+              padding: EdgeInsetsGeometry.symmetric(
+                vertical: 8.0,
+                horizontal: 16.0,
+              ),
+              color: Theme.of(context).listTileTheme.tileColor!.withAlpha(100),
+              child: Text(personaName, style: tStyle),
+            ),
           ),
-          Container(
-            padding: EdgeInsetsGeometry.all(8.0),
-            color: Theme.of(context).listTileTheme.tileColor!.withAlpha(100),
-            child: Center(
-              child: Text(level > 0 ? level.toString() : '-', style: tStyle),
+          GestureDetector(
+            onTap: () => Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => DetailedPersonaPage(persona: personaData),
+              ),
+            ),
+            child: Container(
+              padding: EdgeInsetsGeometry.all(8.0),
+              color: Theme.of(context).listTileTheme.tileColor!.withAlpha(100),
+              child: Center(
+                child: Text(level > 0 ? level.toString() : '-', style: tStyle),
+              ),
             ),
           ),
         ],

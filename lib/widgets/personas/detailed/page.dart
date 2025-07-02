@@ -17,8 +17,9 @@ class DetailedPersonaPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(persona.name),
         leading: IconButton(
-          icon: FaIcon(FontAwesomeIcons.arrowLeft),
-          onPressed: () => Navigator.of(context).pop(),
+          icon: FaIcon(FontAwesomeIcons.xmark),
+          onPressed: () =>
+              Navigator.of(context).popUntil((Route r) => r.isFirst),
         ),
       ),
       body: ListView(
