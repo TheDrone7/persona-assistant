@@ -84,7 +84,9 @@ class PersonaShadow {
       experience: json['exp'],
       level: json['lvl'],
       arcana: Arcana.fromString(arcana),
-      skills: List<String>.from(json['skills']),
+      skills: List<String>.from(
+        json['skills'],
+      ).map((s) => s == 'Phys Attack' ? 'Attack' : s).toList(),
       hp: jsonStats[0],
       mp: jsonStats[1],
       stats: {

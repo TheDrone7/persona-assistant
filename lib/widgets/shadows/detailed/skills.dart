@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:persona_data/lib.dart';
+import 'package:persona_assistant/state/state.dart';
+import 'package:provider/provider.dart';
+import 'package:persona_assistant/widgets/skills/detailed/page.dart';
 
 class DetailedShadowPageSkillsList extends StatelessWidget {
   final List<String> skills;
@@ -7,17 +11,29 @@ class DetailedShadowPageSkillsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final tStyle = Theme.of(context).textTheme.bodyLarge!;
+    final AppState state = Provider.of(context);
 
-    TableRow skillRow(String skill) {
+    final List<PersonaSkill> shadowSkills = skills.map((name) {
+      final skill = state.personaData.skills[name]!;
+      return skill;
+    }).toList();
+
+    TableRow skillRow(PersonaSkill skill) {
       return TableRow(
         children: [
-          Container(
-            padding: EdgeInsetsGeometry.symmetric(
-              horizontal: 16.0,
-              vertical: 8.0,
+          GestureDetector(
+            onTap: () => showModalBottomSheet(
+              context: context,
+              builder: (context) => DetailedSkillPage(skill: skill),
             ),
-            color: Theme.of(context).listTileTheme.tileColor!.withAlpha(100),
-            child: Text(skill, style: tStyle),
+            child: Container(
+              padding: EdgeInsetsGeometry.symmetric(
+                horizontal: 16.0,
+                vertical: 8.0,
+              ),
+              color: Theme.of(context).listTileTheme.tileColor!.withAlpha(100),
+              child: Text(skill.name, style: tStyle),
+            ),
           ),
         ],
       );
@@ -31,7 +47,7 @@ class DetailedShadowPageSkillsList extends StatelessWidget {
         ),
         columnWidths: const <int, TableColumnWidth>{0: FlexColumnWidth(1.0)},
         defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-        children: [...skills.map(skillRow)],
+        children: [...shadowSkills.map(skillRow)],
       ),
     );
   }

@@ -31,9 +31,7 @@ class PersonaData {
 
         if (value is Map<String, dynamic>) {
           final skill = PersonaSkill.fromJson(int.parse(key), value);
-          if (skill.effect.trim().isNotEmpty) {
-            _skills[skill.name] = skill;
-          }
+          _skills[skill.name] = skill;
         } else {
           if (kDebugMode) {
             debugPrint('Invalid skill data for key: $key');
