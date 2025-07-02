@@ -4,7 +4,7 @@ import 'package:persona_data/lib.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  PersonaData personaData = PersonaData('assets/p3r/jsons');
+  PersonaData personaData = PersonaData.fromPath('assets/p3r/jsons');
 
   setUp(() async {
     await personaData.loadSkills();

@@ -21,7 +21,7 @@ class AppState extends _AppState with _$AppState {}
 
 abstract class _AppState with Store {
   @observable
-  PersonaData personaData = PersonaData('assets/p3r/jsons/');
+  PersonaData personaData = PersonaData.fromPath('assets/p3r/jsons/');
 
   @observable
   int screenIndex = 0;
@@ -157,19 +157,22 @@ abstract class _AppState with Store {
         personas.sort((a, b) => b.name.compareTo(a.name));
         break;
       default:
-        personas.sort(
-          (a, b) =>
-              (personaData.arcana.indexOf(a.arcana) -
-                      personaData.arcana.indexOf(b.arcana)) !=
-                  0
-              ? personaData.arcana.indexOf(a.arcana) -
-                    personaData.arcana.indexOf(b.arcana)
+        personas.sort((a, b) {
+          final arcA = Arcana.values.indexWhere(
+            (arc) => a.arcana.toLowerCase() == arc.name,
+          );
+          final arcB = Arcana.values.indexWhere(
+            (arc) => b.arcana.toLowerCase() == arc.name,
+          );
+
+          return (arcA - arcB) != 0
+              ? arcA - arcB
               : (a.unlockMethod.index - b.unlockMethod.index) != 0
               ? a.unlockMethod.index - b.unlockMethod.index
               : (a.level - b.level) != 0
               ? a.level - b.level
-              : a.name.compareTo(b.name),
-        );
+              : a.name.compareTo(b.name);
+        });
         break;
     }
 
@@ -291,11 +294,11 @@ abstract class _AppState with Store {
         break;
       case 'arcana':
         shadows.sort((a, b) {
-          final aArcana = personaData.arcana.indexWhere(
-            (arc) => arc.toLowerCase() == a.arcana.toLowerCase(),
+          final aArcana = Arcana.values.indexWhere(
+            (arc) => arc.name == a.arcana.toLowerCase(),
           );
-          final bArcana = personaData.arcana.indexWhere(
-            (arc) => arc.toLowerCase() == b.arcana.toLowerCase(),
+          final bArcana = Arcana.values.indexWhere(
+            (arc) => arc.name == b.arcana.toLowerCase(),
           );
           if (aArcana != bArcana) {
             return aArcana.compareTo(bArcana);
