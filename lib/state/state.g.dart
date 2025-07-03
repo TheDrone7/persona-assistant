@@ -231,6 +231,24 @@ mixin _$AppState on _AppState, Store {
     });
   }
 
+  late final _$personaUnlocksAtom = Atom(
+    name: '_AppState.personaUnlocks',
+    context: context,
+  );
+
+  @override
+  ObservableMap<String, bool> get personaUnlocks {
+    _$personaUnlocksAtom.reportRead();
+    return super.personaUnlocks;
+  }
+
+  @override
+  set personaUnlocks(ObservableMap<String, bool> value) {
+    _$personaUnlocksAtom.reportWrite(value, super.personaUnlocks, () {
+      super.personaUnlocks = value;
+    });
+  }
+
   late final _$initializeAsyncAction = AsyncAction(
     '_AppState.initialize',
     context: context,
@@ -355,6 +373,18 @@ mixin _$AppState on _AppState, Store {
   }
 
   @override
+  void setPersonaUnlock(String personaName, bool unlocked) {
+    final _$actionInfo = _$_AppStateActionController.startAction(
+      name: '_AppState.setPersonaUnlock',
+    );
+    try {
+      return super.setPersonaUnlock(personaName, unlocked);
+    } finally {
+      _$_AppStateActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 personaData: ${personaData},
@@ -367,6 +397,7 @@ skillSortOrder: ${skillSortOrder},
 skillFilter: ${skillFilter},
 shadowSortOrder: ${shadowSortOrder},
 shadowFilter: ${shadowFilter},
+personaUnlocks: ${personaUnlocks},
 currentScreen: ${currentScreen},
 currentFilters: ${currentFilters},
 filteredPersonas: ${filteredPersonas},

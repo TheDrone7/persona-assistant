@@ -44,6 +44,11 @@ abstract class _AppState with Store {
   @observable
   FilterOption shadowFilter = shadowFilterOptions.first;
 
+  @observable
+  ObservableMap<String, bool> personaUnlocks = ObservableMap.of({});
+
+  ReactionDisposer? _personaUnlocksReaction;
+
   @action
   void setScreenIndex(int index) {
     screenIndex = index;
@@ -52,6 +57,14 @@ abstract class _AppState with Store {
   @action
   Future<void> initialize() async {
     await personaData.initialize(null);
+
+    // Initialize persona unlocks
+    personaUnlocks = ObservableMap.of(personaData.personaUnlocked);
+
+    if (_personaUnlocksReaction != null) {
+      _personaUnlocksReaction!();
+    }
+    syncUnlocks();
   }
 
   @action
@@ -100,6 +113,30 @@ abstract class _AppState with Store {
     shadowFilter = filter;
   }
 
+  @action
+  void setPersonaUnlock(String personaName, bool unlocked) {
+    if (personaUnlocks.containsKey(personaName)) {
+      personaUnlocks[personaName] = unlocked;
+    } else {
+      throw ArgumentError('Persona $personaName not found in data.');
+    }
+  }
+
+  void syncUnlocks() {
+    _personaUnlocksReaction = autorun((_) {
+      for (final entry in personaUnlocks.entries) {
+        final String personaName = entry.key;
+        final bool unlocked = entry.value;
+
+        if (personaData.personaUnlocked.containsKey(personaName)) {
+          personaData.setPersonaUnlocked(personaName, unlocked);
+        } else {
+          throw ArgumentError('Persona $personaName not found in data.');
+        }
+      }
+    });
+  }
+
   @computed
   Widget get currentScreen {
     switch (screenIndex) {
@@ -140,6 +177,9 @@ abstract class _AppState with Store {
           .where((p) => p.arcana.name == personaArcanaFilter.value)
           .toList();
     }
+
+    // Reapply unlocks filter to make sure computed property updates.
+    personas = personas.where((p) => personaUnlocks[p.name] ?? true).toList();
 
     // Apply sort order
     switch (personaSortOrder.value) {

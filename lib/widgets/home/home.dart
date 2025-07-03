@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'navigation.dart';
+import '../settings/unlocks.dart';
 import 'package:persona_assistant/state/state.dart';
 
 class NavigationHomePage extends StatelessWidget {
@@ -51,6 +52,16 @@ class NavigationHomePage extends StatelessWidget {
         title: Observer(
           builder: (_) => Text(destinations[state.screenIndex].label),
         ),
+        actions: [
+          IconButton(
+            icon: const FaIcon(FontAwesomeIcons.gear),
+            onPressed: () {
+              Navigator.of(
+                context,
+              ).push(MaterialPageRoute(builder: (context) => UnlockSettingsPage()));
+            },
+          ),
+        ],
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(48.0),
           child: Observer(builder: (_) => state.currentFilters),

@@ -207,6 +207,7 @@ class PersonaData {
 
   Map<String, PersonaSkill> get skills => _skills;
 
+  Map<String, bool> get personaUnlocked => _personaUnlocked;
   /// Unlockable personas are the ones that can be toggled in the app.
   Map<String, Persona> get unlockablePersonas {
     final Map<String, Persona> unlockable = {};
