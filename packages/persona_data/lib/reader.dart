@@ -92,13 +92,13 @@ class PersonaConfigReader {
     }
   }
 
-  get rootDir => dirPath.endsWith('/') ? dirPath : '$dirPath/';
-  get personaData => _personaData;
-  get unlockData => _unlockData;
-  get enemyData => _enemyData;
-  get fusionData => _fusionData;
-  get partyData => _partyData;
-  get skillData => _skillData;
-  get specialData => _specialData;
-  get isReady => _isLoaded;
+  String get rootDir => dirPath.endsWith('/') ? dirPath : '$dirPath/';
+  Map<String, dynamic> get personaData => _personaData;
+  List<dynamic> get unlockData => _unlockData;
+  Map<String, dynamic> get enemyData => _enemyData;
+  Map<String, dynamic> get fusionData => _fusionData;
+  Map<String, dynamic> get partyData => _partyData;
+  Map<String, dynamic> get skillData => _skillData;
+  Map<String, dynamic> get specialData => _specialData;
+  bool get isReady => _isLoaded;
 }

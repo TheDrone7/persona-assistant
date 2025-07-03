@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:persona_assistant/widgets/personas/detailed/unlock.dart';
 import 'package:persona_data/lib.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -28,7 +29,32 @@ class DetailedPersonaPage extends StatelessWidget {
           DetailedPersonaPageArcanaBox(
             arcana: persona.arcana,
             level: persona.level,
+            isSpecial: persona.hasSpecialFusion,
           ),
+          ...(persona.unlockMethod != PersonaUnlockMethod.level
+              ? [
+                  SizedBox(height: 16.0),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 18.0,
+                      vertical: 2.0,
+                    ),
+                    child: Text(
+                      'Requirements',
+                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.onSecondary,
+                      ),
+                    ),
+                  ),
+                  DetailedPersonaUnlockMethodBox(
+                    details: persona.unlockMethod == PersonaUnlockMethod.locked
+                        ? 'A party member\'s unique persona.'
+                        : persona.fusionCondition ?? '',
+                    short: persona.conditionShort,
+                  ),
+                ]
+              : []),
           SizedBox(height: 16.0),
           Padding(
             padding: const EdgeInsets.symmetric(

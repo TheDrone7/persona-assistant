@@ -14,6 +14,8 @@ class PersonaData {
   final Map<String, PersonaSkill> _skills = {};
   final Map<String, Persona> _personas = {};
   final Map<String, PersonaShadow> _shadows = {};
+  final Map<String, bool> _personaUnlocked = {};
+  final Map<String, bool> _defaultUnlocked = {};
 
   /// Read the skills from the data source.
   Future<void> loadSkills() async {
@@ -103,6 +105,7 @@ class PersonaData {
       for (var unlockCategory in reader.unlockData) {
         final String category = (unlockCategory['category'] as String)
             .toLowerCase();
+        final bool defaultValue = unlockCategory['unlocked'] as bool;
         final Map<String, String> conditions = Map<String, String>.from(
           unlockCategory['conditions'],
         );
@@ -111,6 +114,7 @@ class PersonaData {
           final String condition = entry.value;
 
           unlockConditions[personaName] = condition;
+          _defaultUnlocked[personaName] = defaultValue;
 
           if (category.contains('story')) {
             unlockMethods[personaName] = PersonaUnlockMethod.story;
@@ -145,6 +149,7 @@ class PersonaData {
             value,
             unlockMethods[key] ?? PersonaUnlockMethod.level,
             unlockConditions[key],
+            reader.specialData.containsKey(key),
           );
           _personas[key] = persona;
 
@@ -174,22 +179,57 @@ class PersonaData {
     }
   }
 
-  Future<void> initialize() async {
+  bool setPersonaUnlocked(String name, bool unlocked) {
+    if (_personas.containsKey(name)) {
+      _personaUnlocked[name] = unlocked;
+      return true;
+    } else {
+      if (kDebugMode) {
+        debugPrint('Persona $name not found in the data.');
+      }
+      return false;
+    }
+  }
+
+  Future<void> initialize(Map<String, bool>? unlocks) async {
     await reader.loadConfig();
     await loadSkills();
     await loadPersonas();
     await loadShadows();
-  }
 
-  Future<void> updatePreferences() async {
-    // Ensure that the data is loaded before updating these.
-    if (_skills.isEmpty || _personas.isEmpty || _shadows.isEmpty) {
-      await initialize();
+    unlocks ??= _defaultUnlocked;
+    for (var entry in unlocks.entries) {
+      final String personaName = entry.key;
+      final bool unlocked = entry.value;
+      setPersonaUnlocked(personaName, unlocked);
     }
   }
 
   Map<String, PersonaSkill> get skills => _skills;
-  Map<String, Persona> get personas => _personas;
+
+  /// Unlockable personas are the ones that can be toggled in the app.
+  Map<String, Persona> get unlockablePersonas {
+    final Map<String, Persona> unlockable = {};
+    _personas.forEach((key, persona) {
+      if (persona.unlockMethod != PersonaUnlockMethod.locked &&
+          persona.unlockMethod != PersonaUnlockMethod.level) {
+        unlockable[key] = persona;
+      }
+    });
+    return unlockable;
+  }
+
+  /// Returns a map of unlocked personas for most of the app logic.
+  Map<String, Persona> get personas {
+    final Map<String, Persona> unlockedPersonas = {};
+    _personas.forEach((key, persona) {
+      if (_personaUnlocked[key] ?? true) {
+        unlockedPersonas[key] = persona;
+      }
+    });
+    return unlockedPersonas;
+  }
+
   Map<String, PersonaShadow> get shadows => _shadows;
 
   /// Creates a PersonaData instance from a given path.

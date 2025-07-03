@@ -4,11 +4,13 @@ import 'package:persona_data/lib.dart';
 class DetailedPersonaPageArcanaBox extends StatelessWidget {
   final Arcana arcana;
   final int level;
+  final bool isSpecial;
 
   const DetailedPersonaPageArcanaBox({
     super.key,
     required this.arcana,
     required this.level,
+    required this.isSpecial,
   });
 
   @override
@@ -30,7 +32,7 @@ class DetailedPersonaPageArcanaBox extends StatelessWidget {
       subtitle: Padding(
         padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 0.0),
         child: Text(
-          'Level $level',
+          'Level $level${isSpecial ? ' (Special Fusion)' : ''}',
           style: Theme.of(context).textTheme.bodyLarge!.copyWith(
             color: Theme.of(context).colorScheme.onSurface,
             fontWeight: FontWeight.bold,

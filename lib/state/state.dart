@@ -51,7 +51,7 @@ abstract class _AppState with Store {
 
   @action
   Future<void> initialize() async {
-    await personaData.initialize();
+    await personaData.initialize(null);
   }
 
   @action

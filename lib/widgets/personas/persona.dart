@@ -42,7 +42,9 @@ class PersonaListItem extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
         tileColor: persona.unlockMethod == PersonaUnlockMethod.locked
             ? Theme.of(context).colorScheme.onError.withAlpha(40)
-            : null,
+            : persona.hasSpecialFusion
+            ? Theme.of(context).colorScheme.onTertiary.withAlpha(40)
+            : Theme.of(context).listTileTheme.tileColor,
         onTap: () => Navigator.of(context).push(
           MaterialPageRoute(
             builder: (context) => DetailedPersonaPage(persona: persona),

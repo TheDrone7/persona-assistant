@@ -19,6 +19,7 @@ class Persona {
     this.fusionCondition,
     this.unlockMethod = PersonaUnlockMethod.level,
     this.inheritanceType = InheritanceTypes.none,
+    this.hasSpecialFusion = false,
   });
 
   /// The name of the Persona.
@@ -51,6 +52,8 @@ class Persona {
   /// The types of skills this persona can inherit when fused.
   final InheritanceTypes inheritanceType;
 
+  final bool hasSpecialFusion;
+
   /// A shorter form of the condition for unlocking the persona.
   /// Should be used alongside the `fusionCondition` if it is not null.
   String get conditionShort {
@@ -79,6 +82,7 @@ class Persona {
     Map<String, dynamic> json,
     PersonaUnlockMethod unlockMethod,
     String? fusionCondition,
+    bool hasSpecialFusion,
   ) {
     int level = json['lvl'] as int;
 
@@ -117,6 +121,7 @@ class Persona {
       skills: skills,
       stats: stats,
       inheritanceType: InheritanceTypes.fromString(json['inherits'] as String?),
+      hasSpecialFusion: hasSpecialFusion,
     );
   }
 }
