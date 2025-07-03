@@ -18,24 +18,23 @@ class UnlockSettingsPage extends StatelessWidget {
               Navigator.of(context).popUntil((Route r) => r.isFirst),
         ),
       ),
-      body: ListView(
-        padding: EdgeInsets.all(16.0),
-        children: [
-          Text(
-            'Select unlocked personas',
-            style: Theme.of(context).textTheme.bodyLarge,
-          ),
-          SizedBox(height: 8.0),
-          ...PersonaUnlockMethod.values
-              .where(
-                (method) =>
-                    method != PersonaUnlockMethod.level &&
-                    method != PersonaUnlockMethod.locked,
-              )
-              .map(
-                (method) => UnlockSettingsCategory(representedMethod: method),
-              ),
-        ],
+      body: Container(
+        decoration: BoxDecoration(
+          color: Theme.of(context).listTileTheme.tileColor?.withAlpha(100),
+        ),
+        child: ListView(
+          children: [
+            ...PersonaUnlockMethod.values
+                .where(
+                  (method) =>
+                      method != PersonaUnlockMethod.level &&
+                      method != PersonaUnlockMethod.locked,
+                )
+                .map(
+                  (method) => UnlockSettingsCategory(representedMethod: method),
+                ),
+          ],
+        ),
       ),
     );
   }

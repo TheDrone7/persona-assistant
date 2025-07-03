@@ -259,6 +259,18 @@ mixin _$AppState on _AppState, Store {
     return _$initializeAsyncAction.run(() => super.initialize());
   }
 
+  late final _$setPersonaUnlockAsyncAction = AsyncAction(
+    '_AppState.setPersonaUnlock',
+    context: context,
+  );
+
+  @override
+  Future<void> setPersonaUnlock(String personaName, bool unlocked) {
+    return _$setPersonaUnlockAsyncAction.run(
+      () => super.setPersonaUnlock(personaName, unlocked),
+    );
+  }
+
   late final _$_AppStateActionController = ActionController(
     name: '_AppState',
     context: context,
@@ -367,18 +379,6 @@ mixin _$AppState on _AppState, Store {
     );
     try {
       return super.setShadowFilter(filter);
-    } finally {
-      _$_AppStateActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  void setPersonaUnlock(String personaName, bool unlocked) {
-    final _$actionInfo = _$_AppStateActionController.startAction(
-      name: '_AppState.setPersonaUnlock',
-    );
-    try {
-      return super.setPersonaUnlock(personaName, unlocked);
     } finally {
       _$_AppStateActionController.endAction(_$actionInfo);
     }

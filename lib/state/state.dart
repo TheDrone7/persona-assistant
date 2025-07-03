@@ -1,6 +1,7 @@
 import 'package:mobx/mobx.dart';
 import 'package:persona_data/lib.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:persona_assistant/types/filters.dart';
 import 'package:persona_assistant/constants/sort_options.dart';
@@ -65,6 +66,17 @@ abstract class _AppState with Store {
       _personaUnlocksReaction!();
     }
     syncUnlocks();
+
+    // Load saved unlocks from SharedPreferences
+    final prefs = await SharedPreferences.getInstance();
+    for (final persona in personaData.unlockablePersonas.keys) {
+      final key = 'persona_unlock_$persona';
+
+      // If the key doesn't exist, use the default values
+      final unlocked = prefs.getBool(key) ?? personaUnlocks[persona] ?? true;
+      // Save the unlock state to the observable map
+      personaUnlocks[persona] = unlocked;
+    }
   }
 
   @action
@@ -114,9 +126,13 @@ abstract class _AppState with Store {
   }
 
   @action
-  void setPersonaUnlock(String personaName, bool unlocked) {
+  Future<void> setPersonaUnlock(String personaName, bool unlocked) async {
     if (personaUnlocks.containsKey(personaName)) {
+      final prefs = await SharedPreferences.getInstance();
+      final key = 'persona_unlock_$personaName';
       personaUnlocks[personaName] = unlocked;
+      // Save the unlock state to SharedPreferences
+      await prefs.setBool(key, unlocked);
     } else {
       throw ArgumentError('Persona $personaName not found in data.');
     }

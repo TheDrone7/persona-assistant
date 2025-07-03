@@ -18,39 +18,59 @@ class UnlockSettingsCategory extends StatelessWidget {
     );
 
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      padding: const EdgeInsets.fromLTRB(0, 0, 0, 2),
       child: ExpansionTile(
-        iconColor: Theme.of(context).colorScheme.onSurface,
-        title: Text(personas.values.first.conditionShort),
+        backgroundColor: Theme.of(context).colorScheme.surface.withAlpha(200),
+        collapsedBackgroundColor: Theme.of(
+          context,
+        ).colorScheme.surface.withAlpha(200),
+        title: Text(
+          personas.values.first.conditionShort,
+          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+            fontWeight: FontWeight.bold,
+            color: Theme.of(context).colorScheme.onPrimary,
+            backgroundColor: Colors.transparent,
+          ),
+        ),
         initiallyExpanded: true,
+        trailing: SizedBox.shrink(),
+        enabled: false,
         children: [
           Observer(
-            builder: (_) => Container(
-              decoration: BoxDecoration(
-                border: BorderDirectional(
-                  top: BorderSide(
-                    color: Theme.of(context).dividerColor.withAlpha(50),
+            builder: (_) {
+              final bool allSelected = personas.keys.every((p) => state.personaUnlocks[p]!);
+              return Container(
+                decoration: BoxDecoration(
+                  border: BorderDirectional(
+                    top: BorderSide(
+                      color: Theme.of(context).dividerColor.withAlpha(50),
+                    ),
                   ),
                 ),
-              ),
-              child: SwitchListTile(
-                activeTrackColor: Theme.of(
-                  context,
-                ).colorScheme.tertiary.withAlpha(150),
-                title: Text(
-                  'Select All',
+                child: SwitchListTile(
+                  tileColor: Colors.transparent,
+                  activeTrackColor: Theme.of(
+                    context,
+                  ).colorScheme.tertiary.withAlpha(150),
+                  title: Text(
+                    allSelected ? 'Disable All' : 'Enable All',
+                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.onSecondary,
+                    ),
+                  ),
+                  subtitle: Text(
+                    'All ${personas.values.first.conditionShort.toLowerCase()} personas',
+                  ),
+                  value: allSelected,
+                  onChanged: (bool value) {
+                    for (final String personaName in personas.keys) {
+                      state.setPersonaUnlock(personaName, value);
+                    }
+                  },
                 ),
-                subtitle: Text(
-                  'All ${personas.values.first.conditionShort.toLowerCase()} personas',
-                ),
-                value: personas.keys.every((p) => state.personaUnlocks[p]!),
-                onChanged: (bool value) {
-                  for (final String personaName in personas.keys) {
-                    state.setPersonaUnlock(personaName, value);
-                  }
-                },
-              ),
-            ),
+              );
+            },
           ),
           ...personas.entries.map((entry) {
             final String personaName = entry.key;
@@ -65,10 +85,17 @@ class UnlockSettingsCategory extends StatelessWidget {
                   ),
                 ),
                 child: SwitchListTile(
+                  tileColor: Colors.transparent,
                   activeTrackColor: Theme.of(
                     context,
                   ).colorScheme.tertiary.withAlpha(150),
-                  title: Text(persona.name),
+                  title: Text(
+                    persona.name,
+                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.onSecondary,
+                    ),
+                  ),
                   subtitle: Text(persona.fusionCondition ?? ''),
                   value: state.personaUnlocks[personaName]!,
                   onChanged: (bool value) {
