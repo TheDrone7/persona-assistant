@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'dart:async' show Future;
 
 import 'reader.dart';
+import 'fusion.dart';
 import 'types/skill.dart';
 import 'types/persona.dart';
 import 'types/shadow.dart';
@@ -17,7 +18,9 @@ class PersonaData {
   final Map<String, bool> _personaUnlocked = {};
   final Map<String, bool> _defaultUnlocked = {};
 
-  /// Read the skills from the data source.
+  final FusionCalculator fusionCalculator = FusionCalculator();
+
+  /// Process the skills read from the data source.
   Future<void> loadSkills() async {
     try {
       if (!reader.isReady) {
@@ -51,6 +54,7 @@ class PersonaData {
     }
   }
 
+  /// Process the shadows read from the data source.
   Future<void> loadShadows() async {
     if (_skills.isEmpty) {
       await loadSkills();
@@ -84,7 +88,7 @@ class PersonaData {
     }
   }
 
-  /// Read the personas from the data source.
+  /// Process the persona data read from the JSON files.
   /// Sources:
   /// - `jsons/demon-data.json` (Base persona data)
   /// - `jsons/demon-unlocks.json` (Unlock conditions)
@@ -179,9 +183,15 @@ class PersonaData {
     }
   }
 
+  /// Set the unlocked status of a persona.
   bool setPersonaUnlocked(String name, bool unlocked) {
     if (_personas.containsKey(name)) {
       _personaUnlocked[name] = unlocked;
+      if (unlocked) {
+        fusionCalculator.addPersona(_personas[name]!);
+      } else {
+        fusionCalculator.removePersona(_personas[name]!);
+      }
       return true;
     } else {
       if (kDebugMode) {
@@ -191,11 +201,18 @@ class PersonaData {
     }
   }
 
+  /// Initialize the library for use by loading and processing all data.
   Future<void> initialize(Map<String, bool>? unlocks) async {
     await reader.loadConfig();
     await loadSkills();
     await loadPersonas();
     await loadShadows();
+
+    fusionCalculator.initialize(
+      _personas.values.toList(),
+      List<dynamic>.from(reader.fusionData['table']),
+      Map<String, dynamic>.from(reader.specialData),
+    );
 
     unlocks ??= _defaultUnlocked;
     for (var entry in unlocks.entries) {
@@ -205,9 +222,12 @@ class PersonaData {
     }
   }
 
+  /// The map of all skills available in the game.
   Map<String, PersonaSkill> get skills => _skills;
 
+  /// The map of all unlockable personas and their unlock status.
   Map<String, bool> get personaUnlocked => _personaUnlocked;
+
   /// Unlockable personas are the ones that can be toggled in the app.
   Map<String, Persona> get unlockablePersonas {
     final Map<String, Persona> unlockable = {};
@@ -231,6 +251,7 @@ class PersonaData {
     return unlockedPersonas;
   }
 
+  /// Returns a map of all shadows in the game.
   Map<String, PersonaShadow> get shadows => _shadows;
 
   /// Creates a PersonaData instance from a given path.
