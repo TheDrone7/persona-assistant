@@ -84,4 +84,14 @@ void main() {
       expect(sames.length, 7);
     });
   });
+
+  test('Fissions should work correctly', () {
+    final fusionCalculator = personaData.fusionCalculator;
+    final targetPersona = personaData.personas['Jack Frost']!;
+    final fissionOptions = fusionCalculator.getFissionOptions(targetPersona);
+
+    fissionOptions.sort((a, b) => a.key.name.compareTo(b.key.name));
+    expect(fissionOptions.isNotEmpty, true);
+    expect(fissionOptions.length, 14);
+  });
 }

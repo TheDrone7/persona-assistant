@@ -6,7 +6,7 @@ class FusionCalculator {
   // Key1 + Key2 = val2
   final Map<Arcana, Map<Arcana, Arcana>> fusionChart = {};
   // Key = val1 + val2
-  final Map<Arcana, Pair<Arcana, Arcana>> reverseFusionChart = {};
+  final Map<Arcana, List<Pair<Arcana, Arcana>>> reverseFusionChart = {};
   // ignore arcana
   final Map<String, List<String>> specialFusions = {};
 
@@ -46,7 +46,11 @@ class FusionCalculator {
         }
         fusionChart[arc]![arc2] = result;
         fusionChart[arc2]![arc] = result;
-        reverseFusionChart[result] = Pair(arc, arc2);
+
+        if (!reverseFusionChart.containsKey(result)) {
+          reverseFusionChart[result] = [];
+        }
+        reverseFusionChart[result]!.add(Pair(arc, arc2));
       }
     }
   }
@@ -209,6 +213,149 @@ class FusionCalculator {
 
       result.add(Pair(ingPersona, resultPersona));
     }
+
+    return result;
+  }
+
+  List<Pair<Persona, Persona>> getFusionResults(Persona source) {
+    final resultsWithOther = getFusionResultsWithOther(source);
+    final resultsWithSame = getFusionResultsWithSame(source);
+
+    return [...resultsWithOther, ...resultsWithSame];
+  }
+
+  List<Pair<Persona, Persona>> getFissionOptionsFromOthers(Persona target) {
+    final targetArcana = target.arcana;
+    final targetLevel = target.level;
+
+    final targetLevels = results[targetArcana]!;
+    final targetLevelIndex = targetLevels.indexOf(targetLevel);
+
+    if (targetLevelIndex == -1) {
+      return [];
+    }
+
+    final double minLevel = targetLevelIndex > 0
+        ? 2 * (targetLevels[targetLevelIndex - 1] - _fusionLvlMod)
+        : 0.0;
+    final double maxLevel = targetLevelIndex < targetLevels.length - 1
+        ? 2 * (targetLevel - _fusionLvlMod)
+        : 200.0;
+
+    final List<Pair<Arcana, Arcana>> fissionArcana =
+        reverseFusionChart[targetArcana]!;
+
+    final List<Pair<Persona, Persona>> result = [];
+
+    for (var pair in fissionArcana) {
+      final Arcana arcana1 = pair.key;
+      final Arcana arcana2 = pair.value;
+
+      for (var level1 in ingredients[arcana1]!) {
+        final double minLevel2 = minLevel - level1;
+        final double maxLevel2 = maxLevel - level1;
+
+        for (var level2 in ingredients[arcana2]!) {
+          if (minLevel2 < level2 &&
+              level2 <= maxLevel2 &&
+              (arcana1 != arcana2 || level1 < level2)) {
+            final Persona? persona1 = personaCache[Pair(arcana1, level1)];
+            final Persona? persona2 = personaCache[Pair(arcana2, level2)];
+
+            if (result.any(
+              (p) =>
+                  (p.key.name == persona1?.name &&
+                      p.value.name == persona2?.name) ||
+                  (p.key.name == persona2?.name &&
+                      p.value.name == persona1?.name),
+            )) {
+              continue; // Skip if this pair already exists
+            }
+
+            if (persona1 != null && persona2 != null) {
+              result.add(Pair(persona1, persona2));
+            }
+          }
+        }
+      }
+    }
+
+    return result;
+  }
+
+  List<Pair<Persona, Persona>> getFissionOptionsFromSame(Persona target) {
+    final List<Pair<Persona, Persona>> result = [];
+    final targetArcana = target.arcana;
+    final targetLevel = target.level;
+    final targetLevels = results[targetArcana]!;
+    final targetLevelIndex = targetLevels.indexOf(targetLevel);
+
+    if (targetLevelIndex == -1) {
+      return [];
+    }
+
+    final double minResultLevel = 2 * (targetLevel - _sameArcanaMod);
+    final double maxResultLevel = targetLevelIndex < targetLevels.length - 1
+        ? 2 * (targetLevels[targetLevelIndex + 1] - _sameArcanaMod)
+        : 200.0;
+    final double nextResultLevel = targetLevelIndex < targetLevels.length - 2
+        ? targetLevels[targetLevelIndex + 2].toDouble()
+        : 200.0;
+
+    final ingredientLevels = ingredients[targetArcana]!
+        .where((lvl) => lvl != targetLevel)
+        .toList();
+
+    final ingLevelM = maxResultLevel / 2 + _sameArcanaMod;
+
+    for (var ingLevel2 in ingredientLevels) {
+      if (ingLevelM < ingLevel2 && ingLevelM + ingLevel2 < nextResultLevel) {
+        final Persona? persona1 = personaCache[Pair(targetArcana, ingLevel2)];
+        final Persona? persona2 = personaCache[Pair(targetArcana, targetLevel)];
+
+        if (persona1 != null && persona2 != null) {
+          result.add(Pair(persona1, persona2));
+        }
+      }
+    }
+
+    for (var i = 0; i < ingredientLevels.length; i++) {
+      for (var j = i + 1; j < ingredientLevels.length; j++) {
+        final ingLevel1 = ingredientLevels[i];
+        final ingLevel2 = ingredientLevels[j];
+
+        if (minResultLevel <= ingLevel1 + ingLevel2 &&
+            ingLevel1 + ingLevel2 < maxResultLevel) {
+          final Persona? persona1 = personaCache[Pair(targetArcana, ingLevel1)];
+          final Persona? persona2 = personaCache[Pair(targetArcana, ingLevel2)];
+
+          if (persona1 != null && persona2 != null) {
+            result.add(Pair(persona1, persona2));
+          }
+        }
+      }
+    }
+
+    return result;
+  }
+
+  List<Pair<Persona, Persona>> getFissionOptions(Persona target) {
+    final resultsFromOthers = getFissionOptionsFromOthers(target);
+    final resultsFromSame = getFissionOptionsFromSame(target);
+
+    return [...resultsFromOthers, ...resultsFromSame];
+  }
+
+  List<Persona> getSpecialFissions(Persona target) {
+    final specialName = target.name;
+    if (!specialFusions.containsKey(specialName)) {
+      return [];
+    }
+
+    final specialRecipe = specialFusions[specialName]!;
+    final result = specialRecipe.map((name) {
+      return personaCache.values.firstWhere((p) => p.name == name);
+    }).toList();
 
     return result;
   }
