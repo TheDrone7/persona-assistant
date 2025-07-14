@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:persona_assistant/widgets/common/card.dart' as common;
 
 class DetailedPersonaUnlockMethodBox extends StatelessWidget {
   final String details;
@@ -14,9 +15,7 @@ class DetailedPersonaUnlockMethodBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 12.0),
-      child: Card(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(2.0)),
-        color: Theme.of(context).listTileTheme.tileColor!.withAlpha(100),
+      child: common.Card(
         child: Padding(
           padding: const EdgeInsets.all(12.0),
           child: Column(

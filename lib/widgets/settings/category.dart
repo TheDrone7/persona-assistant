@@ -22,9 +22,9 @@ class UnlockSettingsCategory extends StatelessWidget {
     );
 
     return Padding(
-      padding: const EdgeInsets.fromLTRB(0, 0, 0, 2),
+      padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
       child: ExpansionTile(
-        backgroundColor: Theme.of(context).colorScheme.surface.withAlpha(200),
+        backgroundColor: Theme.of(context).colorScheme.primary.withAlpha(120),
         collapsedBackgroundColor: Theme.of(
           context,
         ).colorScheme.surface.withAlpha(200),
