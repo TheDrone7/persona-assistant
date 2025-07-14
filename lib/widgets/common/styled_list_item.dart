@@ -43,6 +43,7 @@ class StyledListItem extends StatelessWidget {
           Positioned.fill(
             child: InkWell(
               onTap: onTap,
+              borderRadius: BorderRadius.circular(8.0),
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8.0),
