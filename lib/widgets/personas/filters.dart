@@ -6,7 +6,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:persona_assistant/state/state.dart';
 import 'package:persona_assistant/constants/sort_options.dart';
 import 'package:persona_assistant/constants/filter_options.dart';
-import '../filters_button.dart';
+import '../common/filters_button.dart';
 
 class PersonaFilters extends StatelessWidget {
   const PersonaFilters({super.key});

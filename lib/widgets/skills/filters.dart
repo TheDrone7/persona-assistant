@@ -6,7 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:persona_assistant/state/state.dart';
 import 'package:persona_assistant/constants/sort_options.dart';
 import 'package:persona_assistant/constants/filter_options.dart';
-import '../filters_button.dart';
+import '../common/filters_button.dart';
 
 class PersonaSkillFilters extends StatelessWidget {
   const PersonaSkillFilters({super.key});
