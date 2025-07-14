@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:persona_assistant/widgets/personas/detailed/unlock.dart';
 import 'package:persona_data/lib.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:persona_assistant/widgets/common/section_header.dart';
+import 'package:persona_assistant/widgets/common/section_spacing.dart';
+import 'package:persona_assistant/constants/detailed_page.dart';
 
 import 'arcana.dart';
 import 'stats.dart';
@@ -9,7 +12,9 @@ import 'affinities.dart';
 import 'skills.dart';
 import 'inherits.dart';
 
+/// A detailed page displaying all information about a [Persona].
 class DetailedPersonaPage extends StatelessWidget {
+  /// The persona to display.
   final Persona persona;
   const DetailedPersonaPage({super.key, required this.persona});
 
@@ -19,7 +24,7 @@ class DetailedPersonaPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(persona.name),
         leading: IconButton(
-          icon: FaIcon(FontAwesomeIcons.xmark),
+          icon: const FaIcon(FontAwesomeIcons.xmark),
           onPressed: () =>
               Navigator.of(context).popUntil((Route r) => r.isFirst),
         ),
@@ -31,91 +36,35 @@ class DetailedPersonaPage extends StatelessWidget {
             level: persona.level,
             isSpecial: persona.hasSpecialFusion,
           ),
-          ...(persona.unlockMethod != PersonaUnlockMethod.level
-              ? [
-                  SizedBox(height: 16.0),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 18.0,
-                      vertical: 2.0,
-                    ),
-                    child: Text(
-                      'Requirements',
-                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.onSecondary,
-                      ),
-                    ),
-                  ),
-                  DetailedPersonaUnlockMethodBox(
-                    details: persona.unlockMethod == PersonaUnlockMethod.locked
-                        ? 'A party member\'s unique persona.'
-                        : persona.fusionCondition ?? '',
-                    short: persona.conditionShort,
-                  ),
-                ]
-              : []),
-          SizedBox(height: 16.0),
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 18.0,
-              vertical: 4.0,
-            ),
-            child: Text(
-              'Persona Stats',
-              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).colorScheme.onSecondary,
+          if (persona.unlockMethod != PersonaUnlockMethod.level) ...[
+            const SectionSpacing(),
+            const SectionHeader(
+              title: 'Requirements',
+              padding: EdgeInsets.symmetric(
+                horizontal: CommonPadding.horizontal,
+                vertical: CommonPadding.requirementsVertical,
               ),
             ),
-          ),
+            DetailedPersonaUnlockMethodBox(
+              details: persona.unlockMethod == PersonaUnlockMethod.locked
+                  ? "A party member's unique persona."
+                  : persona.fusionCondition ?? '',
+              short: persona.conditionShort,
+            ),
+          ],
+          const SectionSpacing(),
+          const SectionHeader(title: 'Persona Stats'),
           DetailedPersonaPageStatsBox(stats: persona.stats),
-          SizedBox(height: 16.0),
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 18.0,
-              vertical: 4.0,
-            ),
-            child: Text(
-              'Combat Affinities',
-              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).colorScheme.onSecondary,
-              ),
-            ),
-          ),
+          const SectionSpacing(),
+          const SectionHeader(title: 'Combat Affinities'),
           DetailedPersonaPageAffinitiesBox(affinities: persona.resistances),
-          SizedBox(height: 16.0),
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 18.0,
-              vertical: 4.0,
-            ),
-            child: Text(
-              'Skills',
-              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).colorScheme.onSecondary,
-              ),
-            ),
-          ),
+          const SectionSpacing(),
+          const SectionHeader(title: 'Skills'),
           DetailedPersonaPageSkillsList(skills: persona.skills),
-          SizedBox(height: 16.0),
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 18.0,
-              vertical: 4.0,
-            ),
-            child: Text(
-              'Fusion Inheritance Types',
-              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).colorScheme.onSecondary,
-              ),
-            ),
-          ),
+          const SectionSpacing(),
+          const SectionHeader(title: 'Fusion Inheritance Types'),
           DetailedPersonaPageInheritanceBox(inherits: persona.inheritanceType),
-          SizedBox(height: 16.0),
+          const SectionSpacing(),
         ],
       ),
     );

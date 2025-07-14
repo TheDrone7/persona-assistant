@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:persona_data/lib.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:persona_assistant/widgets/common/section_header.dart';
+import 'package:persona_assistant/widgets/common/section_spacing.dart';
 
 import 'arcana.dart';
 import 'stats.dart';
@@ -9,7 +11,9 @@ import 'ailments.dart';
 import 'skills.dart';
 import 'drops.dart';
 
+/// A detailed page displaying all information about a [PersonaShadow].
 class DetailedShadowPage extends StatelessWidget {
+  /// The shadow to display.
   final PersonaShadow shadow;
   const DetailedShadowPage({super.key, required this.shadow});
 
@@ -19,7 +23,7 @@ class DetailedShadowPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(shadow.name),
         leading: IconButton(
-          icon: FaIcon(FontAwesomeIcons.arrowLeft),
+          icon: const FaIcon(FontAwesomeIcons.arrowLeft),
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),
@@ -31,91 +35,29 @@ class DetailedShadowPage extends StatelessWidget {
             areaEncountered: shadow.areaEncountered,
             isBoss: shadow.isBoss,
           ),
-          SizedBox(height: 16.0),
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 18.0,
-              vertical: 4.0,
-            ),
-            child: Text(
-              'Shadow Stats',
-              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).colorScheme.onSecondary,
-              ),
-            ),
-          ),
+          const SectionSpacing(),
+          const SectionHeader(title: 'Shadow Stats'),
           DetailedShadowPageStatsBox(
             stats: shadow.stats,
             hp: shadow.hp,
             mp: shadow.mp,
             xp: shadow.experience,
           ),
-          SizedBox(height: 16.0),
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 18.0,
-              vertical: 4.0,
-            ),
-            child: Text(
-              'Combat Affinities',
-              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).colorScheme.onSecondary,
-              ),
-            ),
-          ),
+          const SectionSpacing(),
+          const SectionHeader(title: 'Combat Affinities'),
           DetailedShadowPageAffinitiesBox(affinities: shadow.affinities),
-          SizedBox(height: 16.0),
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 18.0,
-              vertical: 4.0,
-            ),
-            child: Text(
-              'Ailment Affinities',
-              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).colorScheme.onSecondary,
-              ),
-            ),
-          ),
+          const SectionSpacing(),
+          const SectionHeader(title: 'Ailment Affinities'),
           DetailedShadowPageAilmentsBox(ailments: shadow.ailments),
-          ...(shadow.drops.isNotEmpty
-              ? [
-                  SizedBox(height: 16.0),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 18.0,
-                      vertical: 4.0,
-                    ),
-                    child: Text(
-                      'Drops',
-                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.onSecondary,
-                      ),
-                    ),
-                  ),
-                  DetailedShadowPageDropsList(drops: shadow.drops),
-                ]
-              : []),
-          SizedBox(height: 16.0),
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 18.0,
-              vertical: 4.0,
-            ),
-            child: Text(
-              'Skills',
-              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).colorScheme.onSecondary,
-              ),
-            ),
-          ),
+          if (shadow.drops.isNotEmpty) ...[
+            const SectionSpacing(),
+            const SectionHeader(title: 'Drops'),
+            DetailedShadowPageDropsList(drops: shadow.drops),
+          ],
+          const SectionSpacing(),
+          const SectionHeader(title: 'Skills'),
           DetailedShadowPageSkillsList(skills: shadow.skills),
-          SizedBox(height: 16.0),
+          const SectionSpacing(),
         ],
       ),
     );
