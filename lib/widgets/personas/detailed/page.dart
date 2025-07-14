@@ -13,58 +13,107 @@ import 'skills.dart';
 import 'inherits.dart';
 
 /// A detailed page displaying all information about a [Persona].
-class DetailedPersonaPage extends StatelessWidget {
+class DetailedPersonaPage extends StatefulWidget {
   /// The persona to display.
   final Persona persona;
   const DetailedPersonaPage({super.key, required this.persona});
 
   @override
+  State<DetailedPersonaPage> createState() => _DetailedPersonaPageState();
+}
+
+class _DetailedPersonaPageState extends State<DetailedPersonaPage> {
+  int _selectedIndex = 0;
+
+  Widget _buildTabContent() {
+    switch (_selectedIndex) {
+      case 0:
+        return ListView(
+          children: [
+            DetailedPersonaPageArcanaBox(
+              arcana: widget.persona.arcana,
+              level: widget.persona.level,
+              isSpecial: widget.persona.hasSpecialFusion,
+            ),
+            if (widget.persona.unlockMethod != PersonaUnlockMethod.level) ...[
+              const SectionSpacing(),
+              const SectionHeader(
+                title: 'Requirements',
+                padding: EdgeInsets.symmetric(
+                  horizontal: CommonPadding.horizontal,
+                  vertical: CommonPadding.requirementsVertical,
+                ),
+              ),
+              DetailedPersonaUnlockMethodBox(
+                details:
+                    widget.persona.unlockMethod == PersonaUnlockMethod.locked
+                    ? "A party member's unique persona."
+                    : widget.persona.fusionCondition ?? '',
+                short: widget.persona.conditionShort,
+              ),
+            ],
+            const SectionSpacing(),
+            const SectionHeader(title: 'Persona Stats'),
+            DetailedPersonaPageStatsBox(stats: widget.persona.stats),
+            const SectionSpacing(),
+            const SectionHeader(title: 'Combat Affinities'),
+            DetailedPersonaPageAffinitiesBox(
+              affinities: widget.persona.resistances,
+            ),
+            const SectionSpacing(),
+            const SectionHeader(title: 'Skills'),
+            DetailedPersonaPageSkillsList(skills: widget.persona.skills),
+            const SectionSpacing(),
+            const SectionHeader(title: 'Fusion Inheritance Types'),
+            DetailedPersonaPageInheritanceBox(
+              inherits: widget.persona.inheritanceType,
+            ),
+            const SectionSpacing(),
+          ],
+        );
+      case 1:
+        return const Center(child: Text('Fusions'));
+      case 2:
+        return const Center(child: Text('Fissions'));
+      default:
+        return const SizedBox.shrink();
+    }
+  }
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(persona.name),
+        title: Text(widget.persona.name),
         leading: IconButton(
           icon: const FaIcon(FontAwesomeIcons.xmark),
           onPressed: () =>
               Navigator.of(context).popUntil((Route r) => r.isFirst),
         ),
       ),
-      body: ListView(
-        children: [
-          DetailedPersonaPageArcanaBox(
-            arcana: persona.arcana,
-            level: persona.level,
-            isSpecial: persona.hasSpecialFusion,
+      body: _buildTabContent(),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.info_outline),
+            label: 'Info',
           ),
-          if (persona.unlockMethod != PersonaUnlockMethod.level) ...[
-            const SectionSpacing(),
-            const SectionHeader(
-              title: 'Requirements',
-              padding: EdgeInsets.symmetric(
-                horizontal: CommonPadding.horizontal,
-                vertical: CommonPadding.requirementsVertical,
-              ),
-            ),
-            DetailedPersonaUnlockMethodBox(
-              details: persona.unlockMethod == PersonaUnlockMethod.locked
-                  ? "A party member's unique persona."
-                  : persona.fusionCondition ?? '',
-              short: persona.conditionShort,
-            ),
-          ],
-          const SectionSpacing(),
-          const SectionHeader(title: 'Persona Stats'),
-          DetailedPersonaPageStatsBox(stats: persona.stats),
-          const SectionSpacing(),
-          const SectionHeader(title: 'Combat Affinities'),
-          DetailedPersonaPageAffinitiesBox(affinities: persona.resistances),
-          const SectionSpacing(),
-          const SectionHeader(title: 'Skills'),
-          DetailedPersonaPageSkillsList(skills: persona.skills),
-          const SectionSpacing(),
-          const SectionHeader(title: 'Fusion Inheritance Types'),
-          DetailedPersonaPageInheritanceBox(inherits: persona.inheritanceType),
-          const SectionSpacing(),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.merge_type),
+            label: 'Fusions',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.call_split),
+            label: 'Fissions',
+          ),
         ],
       ),
     );

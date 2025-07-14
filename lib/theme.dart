@@ -51,5 +51,21 @@ ThemeData catpuccinTheme() {
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
       elevation: 0,
     ),
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      backgroundColor: flavor.crust.withAlpha(220),
+      selectedItemColor: flavor.mauve,
+      unselectedItemColor: flavor.text,
+      selectedIconTheme: IconThemeData(color: flavor.mauve),
+      unselectedIconTheme: IconThemeData(color: flavor.text),
+      showUnselectedLabels: true,
+      type: BottomNavigationBarType.fixed,
+    ),
+    tabBarTheme: TabBarThemeData(
+      indicatorColor: flavor.mauve,
+      labelColor: flavor.mauve,
+      unselectedLabelColor: flavor.text,
+      labelStyle: GoogleFonts.quicksand(),
+      unselectedLabelStyle: GoogleFonts.quicksand(),
+    ),
   );
 }
