@@ -5,7 +5,9 @@ import 'package:persona_assistant/state/state.dart';
 
 import 'persona.dart';
 
+/// The main page widget for displaying a list of personas.
 class PersonaListPage extends StatelessWidget {
+  /// Creates a [PersonaListPage].
   const PersonaListPage({super.key});
 
   @override
@@ -15,7 +17,7 @@ class PersonaListPage extends StatelessWidget {
     return Observer(
       builder: (_) => ListView(
         children: [
-          SizedBox(height: 16.0),
+          const SizedBox(height: 16.0),
           ...state.filteredPersonas.map((persona) {
             return PersonaListItem(persona: persona);
           }),

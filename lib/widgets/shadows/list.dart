@@ -5,7 +5,9 @@ import 'package:persona_assistant/state/state.dart';
 
 import 'shadow.dart';
 
+/// The main page widget for displaying a list of Shadows.
 class ShadowsListPage extends StatelessWidget {
+  /// Creates a [ShadowsListPage].
   const ShadowsListPage({super.key});
 
   @override
@@ -15,7 +17,7 @@ class ShadowsListPage extends StatelessWidget {
     return Observer(
       builder: (_) => ListView(
         children: [
-          SizedBox(height: 16.0),
+          const SizedBox(height: 16.0),
           ...state.filteredShadows.map((shadow) {
             return ShadowListItem(shadow: shadow);
           }),

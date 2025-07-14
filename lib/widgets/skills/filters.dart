@@ -8,7 +8,9 @@ import 'package:persona_assistant/constants/sort_options.dart';
 import 'package:persona_assistant/constants/filter_options.dart';
 import '../common/sort_and_filter_controls.dart';
 
+/// Widget for displaying skill sort and filter controls.
 class PersonaSkillFilters extends StatelessWidget {
+  /// Creates a [PersonaSkillFilters] widget.
   const PersonaSkillFilters({super.key});
 
   @override

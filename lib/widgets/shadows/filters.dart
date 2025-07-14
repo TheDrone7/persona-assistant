@@ -8,7 +8,9 @@ import 'package:persona_assistant/constants/sort_options.dart';
 import 'package:persona_assistant/constants/filter_options.dart';
 import '../common/sort_and_filter_controls.dart';
 
+/// Widget for displaying sorting and filtering controls for Shadows.
 class ShadowFilters extends StatelessWidget {
+  /// Creates a [ShadowFilters] widget.
   const ShadowFilters({super.key});
 
   @override

@@ -5,28 +5,32 @@ import 'package:persona_assistant/types/extensions.dart';
 import 'package:persona_assistant/widgets/common/styled_list_item.dart';
 import 'detailed/page.dart';
 
+/// A list item widget for displaying a Skill in the skills list.
 class SkillListItem extends StatelessWidget {
-  const SkillListItem({super.key, required this.skill});
-
+  /// The skill to display.
   final PersonaSkill skill;
+
+  /// Creates a [SkillListItem] for the given [skill].
+  const SkillListItem({super.key, required this.skill});
 
   @override
   Widget build(BuildContext context) {
-    String effect = '';
-    if (skill.type == SkillType.attack && skill.power > 0) {
-      effect = 'Deals ${skill.power} ${skill.element.name} damage.';
-    }
+    final String iconPath = 'assets/p3r/${skill.imagePath}';
 
-    if (skill.effect != 'No extra effect.') {
-      effect += (effect.isEmpty ? '' : ' ') + skill.effect;
+    String buildSubtitle() {
+      String effect = '';
+      if (skill.type == SkillType.attack && skill.power > 0) {
+        effect = 'Deals ${skill.power} ${skill.element.name} damage.';
+      }
+      if (skill.effect != 'No extra effect.') {
+        effect += (effect.isEmpty ? '' : ' ') + skill.effect;
+      }
+      effect = effect.capitalize();
+      if (effect.startsWith('X')) {
+        effect = effect.replaceFirst('X', 'x');
+      }
+      return effect;
     }
-
-    effect = effect.capitalize();
-    if (effect.startsWith('X')) {
-      effect = effect.replaceFirst('X', 'x');
-    }
-
-    String iconPath = 'assets/p3r/${skill.imagePath}';
 
     return StyledListItem(
       onTap: () {
@@ -42,14 +46,14 @@ class SkillListItem extends StatelessWidget {
         title: Text(
           skill.name,
           style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-            color: Theme.of(context).colorScheme.onSecondary,
-          ),
+                color: Theme.of(context).colorScheme.onSecondary,
+              ),
         ),
         subtitle: Padding(
           padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 0.0),
-          child: Text(effect),
+          child: Text(buildSubtitle()),
         ),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8.0))),
       ),
     );
   }

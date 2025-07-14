@@ -5,7 +5,9 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import 'skill.dart';
 
+/// The main page widget for displaying a list of skills.
 class SkillsPage extends StatelessWidget {
+  /// Creates a [SkillsPage].
   const SkillsPage({super.key});
 
   @override
@@ -14,7 +16,7 @@ class SkillsPage extends StatelessWidget {
     return Observer(
       builder: (_) => ListView(
         children: [
-          SizedBox(height: 16.0),
+          const SizedBox(height: 16.0),
           ...state.filteredSkills.map((skill) {
             return SkillListItem(skill: skill);
           }),
