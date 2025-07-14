@@ -1,16 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:persona_assistant/widgets/personas/detailed/unlock.dart';
 import 'package:persona_data/lib.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:persona_assistant/widgets/common/section_header.dart';
-import 'package:persona_assistant/widgets/common/section_spacing.dart';
-import 'package:persona_assistant/types/padding.dart';
-
-import 'arcana.dart';
-import 'stats.dart';
-import 'affinities.dart';
-import 'skills.dart';
-import 'inherits.dart';
+import 'info.dart';
+import 'fusions.dart';
+import 'fissions.dart';
 
 /// A detailed page displaying all information about a [Persona].
 class DetailedPersonaPage extends StatefulWidget {
@@ -28,53 +21,11 @@ class _DetailedPersonaPageState extends State<DetailedPersonaPage> {
   Widget _buildTabContent() {
     switch (_selectedIndex) {
       case 0:
-        return ListView(
-          children: [
-            DetailedPersonaPageArcanaBox(
-              arcana: widget.persona.arcana,
-              level: widget.persona.level,
-              isSpecial: widget.persona.hasSpecialFusion,
-            ),
-            if (widget.persona.unlockMethod != PersonaUnlockMethod.level) ...[
-              const SectionSpacing(),
-              const SectionHeader(
-                title: 'Requirements',
-                padding: EdgeInsets.symmetric(
-                  horizontal: CommonPadding.horizontal,
-                  vertical: CommonPadding.requirementsVertical,
-                ),
-              ),
-              DetailedPersonaUnlockMethodBox(
-                details:
-                    widget.persona.unlockMethod == PersonaUnlockMethod.locked
-                    ? "A party member's unique persona."
-                    : widget.persona.fusionCondition ?? '',
-                short: widget.persona.conditionShort,
-              ),
-            ],
-            const SectionSpacing(),
-            const SectionHeader(title: 'Persona Stats'),
-            DetailedPersonaPageStatsBox(stats: widget.persona.stats),
-            const SectionSpacing(),
-            const SectionHeader(title: 'Combat Affinities'),
-            DetailedPersonaPageAffinitiesBox(
-              affinities: widget.persona.resistances,
-            ),
-            const SectionSpacing(),
-            const SectionHeader(title: 'Skills'),
-            DetailedPersonaPageSkillsList(skills: widget.persona.skills),
-            const SectionSpacing(),
-            const SectionHeader(title: 'Fusion Inheritance Types'),
-            DetailedPersonaPageInheritanceBox(
-              inherits: widget.persona.inheritanceType,
-            ),
-            const SectionSpacing(),
-          ],
-        );
+        return InfoTab(persona: widget.persona);
       case 1:
-        return const Center(child: Text('Fusions'));
+        return const FusionsTab();
       case 2:
-        return const Center(child: Text('Fissions'));
+        return const FissionsTab();
       default:
         return const SizedBox.shrink();
     }
