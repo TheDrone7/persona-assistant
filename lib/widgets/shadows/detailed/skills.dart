@@ -3,8 +3,11 @@ import 'package:persona_data/lib.dart';
 import 'package:persona_assistant/state/state.dart';
 import 'package:provider/provider.dart';
 import 'package:persona_assistant/widgets/skills/detailed/page.dart';
+import 'package:persona_assistant/widgets/common/detailed_shared.dart';
 
+/// Displays a table of skills for a Shadow.
 class DetailedShadowPageSkillsList extends StatelessWidget {
+  /// List of skill names.
   final List<String> skills;
   const DetailedShadowPageSkillsList({super.key, required this.skills});
 
@@ -26,12 +29,9 @@ class DetailedShadowPageSkillsList extends StatelessWidget {
               context: context,
               builder: (context) => DetailedSkillPage(skill: skill),
             ),
-            child: Container(
-              padding: EdgeInsetsGeometry.symmetric(
-                horizontal: 16.0,
-                vertical: 8.0,
-              ),
-              color: Theme.of(context).listTileTheme.tileColor!.withAlpha(100),
+            child: DetailedTableCell(
+              padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
+              alignment: Alignment.centerLeft,
               child: Text(skill.name, style: tStyle),
             ),
           ),
@@ -40,7 +40,7 @@ class DetailedShadowPageSkillsList extends StatelessWidget {
     }
 
     return Padding(
-      padding: EdgeInsetsGeometry.symmetric(horizontal: 16.0, vertical: 0),
+      padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 0),
       child: Table(
         border: TableBorder.all(
           color: Theme.of(context).dividerColor.withAlpha(50),

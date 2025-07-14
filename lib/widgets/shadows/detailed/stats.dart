@@ -1,10 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:persona_data/lib.dart';
+import 'package:persona_assistant/widgets/common/detailed_shared.dart';
 
+/// Displays a table of stats for a Shadow, including HP, MP, and XP.
 class DetailedShadowPageStatsBox extends StatelessWidget {
+  /// Map of shadow stats to their values.
   final Map<PersonaStats, int> stats;
+
+  /// HP value.
   final int hp;
+
+  /// MP value.
   final int mp;
+
+  /// XP value.
   final int xp;
 
   const DetailedShadowPageStatsBox({
@@ -21,25 +30,8 @@ class DetailedShadowPageStatsBox extends StatelessWidget {
       context,
     ).textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.bold);
 
-    Container statTableCell(String text, {bool isBold = false}) {
-      return Container(
-        padding: EdgeInsetsGeometry.all(8.0),
-        color: Theme.of(context).listTileTheme.tileColor!.withAlpha(100),
-        child: Center(
-          child: Text(
-            text,
-            style: tStyle.copyWith(
-              color: isBold
-                  ? Theme.of(context).colorScheme.onSecondary
-                  : Theme.of(context).colorScheme.onSurface,
-            ),
-          ),
-        ),
-      );
-    }
-
     return Padding(
-      padding: EdgeInsetsGeometry.symmetric(horizontal: 16.0, vertical: 0),
+      padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -59,17 +51,17 @@ class DetailedShadowPageStatsBox extends StatelessWidget {
             children: [
               TableRow(
                 children: [
-                  statTableCell('HP', isBold: true),
-                  statTableCell(hp.toString()),
-                  statTableCell('MP', isBold: true),
-                  statTableCell(mp.toString()),
-                  statTableCell('XP', isBold: true),
-                  statTableCell(xp.toString()),
+                  DetailedTableCell(child: Text('HP', style: tStyle)),
+                  DetailedTableCell(child: Text(hp.toString(), style: tStyle)),
+                  DetailedTableCell(child: Text('MP', style: tStyle)),
+                  DetailedTableCell(child: Text(mp.toString(), style: tStyle)),
+                  DetailedTableCell(child: Text('XP', style: tStyle)),
+                  DetailedTableCell(child: Text(xp.toString(), style: tStyle)),
                 ],
               ),
             ],
           ),
-          SizedBox(height: 8.0),
+          const SizedBox(height: 8.0),
           Table(
             border: TableBorder.all(
               color: Theme.of(context).dividerColor.withAlpha(50),
@@ -85,24 +77,45 @@ class DetailedShadowPageStatsBox extends StatelessWidget {
             children: [
               TableRow(
                 children: [
-                  statTableCell('Str', isBold: true),
-                  statTableCell('Mag', isBold: true),
-                  statTableCell('End', isBold: true),
-                  statTableCell('Agi', isBold: true),
-                  statTableCell('Lck', isBold: true),
+                  DetailedTableCell(child: Text('Str', style: tStyle)),
+                  DetailedTableCell(child: Text('Mag', style: tStyle)),
+                  DetailedTableCell(child: Text('End', style: tStyle)),
+                  DetailedTableCell(child: Text('Agi', style: tStyle)),
+                  DetailedTableCell(child: Text('Lck', style: tStyle)),
                 ],
               ),
               TableRow(
                 children: [
-                  statTableCell(
-                    stats[PersonaStats.strength]?.toString() ?? '0',
+                  DetailedTableCell(
+                    child: Text(
+                      stats[PersonaStats.strength]?.toString() ?? '0',
+                      style: tStyle,
+                    ),
                   ),
-                  statTableCell(stats[PersonaStats.magic]?.toString() ?? '0'),
-                  statTableCell(
-                    stats[PersonaStats.endurance]?.toString() ?? '0',
+                  DetailedTableCell(
+                    child: Text(
+                      stats[PersonaStats.magic]?.toString() ?? '0',
+                      style: tStyle,
+                    ),
                   ),
-                  statTableCell(stats[PersonaStats.agility]?.toString() ?? '0'),
-                  statTableCell(stats[PersonaStats.luck]?.toString() ?? '0'),
+                  DetailedTableCell(
+                    child: Text(
+                      stats[PersonaStats.endurance]?.toString() ?? '0',
+                      style: tStyle,
+                    ),
+                  ),
+                  DetailedTableCell(
+                    child: Text(
+                      stats[PersonaStats.agility]?.toString() ?? '0',
+                      style: tStyle,
+                    ),
+                  ),
+                  DetailedTableCell(
+                    child: Text(
+                      stats[PersonaStats.luck]?.toString() ?? '0',
+                      style: tStyle,
+                    ),
+                  ),
                 ],
               ),
             ],

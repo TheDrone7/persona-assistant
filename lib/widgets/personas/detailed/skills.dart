@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:persona_assistant/state/state.dart';
 import 'package:persona_data/lib.dart';
 import 'package:provider/provider.dart';
-
 import 'package:persona_assistant/widgets/skills/detailed/page.dart';
+import 'package:persona_assistant/widgets/common/detailed_shared.dart';
 
+/// Displays a table of skills for a Persona, including the level learned.
 class DetailedPersonaPageSkillsList extends StatelessWidget {
+  /// Map of skill names to the level they are learned.
   final Map<String, int> skills;
   const DetailedPersonaPageSkillsList({super.key, required this.skills});
 
@@ -23,9 +25,7 @@ class DetailedPersonaPageSkillsList extends StatelessWidget {
     TableRow skillListHeader() {
       return TableRow(
         children: [
-          Container(
-            padding: EdgeInsetsGeometry.all(8.0),
-            color: Theme.of(context).listTileTheme.tileColor!.withAlpha(100),
+          DetailedTableCell(
             child: Center(
               child: Text(
                 'Level',
@@ -33,9 +33,9 @@ class DetailedPersonaPageSkillsList extends StatelessWidget {
               ),
             ),
           ),
-          Container(
-            padding: EdgeInsetsGeometry.all(8.0),
-            color: Theme.of(context).listTileTheme.tileColor!.withAlpha(100),
+          DetailedTableCell(
+            alignment: Alignment.centerLeft,
+            padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
             child: Text(
               'Skill name',
               style: tStyle.copyWith(fontWeight: FontWeight.bold),
@@ -55,9 +55,7 @@ class DetailedPersonaPageSkillsList extends StatelessWidget {
               context: context,
               builder: (context) => DetailedSkillPage(skill: skill),
             ),
-            child: Container(
-              padding: EdgeInsetsGeometry.all(8.0),
-              color: Theme.of(context).listTileTheme.tileColor!.withAlpha(100),
+            child: DetailedTableCell(
               child: Center(
                 child: Text(level > 0 ? level.toString() : '-', style: tStyle),
               ),
@@ -68,9 +66,9 @@ class DetailedPersonaPageSkillsList extends StatelessWidget {
               context: context,
               builder: (context) => DetailedSkillPage(skill: skill),
             ),
-            child: Container(
-              padding: EdgeInsetsGeometry.all(8.0),
-              color: Theme.of(context).listTileTheme.tileColor!.withAlpha(100),
+            child: DetailedTableCell(
+              padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
+              alignment: Alignment.centerLeft,
               child: Text(skill.name, style: tStyle),
             ),
           ),
@@ -79,7 +77,7 @@ class DetailedPersonaPageSkillsList extends StatelessWidget {
     }
 
     return Padding(
-      padding: EdgeInsetsGeometry.symmetric(horizontal: 16.0, vertical: 0),
+      padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 0),
       child: Table(
         border: TableBorder.all(
           color: Theme.of(context).dividerColor.withAlpha(50),

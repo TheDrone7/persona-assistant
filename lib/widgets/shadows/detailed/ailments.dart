@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:persona_data/lib.dart';
 import 'package:catppuccin_flutter/catppuccin_flutter.dart';
+import 'package:persona_assistant/widgets/common/detailed_shared.dart';
 
+/// Displays a table of ailment affinities for a Shadow.
 class DetailedShadowPageAilmentsBox extends StatelessWidget {
+  /// Map of ailments to resistance codes.
   final Map<Ailment, ResistanceCode> ailments;
   const DetailedShadowPageAilmentsBox({super.key, required this.ailments});
 
@@ -39,16 +42,8 @@ class DetailedShadowPageAilmentsBox extends StatelessWidget {
       );
     }
 
-    Container affinityTableCell(Widget child) {
-      return Container(
-        padding: EdgeInsetsGeometry.all(8.0),
-        color: Theme.of(context).listTileTheme.tileColor!.withAlpha(100),
-        child: Center(child: child),
-      );
-    }
-
     return Padding(
-      padding: EdgeInsetsGeometry.symmetric(horizontal: 16.0, vertical: 0),
+      padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 0),
       child: Table(
         border: TableBorder.all(
           color: Theme.of(context).dividerColor.withAlpha(50),
@@ -66,18 +61,20 @@ class DetailedShadowPageAilmentsBox extends StatelessWidget {
           TableRow(
             children: Ailment.values
                 .map(
-                  (a) => affinityTableCell(Text(a.toString(), style: tStyle)),
+                  (a) => DetailedTableCell(
+                    child: Text(a.toString(), style: tStyle),
+                  ),
                 )
                 .toList(),
           ),
           TableRow(
             children: Ailment.values
-                .map((a) => affinityTableCell(affinityText(a)))
+                .map((a) => DetailedTableCell(child: affinityText(a)))
                 .toList(),
           ),
           TableRow(
             children: Ailment.values
-                .map((a) => affinityTableCell(affinityDamage(a)))
+                .map((a) => DetailedTableCell(child: affinityDamage(a)))
                 .toList(),
           ),
         ],

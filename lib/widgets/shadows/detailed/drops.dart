@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:persona_assistant/widgets/common/detailed_shared.dart';
 
+/// Displays a table of item drops for a Shadow.
 class DetailedShadowPageDropsList extends StatelessWidget {
+  /// Map of item names to drop rates.
   final Map<String, int> drops;
   const DetailedShadowPageDropsList({super.key, required this.drops});
 
@@ -11,20 +14,15 @@ class DetailedShadowPageDropsList extends StatelessWidget {
     TableRow dropListHeader() {
       return TableRow(
         children: [
-          Container(
-            padding: EdgeInsetsGeometry.symmetric(
-              horizontal: 16.0,
-              vertical: 8.0,
-            ),
-            color: Theme.of(context).listTileTheme.tileColor!.withAlpha(100),
+          DetailedTableCell(
+            padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
+            alignment: Alignment.centerLeft,
             child: Text(
               'Item name',
               style: tStyle.copyWith(fontWeight: FontWeight.bold),
             ),
           ),
-          Container(
-            padding: EdgeInsetsGeometry.all(8.0),
-            color: Theme.of(context).listTileTheme.tileColor!.withAlpha(100),
+          DetailedTableCell(
             child: Center(
               child: Text(
                 'Drop rate',
@@ -41,17 +39,12 @@ class DetailedShadowPageDropsList extends StatelessWidget {
       final rate = entry.value;
       return TableRow(
         children: [
-          Container(
-            padding: EdgeInsetsGeometry.symmetric(
-              horizontal: 16.0,
-              vertical: 8.0,
-            ),
-            color: Theme.of(context).listTileTheme.tileColor!.withAlpha(100),
+          DetailedTableCell(
+            padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
+            alignment: Alignment.centerLeft,
             child: Text(droppedItem, style: tStyle),
           ),
-          Container(
-            padding: EdgeInsetsGeometry.all(8.0),
-            color: Theme.of(context).listTileTheme.tileColor!.withAlpha(100),
+          DetailedTableCell(
             child: Center(child: Text('$rate%', style: tStyle)),
           ),
         ],
@@ -59,7 +52,7 @@ class DetailedShadowPageDropsList extends StatelessWidget {
     }
 
     return Padding(
-      padding: EdgeInsetsGeometry.symmetric(horizontal: 16.0, vertical: 0),
+      padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 0),
       child: Table(
         border: TableBorder.all(
           color: Theme.of(context).dividerColor.withAlpha(50),

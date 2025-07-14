@@ -2,8 +2,11 @@ import 'dart:math';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:persona_data/lib.dart';
+import 'package:persona_assistant/widgets/common/detailed_shared.dart';
 
+/// Displays a table of stats for a Persona, including estimated price.
 class DetailedPersonaPageStatsBox extends StatelessWidget {
+  /// Map of persona stats to their values.
   final Map<PersonaStats, int> stats;
 
   const DetailedPersonaPageStatsBox({super.key, required this.stats});
@@ -12,7 +15,7 @@ class DetailedPersonaPageStatsBox extends StatelessWidget {
   Widget build(BuildContext context) {
     final formatter = NumberFormat.currency(
       locale: 'en_US',
-      symbol: '¥',
+      symbol: '\u00a5',
       decimalDigits: 0,
     );
     final price =
@@ -22,16 +25,8 @@ class DetailedPersonaPageStatsBox extends StatelessWidget {
       context,
     ).textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.bold);
 
-    Container statTableCell(String text) {
-      return Container(
-        padding: EdgeInsetsGeometry.all(8.0),
-        color: Theme.of(context).listTileTheme.tileColor!.withAlpha(100),
-        child: Center(child: Text(text, style: tStyle)),
-      );
-    }
-
     return Padding(
-      padding: EdgeInsetsGeometry.symmetric(horizontal: 16.0, vertical: 0),
+      padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -50,33 +45,51 @@ class DetailedPersonaPageStatsBox extends StatelessWidget {
             children: [
               TableRow(
                 children: [
-                  statTableCell('Str'),
-                  statTableCell('Mag'),
-                  statTableCell('End'),
-                  statTableCell('Agi'),
-                  statTableCell('Lck'),
+                  DetailedTableCell(child: Text('Str', style: tStyle)),
+                  DetailedTableCell(child: Text('Mag', style: tStyle)),
+                  DetailedTableCell(child: Text('End', style: tStyle)),
+                  DetailedTableCell(child: Text('Agi', style: tStyle)),
+                  DetailedTableCell(child: Text('Lck', style: tStyle)),
                 ],
               ),
               TableRow(
                 children: [
-                  statTableCell(
-                    stats[PersonaStats.strength]?.toString() ?? '0',
+                  DetailedTableCell(
+                    child: Text(
+                      stats[PersonaStats.strength]?.toString() ?? '0',
+                      style: tStyle,
+                    ),
                   ),
-                  statTableCell(stats[PersonaStats.magic]?.toString() ?? '0'),
-                  statTableCell(
-                    stats[PersonaStats.endurance]?.toString() ?? '0',
+                  DetailedTableCell(
+                    child: Text(
+                      stats[PersonaStats.magic]?.toString() ?? '0',
+                      style: tStyle,
+                    ),
                   ),
-                  statTableCell(stats[PersonaStats.agility]?.toString() ?? '0'),
-                  statTableCell(stats[PersonaStats.luck]?.toString() ?? '0'),
+                  DetailedTableCell(
+                    child: Text(
+                      stats[PersonaStats.endurance]?.toString() ?? '0',
+                      style: tStyle,
+                    ),
+                  ),
+                  DetailedTableCell(
+                    child: Text(
+                      stats[PersonaStats.agility]?.toString() ?? '0',
+                      style: tStyle,
+                    ),
+                  ),
+                  DetailedTableCell(
+                    child: Text(
+                      stats[PersonaStats.luck]?.toString() ?? '0',
+                      style: tStyle,
+                    ),
+                  ),
                 ],
               ),
             ],
           ),
           Container(
-            padding: EdgeInsetsGeometry.symmetric(
-              vertical: 8.0,
-              horizontal: 16.0,
-            ),
+            padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
             decoration: BoxDecoration(
               color: Theme.of(context).listTileTheme.tileColor!.withAlpha(100),
               border: Border.all(

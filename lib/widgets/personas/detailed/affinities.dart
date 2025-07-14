@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:persona_data/lib.dart';
 import 'package:catppuccin_flutter/catppuccin_flutter.dart';
+import 'package:persona_assistant/widgets/common/detailed_shared.dart';
 
+/// Displays a table of combat affinities for a Persona.
 class DetailedPersonaPageAffinitiesBox extends StatelessWidget {
+  /// Map of combat elements to resistance codes.
   final Map<CombatElement, ResistanceCode> affinities;
   const DetailedPersonaPageAffinitiesBox({super.key, required this.affinities});
 
@@ -30,16 +33,8 @@ class DetailedPersonaPageAffinitiesBox extends StatelessWidget {
       }
     }
 
-    Container affinityTableCell(Widget child) {
-      return Container(
-        padding: EdgeInsetsGeometry.all(8.0),
-        color: Theme.of(context).listTileTheme.tileColor!.withAlpha(100),
-        child: Center(child: child),
-      );
-    }
-
     return Padding(
-      padding: EdgeInsetsGeometry.symmetric(horizontal: 16.0, vertical: 0),
+      padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 0),
       child: Table(
         border: TableBorder.all(
           color: Theme.of(context).dividerColor.withAlpha(50),
@@ -57,8 +52,8 @@ class DetailedPersonaPageAffinitiesBox extends StatelessWidget {
             children: CombatElement.values
                 .sublist(0, 5)
                 .map(
-                  (e) => affinityTableCell(
-                    Image.asset('assets/p3r/${e.imagePath}'),
+                  (e) => DetailedTableCell(
+                    child: Image.asset('assets/p3r/${e.imagePath}'),
                   ),
                 )
                 .toList(),
@@ -66,15 +61,15 @@ class DetailedPersonaPageAffinitiesBox extends StatelessWidget {
           TableRow(
             children: CombatElement.values
                 .sublist(0, 5)
-                .map((e) => affinityTableCell(affinityText(e)))
+                .map((e) => DetailedTableCell(child: affinityText(e)))
                 .toList(),
           ),
           TableRow(
             children: CombatElement.values
                 .sublist(5)
                 .map(
-                  (e) => affinityTableCell(
-                    Image.asset('assets/p3r/${e.imagePath}'),
+                  (e) => DetailedTableCell(
+                    child: Image.asset('assets/p3r/${e.imagePath}'),
                   ),
                 )
                 .toList(),
@@ -82,7 +77,7 @@ class DetailedPersonaPageAffinitiesBox extends StatelessWidget {
           TableRow(
             children: CombatElement.values
                 .sublist(5)
-                .map((e) => affinityTableCell(affinityText(e)))
+                .map((e) => DetailedTableCell(child: affinityText(e)))
                 .toList(),
           ),
         ],
