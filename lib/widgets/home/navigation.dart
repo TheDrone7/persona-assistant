@@ -5,11 +5,11 @@ class NavDestination {
   const NavDestination({
     required this.label,
     required this.icon,
-    this.selectedIcon,
+    required this.selectedIcon,
   });
 
   final Widget icon;
-  final Widget? selectedIcon;
+  final Widget selectedIcon;
   final String label;
 }
 

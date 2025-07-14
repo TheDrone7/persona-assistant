@@ -6,8 +6,10 @@ import 'package:provider/provider.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'navigation.dart';
+import 'navigation_drawer_item.dart';
 import '../settings/unlocks.dart';
 import 'package:persona_assistant/state/state.dart';
+import 'package:persona_assistant/widgets/common/outlined_icon.dart';
 
 class NavigationHomePage extends StatelessWidget {
   const NavigationHomePage({super.key});
@@ -53,55 +55,12 @@ class NavigationHomePage extends StatelessWidget {
                     ...destinations.map((dest) {
                       final index = destinations.indexOf(dest);
                       final selected = state.screenIndex == index;
-                      return Padding(
-                        padding: const EdgeInsets.fromLTRB(12, 0, 12, 12),
-                        child: InkWell(
-                          borderRadius: BorderRadius.circular(4),
-                          onTap: () => state.handleMainMenuChange(index),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(4),
-                            child: BackdropFilter(
-                              filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color: selected
-                                        ? Theme.of(
-                                            context,
-                                          ).colorScheme.onSecondary
-                                        : Theme.of(context).colorScheme.outline,
-                                    width: selected ? 2 : 1,
-                                  ),
-                                  borderRadius: BorderRadius.circular(4),
-                                  color: selected
-                                      ? Theme.of(
-                                          context,
-                                        ).colorScheme.secondary.withAlpha(250)
-                                      : Theme.of(
-                                          context,
-                                        ).colorScheme.primary.withAlpha(120),
-                                ),
-                                child: ListTile(
-                                  leading: selected
-                                      ? dest.selectedIcon
-                                      : dest.icon,
-                                  title: Text(
-                                    dest.label,
-                                    style: TextStyle(
-                                      fontWeight: selected
-                                          ? FontWeight.bold
-                                          : FontWeight.normal,
-                                    ),
-                                  ),
-                                  selected: selected,
-                                  selectedColor: Theme.of(
-                                    context,
-                                  ).colorScheme.onSecondary,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
+                      return NavigationDrawerItem(
+                        selected: selected,
+                        onTap: () => state.handleMainMenuChange(index),
+                        icon: dest.icon,
+                        selectedIcon: dest.selectedIcon,
+                        label: dest.label,
                       );
                     }),
                   ],
@@ -118,17 +77,7 @@ class NavigationHomePage extends StatelessWidget {
             ),
 
             leading: IconButton(
-              icon: Stack(
-                alignment: Alignment.center,
-                children: [
-                  FaIcon(
-                    FontAwesomeIcons.bars,
-                    size: 26,
-                    color: Theme.of(context).colorScheme.onSurface,
-                  ),
-                  const FaIcon(FontAwesomeIcons.bars),
-                ],
-              ),
+              icon: const OutlinedIcon(icon: FontAwesomeIcons.bars),
               onPressed: state.openDrawer,
             ),
             title: Observer(
@@ -136,17 +85,7 @@ class NavigationHomePage extends StatelessWidget {
             ),
             actions: [
               IconButton(
-                icon: Stack(
-                  alignment: Alignment.topCenter,
-                  children: [
-                    FaIcon(
-                      FontAwesomeIcons.gear,
-                      size: 26,
-                      color: Theme.of(context).colorScheme.onSurface,
-                    ),
-                    const FaIcon(FontAwesomeIcons.gear),
-                  ],
-                ),
+                icon: const OutlinedIcon(icon: FontAwesomeIcons.gear),
                 onPressed: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
