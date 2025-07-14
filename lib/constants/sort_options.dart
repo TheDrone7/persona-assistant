@@ -1,6 +1,7 @@
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:persona_assistant/types/filters.dart';
 
+/// Sort options for personas, by arcana, level, or name.
 final List<SortOption> personaSortOptions = [
   SortOption(
     label: 'Arcana',
@@ -29,6 +30,7 @@ final List<SortOption> personaSortOptions = [
   ),
 ];
 
+/// Sort options for skills, by default, name, cost, or rank.
 final List<SortOption> skillSortOptions = [
   SortOption(
     label: 'Default',
@@ -67,6 +69,7 @@ final List<SortOption> skillSortOptions = [
   ),
 ];
 
+/// Sort options for shadows, by level, name, or arcana.
 final List<SortOption> shadowSortOptions = [
   SortOption(
     label: 'Level',

@@ -2,11 +2,13 @@ import 'package:persona_assistant/types/extensions.dart';
 import 'package:persona_assistant/types/filters.dart';
 import 'package:persona_data/lib.dart';
 
+/// Filter options for personas, including all Arcana types.
 final List<FilterOption> personaFilterOptions = [
   FilterOption(label: 'All', value: 'all'),
   ...Arcana.values.map((a) => FilterOption(label: a.toString(), value: a.name)),
 ];
 
+/// Filter options for skills, including all combat elements and skill types (except attack).
 final List<FilterOption> skillFilterOptions = [
   FilterOption(label: 'All', value: 'all'),
   ...CombatElement.values.map(
@@ -23,6 +25,7 @@ final List<FilterOption> skillFilterOptions = [
       ),
 ];
 
+/// Filter options for shadows, including all dungeon types and special categories.
 final List<FilterOption> shadowFilterOptions = [
   FilterOption(label: 'All', value: 'all'),
   FilterOption(label: 'Thebel', value: 'thebel'),

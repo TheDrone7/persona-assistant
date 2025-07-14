@@ -4,7 +4,7 @@ import 'package:persona_data/lib.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:persona_assistant/widgets/common/section_header.dart';
 import 'package:persona_assistant/widgets/common/section_spacing.dart';
-import 'package:persona_assistant/constants/detailed_page.dart';
+import 'package:persona_assistant/types/padding.dart';
 
 import 'arcana.dart';
 import 'stats.dart';
