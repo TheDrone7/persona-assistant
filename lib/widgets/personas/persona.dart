@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:persona_data/lib.dart';
 
@@ -14,40 +16,56 @@ class PersonaListItem extends StatelessWidget {
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 12.0),
-      child: ListTile(
-        leading: Image.asset(iconPath),
-        title: Text(
-          persona.name,
-          style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-            color: Theme.of(context).colorScheme.onSecondary,
-            fontWeight: FontWeight.bold,
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8.0),
+          border: Border.all(
+            color: persona.unlockMethod == PersonaUnlockMethod.locked
+                ? Theme.of(context).colorScheme.onError.withAlpha(240)
+                : persona.hasSpecialFusion
+                ? Theme.of(context).colorScheme.onTertiary.withAlpha(240)
+                : Theme.of(context).colorScheme.onSecondary.withAlpha(120),
+            width: 1.0,
           ),
         ),
-        subtitle: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              persona.arcana == Arcana.hanged
-                  ? 'Hanged Man'
-                  : persona.arcana.toString(),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(8.0),
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
+            child: ListTile(
+              leading: Image.asset(iconPath),
+              title: Text(
+                persona.name,
+                style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                  color: Theme.of(context).colorScheme.onSecondary,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              subtitle: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    persona.arcana == Arcana.hanged
+                        ? 'Hanged Man'
+                        : persona.arcana.toString(),
+                  ),
+                  const SizedBox(height: 4.0),
+                  Text(
+                    persona.unlockMethod == PersonaUnlockMethod.level
+                        ? 'Unlocked at level ${persona.level}'
+                        : '${persona.conditionShort} Persona',
+                  ),
+                ],
+              ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => DetailedPersonaPage(persona: persona),
+                ),
+              ),
             ),
-            SizedBox(height: 4.0),
-            Text(
-              persona.unlockMethod == PersonaUnlockMethod.level
-                  ? 'Unlocked at level ${persona.level}'
-                  : '${persona.conditionShort} Persona',
-            ),
-          ],
-        ),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
-        tileColor: persona.unlockMethod == PersonaUnlockMethod.locked
-            ? Theme.of(context).colorScheme.onError.withAlpha(40)
-            : persona.hasSpecialFusion
-            ? Theme.of(context).colorScheme.onTertiary.withAlpha(40)
-            : Theme.of(context).listTileTheme.tileColor,
-        onTap: () => Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => DetailedPersonaPage(persona: persona),
           ),
         ),
       ),
