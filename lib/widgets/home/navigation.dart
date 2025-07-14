@@ -14,17 +14,24 @@ class NavDestination {
 }
 
 const List<NavDestination> destinations = [
-  NavDestination(icon: FaIcon(FontAwesomeIcons.book), label: 'Persona List'),
+  NavDestination(
+    icon: FaIcon(FontAwesomeIcons.book),
+    selectedIcon: FaIcon(FontAwesomeIcons.bookOpen),
+    label: 'Persona List',
+  ),
   NavDestination(
     icon: FaIcon(FontAwesomeIcons.bookMedical),
+    selectedIcon: FaIcon(FontAwesomeIcons.bookOpen),
     label: 'Skills List',
   ),
   NavDestination(
     icon: FaIcon(FontAwesomeIcons.bookSkull),
+    selectedIcon: FaIcon(FontAwesomeIcons.bookOpen),
     label: 'Shadow List',
   ),
   NavDestination(
     icon: FaIcon(FontAwesomeIcons.bookBookmark),
+    selectedIcon: FaIcon(FontAwesomeIcons.bookOpen),
     label: 'Recipe Generator',
   ),
 ];

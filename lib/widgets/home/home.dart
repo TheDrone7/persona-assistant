@@ -28,31 +28,85 @@ class NavigationHomePage extends StatelessWidget {
           key: state.scaffoldKey,
           backgroundColor: Colors.transparent,
           drawer: Observer(
-            builder: (_) => NavigationDrawer(
-              onDestinationSelected: state.handleMainMenuChange,
-              selectedIndex: state.screenIndex,
-              children: [
-                Padding(
-                  padding: EdgeInsetsGeometry.fromLTRB(16, 12, 16, 0),
-                  child: Text(
-                    'Persona Assistant',
-                    style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                      fontWeight: FontWeight.w400,
-                    ),
+            builder: (_) => Drawer(
+              child: Container(
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/images/bg2.jpg'),
+                    fit: BoxFit.fitHeight,
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsetsGeometry.fromLTRB(0, 8, 0, 8),
-                  child: Divider(),
+                child: ListView(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
+                      child: Text(
+                        'Persona Assistant',
+                        style: Theme.of(context).textTheme.headlineMedium!
+                            .copyWith(fontWeight: FontWeight.w400),
+                      ),
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.fromLTRB(0, 8, 0, 8),
+                      child: Divider(),
+                    ),
+                    ...destinations.map((dest) {
+                      final index = destinations.indexOf(dest);
+                      final selected = state.screenIndex == index;
+                      return Padding(
+                        padding: const EdgeInsets.fromLTRB(12, 0, 12, 12),
+                        child: InkWell(
+                          borderRadius: BorderRadius.circular(4),
+                          onTap: () => state.handleMainMenuChange(index),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(4),
+                            child: BackdropFilter(
+                              filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: selected
+                                        ? Theme.of(
+                                            context,
+                                          ).colorScheme.onSecondary
+                                        : Theme.of(context).colorScheme.outline,
+                                    width: selected ? 2 : 1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(4),
+                                  color: selected
+                                      ? Theme.of(
+                                          context,
+                                        ).colorScheme.secondary.withAlpha(250)
+                                      : Theme.of(
+                                          context,
+                                        ).colorScheme.primary.withAlpha(120),
+                                ),
+                                child: ListTile(
+                                  leading: selected
+                                      ? dest.selectedIcon
+                                      : dest.icon,
+                                  title: Text(
+                                    dest.label,
+                                    style: TextStyle(
+                                      fontWeight: selected
+                                          ? FontWeight.bold
+                                          : FontWeight.normal,
+                                    ),
+                                  ),
+                                  selected: selected,
+                                  selectedColor: Theme.of(
+                                    context,
+                                  ).colorScheme.onSecondary,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    }),
+                  ],
                 ),
-                ...destinations.map((dest) {
-                  return NavigationDrawerDestination(
-                    label: Text(dest.label),
-                    icon: dest.icon,
-                    selectedIcon: dest.selectedIcon,
-                  );
-                }),
-              ],
+              ),
             ),
           ),
           appBar: AppBar(
@@ -64,7 +118,17 @@ class NavigationHomePage extends StatelessWidget {
             ),
 
             leading: IconButton(
-              icon: const FaIcon(FontAwesomeIcons.bars),
+              icon: Stack(
+                alignment: Alignment.center,
+                children: [
+                  FaIcon(
+                    FontAwesomeIcons.bars,
+                    size: 26,
+                    color: Theme.of(context).colorScheme.onSurface,
+                  ),
+                  const FaIcon(FontAwesomeIcons.bars),
+                ],
+              ),
               onPressed: state.openDrawer,
             ),
             title: Observer(
@@ -72,7 +136,17 @@ class NavigationHomePage extends StatelessWidget {
             ),
             actions: [
               IconButton(
-                icon: const FaIcon(FontAwesomeIcons.gear),
+                icon: Stack(
+                  alignment: Alignment.topCenter,
+                  children: [
+                    FaIcon(
+                      FontAwesomeIcons.gear,
+                      size: 26,
+                      color: Theme.of(context).colorScheme.onSurface,
+                    ),
+                    const FaIcon(FontAwesomeIcons.gear),
+                  ],
+                ),
                 onPressed: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
