@@ -38,7 +38,9 @@ class UnlockSettingsCategory extends StatelessWidget {
         children: [
           Observer(
             builder: (_) {
-              final bool allSelected = personas.keys.every((p) => state.personaUnlocks[p]!);
+              final bool allSelected = personas.keys.every(
+                (p) => state.personaUnlocks[p]!,
+              );
               return Container(
                 decoration: BoxDecoration(
                   border: BorderDirectional(

@@ -42,19 +42,14 @@ class SkillListItem extends StatelessWidget {
         title: Text(
           skill.name,
           style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                color: Theme.of(context).colorScheme.onSecondary,
-              ),
+            color: Theme.of(context).colorScheme.onSecondary,
+          ),
         ),
         subtitle: Padding(
-          padding: const EdgeInsets.symmetric(
-            vertical: 4.0,
-            horizontal: 0.0,
-          ),
+          padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 0.0),
           child: Text(effect),
         ),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8.0),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
       ),
     );
   }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:persona_data/lib.dart';
 
+import '../common/styled_list_item.dart';
 import 'detailed/page.dart';
 
 class ShadowListItem extends StatelessWidget {
@@ -12,9 +13,24 @@ class ShadowListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     String iconPath = 'assets/p3r/${shadow.arcana.imagePath}';
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 12.0),
+    final Color? borderColor = shadow.isBoss
+        ? Theme.of(context).colorScheme.onError.withAlpha(240)
+        : shadow.areaEncountered.toLowerCase().contains('tutorial')
+        ? Theme.of(context).colorScheme.onTertiary.withAlpha(180)
+        : null;
+
+    return StyledListItem(
+      onTap: () => Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => DetailedShadowPage(shadow: shadow),
+        ),
+      ),
+      borderColor: borderColor,
       child: ListTile(
+        contentPadding: const EdgeInsets.symmetric(
+          vertical: 8.0,
+          horizontal: 16.0,
+        ),
         leading: Image.asset(iconPath),
         title: Text(
           shadow.name,
@@ -27,16 +43,6 @@ class ShadowListItem extends StatelessWidget {
           'Lvl ${shadow.level} • ${shadow.arcana == Arcana.hanged ? 'Hanged Man' : shadow.arcana.toString()} at ${shadow.areaEncountered}',
         ),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
-        tileColor: shadow.isBoss
-            ? Theme.of(context).colorScheme.onError.withAlpha(40)
-            : shadow.areaEncountered.toLowerCase().contains('tutorial')
-            ? Theme.of(context).colorScheme.primary.withAlpha(80)
-            : null,
-        onTap: () => Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => DetailedShadowPage(shadow: shadow),
-          ),
-        ),
       ),
     );
   }

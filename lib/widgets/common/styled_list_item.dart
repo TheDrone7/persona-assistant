@@ -34,7 +34,8 @@ class StyledListItem extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8.0),
                   border: Border.all(
-                    color: borderColor ??
+                    color:
+                        borderColor ??
                         Theme.of(
                           context,
                         ).colorScheme.onSecondary.withAlpha(120),

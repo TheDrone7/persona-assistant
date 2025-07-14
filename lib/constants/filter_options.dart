@@ -4,9 +4,7 @@ import 'package:persona_data/lib.dart';
 
 final List<FilterOption> personaFilterOptions = [
   FilterOption(label: 'All', value: 'all'),
-  ...Arcana.values.map(
-    (a) => FilterOption(label: a.toString(), value: a.name),
-  ),
+  ...Arcana.values.map((a) => FilterOption(label: a.toString(), value: a.name)),
 ];
 
 final List<FilterOption> skillFilterOptions = [

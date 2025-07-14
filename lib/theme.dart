@@ -34,7 +34,7 @@ ThemeData catpuccinTheme() {
       surface: flavor.base,
       onSurface: flavor.text,
       tertiary: flavor.surface1,
-      onTertiary: flavor.green
+      onTertiary: flavor.green,
     ),
     textTheme: GoogleFonts.quicksandTextTheme().apply(
       bodyColor: flavor.text,

@@ -13,7 +13,7 @@ class DetailedPersonaPageInheritanceBox extends StatelessWidget {
 
     FaIcon iconToShow(bool canInherit) {
       if (canInherit) {
-        return FaIcon(FontAwesomeIcons.check, color: flavor.green, size: 16,);
+        return FaIcon(FontAwesomeIcons.check, color: flavor.green, size: 16);
       }
       return FaIcon(FontAwesomeIcons.minus, color: flavor.surface0, size: 16);
     }

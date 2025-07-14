@@ -16,10 +16,10 @@ class PersonaListItem extends StatelessWidget {
 
     final Color? borderColor =
         persona.unlockMethod == PersonaUnlockMethod.locked
-            ? Theme.of(context).colorScheme.onError.withAlpha(240)
-            : persona.hasSpecialFusion
-                ? Theme.of(context).colorScheme.onTertiary.withAlpha(240)
-                : null;
+        ? Theme.of(context).colorScheme.onError.withAlpha(180)
+        : persona.hasSpecialFusion
+        ? Theme.of(context).colorScheme.onTertiary.withAlpha(180)
+        : null;
 
     return StyledListItem(
       onTap: () => Navigator.of(context).push(
@@ -33,9 +33,9 @@ class PersonaListItem extends StatelessWidget {
         title: Text(
           persona.name,
           style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                color: Theme.of(context).colorScheme.onSecondary,
-                fontWeight: FontWeight.bold,
-              ),
+            color: Theme.of(context).colorScheme.onSecondary,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -53,9 +53,7 @@ class PersonaListItem extends StatelessWidget {
             ),
           ],
         ),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8.0),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
       ),
     );
   }

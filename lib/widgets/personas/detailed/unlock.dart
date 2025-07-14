@@ -15,9 +15,7 @@ class DetailedPersonaUnlockMethodBox extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 12.0),
       child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(2.0),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(2.0)),
         color: Theme.of(context).listTileTheme.tileColor!.withAlpha(100),
         child: Padding(
           padding: const EdgeInsets.all(12.0),
@@ -26,9 +24,9 @@ class DetailedPersonaUnlockMethodBox extends StatelessWidget {
             children: [
               Text(
                 short,
-                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
+                style: Theme.of(
+                  context,
+                ).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 4.0),
               Text(
