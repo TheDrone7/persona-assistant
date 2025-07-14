@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:persona_data/lib.dart';
 
@@ -29,27 +31,55 @@ class SkillListItem extends StatelessWidget {
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 12.0),
-      child: ListTile(
-        leading: Image.asset(iconPath),
-        title: Text(
-          skill.name,
-          style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-            color: Theme.of(context).colorScheme.onSecondary,
+      child: Stack(
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(8.0),
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
+              child: ListTile(
+                leading: Image.asset(iconPath),
+                title: Text(
+                  skill.name,
+                  style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                    color: Theme.of(context).colorScheme.onSecondary,
+                  ),
+                ),
+                subtitle: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 4.0,
+                    horizontal: 0.0,
+                  ),
+                  child: Text(effect),
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                onTap: () {
+                  showModalBottomSheet(
+                    context: context,
+                    builder: (context) {
+                      return DetailedSkillPage(skill: skill);
+                    },
+                  );
+                },
+              ),
+            ),
           ),
-        ),
-        subtitle: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 0.0),
-          child: Text(effect),
-        ),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
-        onTap: () {
-          showModalBottomSheet(
-            context: context,
-            builder: (context) {
-              return DetailedSkillPage(skill: skill);
-            },
-          );
-        },
+          Positioned.fill(
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8.0),
+                border: Border.all(
+                  color: Theme.of(
+                    context,
+                  ).colorScheme.onSecondary.withAlpha(120),
+                  width: 1.0,
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
