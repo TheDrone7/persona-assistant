@@ -2,13 +2,20 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
+/// A widget representing a single item in the navigation drawer, with selection and icon support.
 class NavigationDrawerItem extends StatelessWidget {
+  /// Whether this item is currently selected.
   final bool selected;
+  /// Callback when the item is tapped.
   final VoidCallback onTap;
+  /// The icon to display when not selected.
   final Widget icon;
+  /// The icon to display when selected.
   final Widget selectedIcon;
+  /// The label for the item.
   final String label;
 
+  /// Creates a [NavigationDrawerItem] with selection, icons, and label.
   const NavigationDrawerItem({
     super.key,
     required this.selected,

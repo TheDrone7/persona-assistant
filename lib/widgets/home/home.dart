@@ -5,12 +5,13 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import 'navigation.dart';
+import '../../constants/navigation.dart';
 import 'navigation_drawer_item.dart';
 import '../settings/unlocks.dart';
 import 'package:persona_assistant/state/state.dart';
 import 'package:persona_assistant/widgets/common/outlined_icon.dart';
 
+/// The main home page widget with navigation drawer, app bar, and dynamic content.
 class NavigationHomePage extends StatelessWidget {
   const NavigationHomePage({super.key});
 
@@ -30,43 +31,7 @@ class NavigationHomePage extends StatelessWidget {
           key: state.scaffoldKey,
           backgroundColor: Colors.transparent,
           drawer: Observer(
-            builder: (_) => Drawer(
-              child: Container(
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage('assets/images/bg2.jpg'),
-                    fit: BoxFit.fitHeight,
-                  ),
-                ),
-                child: ListView(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
-                      child: Text(
-                        'Persona Assistant',
-                        style: Theme.of(context).textTheme.headlineMedium!
-                            .copyWith(fontWeight: FontWeight.w400),
-                      ),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.fromLTRB(0, 8, 0, 8),
-                      child: Divider(),
-                    ),
-                    ...destinations.map((dest) {
-                      final index = destinations.indexOf(dest);
-                      final selected = state.screenIndex == index;
-                      return NavigationDrawerItem(
-                        selected: selected,
-                        onTap: () => state.handleMainMenuChange(index),
-                        icon: dest.icon,
-                        selectedIcon: dest.selectedIcon,
-                        label: dest.label,
-                      );
-                    }),
-                  ],
-                ),
-              ),
-            ),
+            builder: (_) => _NavigationDrawer(state: state),
           ),
           appBar: AppBar(
             flexibleSpace: ClipRect(
@@ -75,7 +40,6 @@ class NavigationHomePage extends StatelessWidget {
                 child: Container(color: Colors.transparent),
               ),
             ),
-
             leading: IconButton(
               icon: const OutlinedIcon(icon: FontAwesomeIcons.bars),
               onPressed: state.openDrawer,
@@ -107,6 +71,53 @@ class NavigationHomePage extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+/// Drawer widget for navigation, extracted from NavigationHomePage for clarity.
+class _NavigationDrawer extends StatelessWidget {
+  final AppState state;
+  const _NavigationDrawer({required this.state});
+
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      child: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/images/bg2.jpg'),
+            fit: BoxFit.fitHeight,
+          ),
+        ),
+        child: ListView(
+          children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
+              child: Text(
+                'Persona Assistant',
+                style: Theme.of(context).textTheme.headlineMedium!
+                    .copyWith(fontWeight: FontWeight.w400),
+              ),
+            ),
+            const Padding(
+              padding: EdgeInsets.fromLTRB(0, 8, 0, 8),
+              child: Divider(),
+            ),
+            ...destinations.map((dest) {
+              final index = destinations.indexOf(dest);
+              final selected = state.screenIndex == index;
+              return NavigationDrawerItem(
+                selected: selected,
+                onTap: () => state.handleMainMenuChange(index),
+                icon: dest.icon,
+                selectedIcon: dest.selectedIcon,
+                label: dest.label,
+              );
+            }),
+          ],
+        ),
+      ),
     );
   }
 }
