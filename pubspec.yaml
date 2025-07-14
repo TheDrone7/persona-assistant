@@ -30,6 +30,7 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
+    - assets/images/
     - assets/p3r/jsons/
     - assets/p3r/images/skills/
     - assets/p3r/images/arcana/
