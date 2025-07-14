@@ -18,4 +18,4 @@ class NavDestination {
 
   /// The label for the destination.
   final String label;
-} 
+}

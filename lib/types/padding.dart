@@ -13,4 +13,4 @@ class CommonPadding {
 
   /// Default vertical padding for requirements section.
   static const double requirementsVertical = 2.0;
-} 
+}
