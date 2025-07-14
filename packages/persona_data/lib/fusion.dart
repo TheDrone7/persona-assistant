@@ -207,6 +207,10 @@ class FusionCalculator {
         resultIndex--;
       }
 
+      if (resultIndex < 0) {
+        continue;
+      }
+
       final int resultLevel = (resultLevels[resultIndex] / 2).toInt();
       final Persona ingPersona = personaCache[Pair(arcana, ing)]!;
       Persona resultPersona = personaCache[Pair(arcana, resultLevel)]!;
