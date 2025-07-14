@@ -101,21 +101,50 @@ class _DetailedPersonaPageState extends State<DetailedPersonaPage> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
+        showSelectedLabels: true,
+        showUnselectedLabels: false,
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.info_outline),
+            icon: _NavBarIconWithSpacing(
+              icon: FontAwesomeIcons.circleInfo,
+              label: 'Info',
+            ),
             label: 'Info',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.merge_type),
+            icon: _NavBarIconWithSpacing(
+              icon: FontAwesomeIcons.arrowsTurnToDots,
+              label: 'Fusions',
+            ),
             label: 'Fusions',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.call_split),
+            icon: _NavBarIconWithSpacing(
+              icon: FontAwesomeIcons.arrowsToCircle,
+              label: 'Fissions',
+            ),
             label: 'Fissions',
           ),
         ],
       ),
+    );
+  }
+}
+
+class _NavBarIconWithSpacing extends StatelessWidget {
+  final IconData icon;
+  final String label;
+
+  const _NavBarIconWithSpacing({required this.icon, required this.label});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        FaIcon(icon),
+        const SizedBox(height: 8), // Adjust this value for more/less spacing
+      ],
     );
   }
 }
