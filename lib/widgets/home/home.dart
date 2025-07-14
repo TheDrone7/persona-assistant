@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
@@ -54,6 +56,13 @@ class NavigationHomePage extends StatelessWidget {
             ),
           ),
           appBar: AppBar(
+            flexibleSpace: ClipRect(
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
+                child: Container(color: Colors.transparent),
+              ),
+            ),
+
             leading: IconButton(
               icon: const FaIcon(FontAwesomeIcons.bars),
               onPressed: state.openDrawer,
