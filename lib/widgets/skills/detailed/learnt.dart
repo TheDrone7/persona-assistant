@@ -99,7 +99,13 @@ class DetailedSkillLearntBox extends StatelessWidget {
       defaultVerticalAlignment: TableCellVerticalAlignment.middle,
       children: [
         skillListHeader(),
-        ...sorted.where((entry) => entry.value < 100).map(skillRow),
+        ...sorted
+            .where(
+              (entry) =>
+                  entry.value < 100 &&
+                  state.personaData.personas.containsKey(entry.key),
+            )
+            .map(skillRow),
       ],
     );
   }

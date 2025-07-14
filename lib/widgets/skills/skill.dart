@@ -55,28 +55,30 @@ class SkillListItem extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8.0),
                 ),
-                onTap: () {
-                  showModalBottomSheet(
-                    context: context,
-                    builder: (context) {
-                      return DetailedSkillPage(skill: skill);
-                    },
-                  );
-                },
               ),
             ),
           ),
           Positioned.fill(
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8.0),
-                border: Border.all(
-                  color: Theme.of(
-                    context,
-                  ).colorScheme.onSecondary.withAlpha(120),
-                  width: 1.0,
+            child: InkWell(
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8.0),
+                  border: Border.all(
+                    color: Theme.of(
+                      context,
+                    ).colorScheme.onSecondary.withAlpha(120),
+                    width: 1.0,
+                  ),
                 ),
               ),
+              onTap: () {
+                showModalBottomSheet(
+                  context: context,
+                  builder: (context) {
+                    return DetailedSkillPage(skill: skill);
+                  },
+                );
+              },
             ),
           ),
         ],
