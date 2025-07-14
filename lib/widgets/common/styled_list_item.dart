@@ -2,7 +2,15 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
+/// A list item widget with a blurred background and a styled border, supporting tap interaction.
+///
+/// This widget is useful for visually distinct list items with a glassmorphic effect.
 class StyledListItem extends StatelessWidget {
+  /// Creates a [StyledListItem] with a blurred background and border.
+  ///
+  /// [child] is the content of the list item.
+  /// [onTap] is the callback when the item is tapped.
+  /// [borderColor] optionally overrides the default border color.
   const StyledListItem({
     super.key,
     required this.child,
@@ -10,8 +18,13 @@ class StyledListItem extends StatelessWidget {
     this.borderColor,
   });
 
+  /// The content of the list item.
   final Widget child;
+
+  /// Callback when the item is tapped.
   final VoidCallback onTap;
+
+  /// Optional border color for the item.
   final Color? borderColor;
 
   @override

@@ -1,12 +1,25 @@
 import 'package:flutter/material.dart';
 
+/// A customizable button used for filter and sort controls, supporting optional icons and custom background color.
+///
+/// This button adapts its style based on the pressed state and can display an icon either at the start or end.
 class FiltersButton extends StatelessWidget {
+  /// The main content of the button, usually a [Text] widget.
   final Widget child;
+
+  /// Callback when the button is pressed.
   final VoidCallback onPressed;
+
+  /// Optional background color for the button.
   final Color? backgroundColor;
+
+  /// Optional icon to display alongside the [child].
   final Widget? icon;
+
+  /// Alignment for the icon (start or end).
   final IconAlignment iconAlignment;
 
+  /// Creates a [FiltersButton] with optional icon and background color.
   const FiltersButton({
     super.key,
     required this.child,
