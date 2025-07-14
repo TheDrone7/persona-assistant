@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:persona_assistant/widgets/common/card.dart' as common;
 import 'package:persona_data/types/skill.dart';
 
 class DetailedSkillStatBox extends StatelessWidget {
@@ -9,85 +10,30 @@ class DetailedSkillStatBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final divColor = Theme.of(context).colorScheme.onSurface.withAlpha(50);
-    final numStyle = Theme.of(context).textTheme.headlineSmall!;
-    final labelStyle = Theme.of(context).textTheme.bodyMedium!.copyWith(
-      color: Theme.of(context).colorScheme.onSurface.withAlpha(150),
-      fontWeight: FontWeight.bold,
-    );
 
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(2.0),
-        border: Border.all(
-          color: Theme.of(context).colorScheme.onSurface.withAlpha(50),
-          width: 1.0,
-        ),
-        color: Theme.of(context).colorScheme.primary.withAlpha(120),
-      ),
+    String cost;
+    switch (skill.costType) {
+      case SkillCostType.hp:
+        cost = '${skill.cost}% HP';
+        break;
+      case SkillCostType.sp:
+        cost = '${skill.cost} SP';
+        break;
+      default:
+        cost = skill.costType.name.toUpperCase();
+    }
+
+    return common.Card(
       child: Column(
         children: [
           IntrinsicHeight(
             child: Row(
               children: [
-                Expanded(
-                  child: Column(
-                    children: [
-                      SizedBox(height: 8.0),
-                      Text(
-                        skill.power.toString(),
-                        style: numStyle,
-                        textAlign: TextAlign.center,
-                      ),
-                      SizedBox(height: 4.0),
-                      Text(
-                        'Power',
-                        style: labelStyle,
-                        textAlign: TextAlign.center,
-                      ),
-                      SizedBox(height: 8.0),
-                    ],
-                  ),
-                ),
+                _Stat(label: 'Power', value: skill.power.toString()),
                 VerticalDivider(color: divColor),
-                Expanded(
-                  child: Column(
-                    children: [
-                      SizedBox(height: 8.0),
-                      Text(
-                        '${skill.accuracy}%',
-                        style: numStyle,
-                        textAlign: TextAlign.center,
-                      ),
-                      SizedBox(height: 4.0),
-                      Text(
-                        'Accuracy',
-                        style: labelStyle,
-                        textAlign: TextAlign.center,
-                      ),
-                      SizedBox(height: 8.0),
-                    ],
-                  ),
-                ),
+                _Stat(label: 'Accuracy', value: '${skill.accuracy}%'),
                 VerticalDivider(color: divColor),
-                Expanded(
-                  child: Column(
-                    children: [
-                      SizedBox(height: 8.0),
-                      Text(
-                        '${skill.critChance}%',
-                        style: numStyle,
-                        textAlign: TextAlign.center,
-                      ),
-                      SizedBox(height: 4.0),
-                      Text(
-                        'Crit chance',
-                        style: labelStyle,
-                        textAlign: TextAlign.center,
-                      ),
-                      SizedBox(height: 8.0),
-                    ],
-                  ),
-                ),
+                _Stat(label: 'Crit chance', value: '${skill.critChance}%'),
               ],
             ),
           ),
@@ -95,74 +41,57 @@ class DetailedSkillStatBox extends StatelessWidget {
           IntrinsicHeight(
             child: Row(
               children: [
-                Expanded(
-                  child: Column(
-                    children: [
-                      SizedBox(height: 8.0),
-                      Text(
-                        '${skill.costType == SkillCostType.sp
-                            ? '${skill.cost} '
-                            : skill.costType == SkillCostType.hp
-                            ? '${skill.cost}% '
-                            : ''}${skill.costType.name.toUpperCase()}',
-                        style: numStyle,
-                        textAlign: TextAlign.center,
-                      ),
-                      SizedBox(height: 4.0),
-                      Text(
-                        'Cost',
-                        style: labelStyle,
-                        textAlign: TextAlign.center,
-                      ),
-                      SizedBox(height: 8.0),
-                    ],
-                  ),
-                ),
+                _Stat(label: 'Cost', value: cost),
                 VerticalDivider(color: divColor),
-                Expanded(
-                  child: Column(
-                    children: [
-                      SizedBox(height: 8.0),
-                      Text(
-                        skill.rank.toString(),
-                        style: numStyle,
-                        textAlign: TextAlign.center,
-                      ),
-                      SizedBox(height: 4.0),
-                      Text(
-                        'Rank',
-                        style: labelStyle,
-                        textAlign: TextAlign.center,
-                      ),
-                      SizedBox(height: 8.0),
-                    ],
-                  ),
-                ),
+                _Stat(label: 'Rank', value: skill.rank.toString()),
                 VerticalDivider(color: divColor),
-                Expanded(
-                  child: Column(
-                    children: [
-                      SizedBox(height: 8.0),
-                      Text(
-                        (skill.minHits == skill.maxHits)
-                            ? skill.maxHits.toString()
-                            : '${skill.minHits} - ${skill.maxHits}',
-                        style: numStyle,
-                        textAlign: TextAlign.center,
-                      ),
-                      SizedBox(height: 4.0),
-                      Text(
-                        'Hit${skill.maxHits == 1 ? '' : 's'}',
-                        style: labelStyle,
-                        textAlign: TextAlign.center,
-                      ),
-                      SizedBox(height: 8.0),
-                    ],
-                  ),
+                _Stat(
+                  label: 'Hit${skill.maxHits == 1 ? '' : 's'}',
+                  value: (skill.minHits == skill.maxHits)
+                      ? skill.maxHits.toString()
+                      : '${skill.minHits} - ${skill.maxHits}',
                 ),
               ],
             ),
           ),
+        ],
+      ),
+    );
+  }
+}
+
+class _Stat extends StatelessWidget {
+  final String label;
+  final String value;
+
+  const _Stat({
+    required this.label,
+    required this.value,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final numStyle = Theme.of(context).textTheme.headlineSmall!;
+    final labelStyle = Theme.of(context).textTheme.bodyMedium!.copyWith(
+          color: Theme.of(context).colorScheme.onSurface.withAlpha(150),
+          fontWeight: FontWeight.bold,
+        );
+    return Expanded(
+      child: Column(
+        children: [
+          const SizedBox(height: 8.0),
+          Text(
+            value,
+            style: numStyle,
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 4.0),
+          Text(
+            label,
+            style: labelStyle,
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 8.0),
         ],
       ),
     );
