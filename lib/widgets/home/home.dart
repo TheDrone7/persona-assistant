@@ -30,9 +30,7 @@ class NavigationHomePage extends StatelessWidget {
         Scaffold(
           key: state.scaffoldKey,
           backgroundColor: Colors.transparent,
-          drawer: Observer(
-            builder: (_) => _NavigationDrawer(state: state),
-          ),
+          drawer: Observer(builder: (_) => _NavigationDrawer(state: state)),
           appBar: AppBar(
             flexibleSpace: ClipRect(
               child: BackdropFilter(
@@ -96,8 +94,9 @@ class _NavigationDrawer extends StatelessWidget {
               padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
               child: Text(
                 'Persona Assistant',
-                style: Theme.of(context).textTheme.headlineMedium!
-                    .copyWith(fontWeight: FontWeight.w400),
+                style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                  fontWeight: FontWeight.w400,
+                ),
               ),
             ),
             const Padding(

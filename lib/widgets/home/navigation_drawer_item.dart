@@ -6,12 +6,16 @@ import 'package:flutter/material.dart';
 class NavigationDrawerItem extends StatelessWidget {
   /// Whether this item is currently selected.
   final bool selected;
+
   /// Callback when the item is tapped.
   final VoidCallback onTap;
+
   /// The icon to display when not selected.
   final Widget icon;
+
   /// The icon to display when selected.
   final Widget selectedIcon;
+
   /// The label for the item.
   final String label;
 

@@ -4,16 +4,18 @@ import 'package:persona_data/lib.dart';
 
 import 'category.dart';
 
+/// The settings page for unlocking personas by method.
 class UnlockSettingsPage extends StatelessWidget {
+  /// Creates an [UnlockSettingsPage].
   const UnlockSettingsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Persona Settings'),
+        title: const Text('Persona Settings'),
         leading: IconButton(
-          icon: FaIcon(FontAwesomeIcons.xmark),
+          icon: const FaIcon(FontAwesomeIcons.xmark),
           onPressed: () =>
               Navigator.of(context).popUntil((Route r) => r.isFirst),
         ),

@@ -12,8 +12,10 @@ class NavDestination {
 
   /// The icon to display when not selected.
   final Widget icon;
+
   /// The icon to display when selected.
   final Widget selectedIcon;
+
   /// The label for the destination.
   final String label;
 }

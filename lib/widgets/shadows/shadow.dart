@@ -17,11 +17,13 @@ class ShadowListItem extends StatelessWidget {
     final Color? borderColor = shadow.isBoss
         ? Theme.of(context).colorScheme.onError.withAlpha(240)
         : shadow.areaEncountered.toLowerCase().contains('tutorial')
-            ? Theme.of(context).colorScheme.onTertiary.withAlpha(180)
-            : null;
+        ? Theme.of(context).colorScheme.onTertiary.withAlpha(180)
+        : null;
 
     String buildSubtitle() {
-      final arcanaLabel = shadow.arcana == Arcana.hanged ? 'Hanged Man' : shadow.arcana.toString();
+      final arcanaLabel = shadow.arcana == Arcana.hanged
+          ? 'Hanged Man'
+          : shadow.arcana.toString();
       return 'Lvl ${shadow.level} 2 $arcanaLabel at ${shadow.areaEncountered}';
     }
 
@@ -41,12 +43,14 @@ class ShadowListItem extends StatelessWidget {
         title: Text(
           shadow.name,
           style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                color: Theme.of(context).colorScheme.onSecondary,
-                fontWeight: FontWeight.bold,
-              ),
+            color: Theme.of(context).colorScheme.onSecondary,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         subtitle: Text(buildSubtitle()),
-        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8.0))),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(8.0)),
+        ),
       ),
     );
   }
