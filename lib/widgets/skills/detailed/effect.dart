@@ -18,9 +18,9 @@ class DetailedSkillEffectBox extends StatelessWidget {
               Text(
                 'Additional Effect',
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      color: Theme.of(context).colorScheme.onSecondary,
-                      fontWeight: FontWeight.bold,
-                    ),
+                  color: Theme.of(context).colorScheme.onSecondary,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ],
           ),

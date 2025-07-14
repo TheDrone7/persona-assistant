@@ -46,9 +46,9 @@ class DetailedSkillTargetBox extends StatelessWidget {
           Text(
             targetName,
             style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                  color: Theme.of(context).colorScheme.onSecondary,
-                  fontWeight: FontWeight.bold,
-                ),
+              color: Theme.of(context).colorScheme.onSecondary,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ],
       ),

@@ -5,12 +5,7 @@ class Card extends StatelessWidget {
   final EdgeInsetsGeometry? margin;
   final EdgeInsetsGeometry? padding;
 
-  const Card({
-    super.key,
-    required this.child,
-    this.margin,
-    this.padding,
-  });
+  const Card({super.key, required this.child, this.margin, this.padding});
 
   @override
   Widget build(BuildContext context) {

@@ -64,33 +64,22 @@ class _Stat extends StatelessWidget {
   final String label;
   final String value;
 
-  const _Stat({
-    required this.label,
-    required this.value,
-  });
+  const _Stat({required this.label, required this.value});
 
   @override
   Widget build(BuildContext context) {
     final numStyle = Theme.of(context).textTheme.headlineSmall!;
     final labelStyle = Theme.of(context).textTheme.bodyMedium!.copyWith(
-          color: Theme.of(context).colorScheme.onSurface.withAlpha(150),
-          fontWeight: FontWeight.bold,
-        );
+      color: Theme.of(context).colorScheme.onSurface.withAlpha(150),
+      fontWeight: FontWeight.bold,
+    );
     return Expanded(
       child: Column(
         children: [
           const SizedBox(height: 8.0),
-          Text(
-            value,
-            style: numStyle,
-            textAlign: TextAlign.center,
-          ),
+          Text(value, style: numStyle, textAlign: TextAlign.center),
           const SizedBox(height: 4.0),
-          Text(
-            label,
-            style: labelStyle,
-            textAlign: TextAlign.center,
-          ),
+          Text(label, style: labelStyle, textAlign: TextAlign.center),
           const SizedBox(height: 8.0),
         ],
       ),
