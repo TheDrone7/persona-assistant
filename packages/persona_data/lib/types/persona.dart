@@ -83,12 +83,11 @@ class Persona {
 
   /// Formatted price of the persona (displayed with Yen symbol)
   String get formattedPrice {
-    final formatter = NumberFormat.currency(
+    return NumberFormat.currency(
       locale: 'en_US',
       symbol: '\u00a5',
       decimalDigits: 0,
-    );
-    return formatter.format(price);
+    ).format(price);
   }
 
   /// Creates a Persona from a JSON object.

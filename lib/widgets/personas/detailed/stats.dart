@@ -1,5 +1,3 @@
-import 'dart:math';
-import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:persona_data/lib.dart';
 import 'package:persona_assistant/widgets/common/detailed_shared.dart';
@@ -9,18 +7,21 @@ class DetailedPersonaPageStatsBox extends StatelessWidget {
   /// Map of persona stats to their values.
   final Map<PersonaStats, int> stats;
 
-  const DetailedPersonaPageStatsBox({super.key, required this.stats});
+  /// The formatted price of the persona.
+  final String formattedPrice;
+
+  /// Creates a new DetailedPersonaPageStatsBox.
+  ///
+  /// [stats] The stats of the persona.
+  /// [formattedPrice] The formatted price of the persona.
+  const DetailedPersonaPageStatsBox({
+    super.key,
+    required this.stats,
+    required this.formattedPrice,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final formatter = NumberFormat.currency(
-      locale: 'en_US',
-      symbol: '\u00a5',
-      decimalDigits: 0,
-    );
-    final price =
-        2000 + pow(stats.values.toList().reduce((acc, val) => acc + val), 2);
-
     final tStyle = Theme.of(
       context,
     ).textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.bold);
@@ -100,7 +101,7 @@ class DetailedPersonaPageStatsBox extends StatelessWidget {
               children: [
                 Text('Estimated price:', style: tStyle),
                 const SizedBox(width: 20.0),
-                Text(' ${formatter.format(price)}', style: tStyle),
+                Text(' $formattedPrice', style: tStyle),
               ],
             ),
           ),

@@ -90,7 +90,6 @@ void main() {
     final targetPersona = personaData.personas['Jack Frost']!;
     final fissionOptions = fusionCalculator.getFissionOptions(targetPersona);
 
-    fissionOptions.sort((a, b) => a.key.name.compareTo(b.key.name));
     expect(fissionOptions.isNotEmpty, true);
     expect(fissionOptions.length, 14);
   });

@@ -1,6 +1,7 @@
 import 'types/config.dart';
 import 'types/persona.dart';
 import 'package:pair/pair.dart';
+import 'types/fusions.dart';
 
 class FusionCalculator {
   /// Key1 + Key2 = val2
@@ -142,7 +143,7 @@ class FusionCalculator {
   /// Returns the fusion results for the given persona when fused with other arcanas.
   ///
   /// [source] The persona to get the fusion results for.
-  List<Pair<Persona, Persona>> getFusionResultsWithOther(Persona source) {
+  List<FusionResult> getFusionResultsWithOther(Persona source) {
     final arcana = source.arcana;
     final level = source.level;
 
@@ -150,7 +151,7 @@ class FusionCalculator {
       return [];
     }
 
-    final result = <Pair<Persona, Persona>>[];
+    final result = <FusionResult>[];
 
     for (var entry in fusionChart[arcana]!.entries) {
       final Arcana arcana2 = entry.key;
@@ -182,10 +183,14 @@ class FusionCalculator {
                   resultLevels[thresholdIndex + 1],
                 )];
             if (newResult != null) {
-              result.add(Pair(ingPersona, newResult));
+              result.add(
+                FusionResult(ingredients: [ingPersona], result: newResult),
+              );
             }
           } else {
-            result.add(Pair(ingPersona, resultPersona));
+            result.add(
+              FusionResult(ingredients: [ingPersona], result: resultPersona),
+            );
           }
         }
       }
@@ -197,7 +202,7 @@ class FusionCalculator {
   /// Returns the fusion results for the given persona when fused with the same arcana.
   ///
   /// [source] The persona to get the fusion results for.
-  List<Pair<Persona, Persona>> getFusionResultsWithSame(Persona source) {
+  List<FusionResult> getFusionResultsWithSame(Persona source) {
     final arcana = source.arcana;
     final level = source.level;
 
@@ -205,7 +210,7 @@ class FusionCalculator {
       return [];
     }
 
-    final result = <Pair<Persona, Persona>>[];
+    final result = <FusionResult>[];
 
     final List<int> ingLevels = ingredients[arcana]!
         .where((lvl) => lvl != level)
@@ -235,7 +240,9 @@ class FusionCalculator {
       final Persona ingPersona = personaCache[Pair(arcana, ing)]!;
       Persona resultPersona = personaCache[Pair(arcana, resultLevel)]!;
 
-      result.add(Pair(ingPersona, resultPersona));
+      result.add(
+        FusionResult(ingredients: [ingPersona], result: resultPersona),
+      );
     }
 
     return result;
@@ -244,7 +251,7 @@ class FusionCalculator {
   /// Returns all of the fusion results for the given persona.
   ///
   /// [source] The persona to get the fusion results for.
-  List<Pair<Persona, Persona>> getFusionResults(Persona source) {
+  List<FusionResult> getFusionResults(Persona source) {
     final resultsWithOther = getFusionResultsWithOther(source);
     final resultsWithSame = getFusionResultsWithSame(source);
 
@@ -254,7 +261,9 @@ class FusionCalculator {
   /// Returns the fission options for the given persona when ingredient personas belong to different arcanas.
   ///
   /// [target] The persona to get the fission options for.
-  List<Pair<Persona, Persona>> getFissionOptionsFromOthers(Persona target) {
+  List<FusionResult> getFissionOptionsFromOthers(Persona target) {
+    final List<FusionResult> result = [];
+    
     final targetArcana = target.arcana;
     final targetLevel = target.level;
 
@@ -275,8 +284,6 @@ class FusionCalculator {
     final List<Pair<Arcana, Arcana>> fissionArcana =
         reverseFusionChart[targetArcana]!;
 
-    final List<Pair<Persona, Persona>> result = [];
-
     for (var pair in fissionArcana) {
       final Arcana arcana1 = pair.key;
       final Arcana arcana2 = pair.value;
@@ -292,19 +299,19 @@ class FusionCalculator {
             final Persona? persona1 = personaCache[Pair(arcana1, level1)];
             final Persona? persona2 = personaCache[Pair(arcana2, level2)];
 
-            if (result.any(
-              (p) =>
-                  (p.key.name == persona1?.name &&
-                      p.value.name == persona2?.name) ||
-                  (p.key.name == persona2?.name &&
-                      p.value.name == persona1?.name),
-            )) {
+            if (persona1 == null || persona2 == null) {
+              continue;
+            }
+
+            final fusionResult = FusionResult(
+              ingredients: [persona1, persona2],
+              result: target,
+            );
+            if (result.any((p) => p == fusionResult)) {
               continue; // Skip if this pair already exists
             }
 
-            if (persona1 != null && persona2 != null) {
-              result.add(Pair(persona1, persona2));
-            }
+            result.add(fusionResult);
           }
         }
       }
@@ -316,8 +323,8 @@ class FusionCalculator {
   /// Returns the fission options for the given persona when ingredient personas belong to the same arcana.
   ///
   /// [target] The persona to get the fission options for.
-  List<Pair<Persona, Persona>> getFissionOptionsFromSame(Persona target) {
-    final List<Pair<Persona, Persona>> result = [];
+  List<FusionResult> getFissionOptionsFromSame(Persona target) {
+    final List<FusionResult> result = [];
     final targetArcana = target.arcana;
     final targetLevel = target.level;
     final targetLevels = results[targetArcana]!;
@@ -347,7 +354,9 @@ class FusionCalculator {
         final Persona? persona2 = personaCache[Pair(targetArcana, targetLevel)];
 
         if (persona1 != null && persona2 != null) {
-          result.add(Pair(persona1, persona2));
+          result.add(
+            FusionResult(ingredients: [persona1, persona2], result: target),
+          );
         }
       }
     }
@@ -363,7 +372,9 @@ class FusionCalculator {
           final Persona? persona2 = personaCache[Pair(targetArcana, ingLevel2)];
 
           if (persona1 != null && persona2 != null) {
-            result.add(Pair(persona1, persona2));
+            result.add(
+              FusionResult(ingredients: [persona1, persona2], result: target),
+            );
           }
         }
       }
@@ -375,24 +386,24 @@ class FusionCalculator {
   /// Returns all of the fission options for the given persona.
   ///
   /// [target] The persona to get the fission options for.
-  List<Pair<Persona, Persona>> getFissionOptions(Persona target) {
+  List<FusionResult> getFissionOptions(Persona target) {
     final resultsFromOthers = getFissionOptionsFromOthers(target);
     final resultsFromSame = getFissionOptionsFromSame(target);
 
     return [...resultsFromOthers, ...resultsFromSame];
   }
 
-  List<Persona> getSpecialFissions(Persona target) {
+  FusionResult? getSpecialFissions(Persona target) {
     final specialName = target.name;
     if (!specialFusions.containsKey(specialName)) {
-      return [];
+      return null;
     }
 
     final specialRecipe = specialFusions[specialName]!;
-    final result = specialRecipe.map((name) {
+    final ingredients = specialRecipe.map((name) {
       return personaCache.values.firstWhere((p) => p.name == name);
     }).toList();
 
-    return result;
+    return FusionResult(ingredients: ingredients, result: target);
   }
 }
