@@ -1,3 +1,4 @@
+import 'package:intl/intl.dart';
 import 'config.dart';
 import 'affinities.dart';
 
@@ -52,6 +53,7 @@ class Persona {
   /// The types of skills this persona can inherit when fused.
   final InheritanceTypes inheritanceType;
 
+  /// Whether the Persona has a special fusion.
   final bool hasSpecialFusion;
 
   /// A shorter form of the condition for unlocking the persona.
@@ -73,10 +75,30 @@ class Persona {
     }
   }
 
+  /// The price of the Persona (estimated using stats).
+  int get price {
+    final total = stats.values.fold<int>(0, (acc, val) => acc + val);
+    return 2000 + (total * total);
+  }
+
+  /// Formatted price of the persona (displayed with Yen symbol)
+  String get formattedPrice {
+    final formatter = NumberFormat.currency(
+      locale: 'en_US',
+      symbol: '\u00a5',
+      decimalDigits: 0,
+    );
+    return formatter.format(price);
+  }
+
   /// Creates a Persona from a JSON object.
   /// The [name] is used as the key to find the Persona in the JSON.
-  /// The [allSkills] list is used to find the skills by name.
   /// The [json] is the JSON object containing the Persona data.
+  /// The [unlockMethod] is the method used to unlock the Persona.
+  /// The [fusionCondition] is the condition for the Persona to be fused.
+  /// The [hasSpecialFusion] is whether the Persona has a special fusion.
+  ///
+  /// Returns the Persona object.
   factory Persona.fromJson(
     String name,
     Map<String, dynamic> json,

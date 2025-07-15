@@ -9,18 +9,32 @@ import 'types/shadow.dart';
 
 /// The base class for managing all Persona data.
 class PersonaData {
+  /// The configuration reader used to load data from JSON files.
   final PersonaConfigReader reader;
+
+  /// Creates a new PersonaData instance with the specified reader.
   PersonaData(this.reader);
 
+  /// Internal map storing all loaded skills by their names.
   final Map<String, PersonaSkill> _skills = {};
+
+  /// Internal map storing all loaded personas by their names.
   final Map<String, Persona> _personas = {};
+
+  /// Internal map storing all loaded shadows by their names.
   final Map<String, PersonaShadow> _shadows = {};
+
+  /// Internal map tracking the unlock status of each persona.
   final Map<String, bool> _personaUnlocked = {};
+
+  /// Internal map storing the default unlock status for each persona.
   final Map<String, bool> _defaultUnlocked = {};
 
+  /// The fusion calculator instance used for persona fusion operations.
   final FusionCalculator fusionCalculator = FusionCalculator();
 
-  /// Process the skills read from the data source.
+  /// Loads and processes all skill data from JSON files, creating PersonaSkill objects.
+  /// Clears existing skills before loading new ones.
   Future<void> loadSkills() async {
     try {
       if (!reader.isReady) {
@@ -54,7 +68,8 @@ class PersonaData {
     }
   }
 
-  /// Process the shadows read from the data source.
+  /// Loads and processes all shadow data from JSON files, creating PersonaShadow objects.
+  /// Ensures skills are loaded first since shadows may reference skills.
   Future<void> loadShadows() async {
     if (_skills.isEmpty) {
       await loadSkills();
@@ -89,10 +104,14 @@ class PersonaData {
   }
 
   /// Process the persona data read from the JSON files.
+  ///
   /// Sources:
   /// - `jsons/demon-data.json` (Base persona data)
   /// - `jsons/demon-unlocks.json` (Unlock conditions)
   /// - `jsons/party-data.json` (Party personas)
+  ///
+  /// Processes unlock methods and conditions, creates Persona objects,
+  /// and establishes relationships between personas and their skills.
   Future<void> loadPersonas() async {
     if (_skills.isEmpty) {
       await loadSkills();
@@ -184,13 +203,30 @@ class PersonaData {
   }
 
   /// Set the unlocked status of a persona.
+  ///
+  /// [name] The name of the persona to update.
+  /// [unlocked] Whether the persona should be unlocked (true) or locked (false).
+  ///
+  /// Returns true if the persona was found and updated, false otherwise.
   bool setPersonaUnlocked(String name, bool unlocked) {
     if (_personas.containsKey(name)) {
       _personaUnlocked[name] = unlocked;
       if (unlocked) {
         fusionCalculator.addPersona(_personas[name]!);
+        for (var skillName in _personas[name]!.skills.keys) {
+          final skill = _skills[skillName];
+          if (skill != null) {
+            skill.addPersona(name, _personas[name]!.skills[skillName]!);
+          }
+        }
       } else {
         fusionCalculator.removePersona(_personas[name]!);
+        for (var skillName in _personas[name]!.skills.keys) {
+          final skill = _skills[skillName];
+          if (skill != null) {
+            skill.removePersona(name);
+          }
+        }
       }
       return true;
     } else {
@@ -202,6 +238,12 @@ class PersonaData {
   }
 
   /// Initialize the library for use by loading and processing all data.
+  ///
+  /// Loads configuration, skills, personas, shadows, initializes fusion calculator,
+  /// and sets initial unlock status for all personas.
+  ///
+  /// [unlocks] Optional map of persona names to their unlock status.
+  ///           If not provided, uses default unlock status from data files.
   Future<void> initialize(Map<String, bool>? unlocks) async {
     await reader.loadConfig();
     await loadSkills();
@@ -222,13 +264,15 @@ class PersonaData {
     }
   }
 
-  /// The map of all skills available in the game.
+  /// Returns a map where keys are skill names and values are PersonaSkill objects.
   Map<String, PersonaSkill> get skills => _skills;
 
-  /// The map of all unlockable personas and their unlock status.
+  /// Returns a map where keys are persona names and values are boolean
+  /// indicating whether the persona is currently unlocked.
   Map<String, bool> get personaUnlocked => _personaUnlocked;
 
-  /// Unlockable personas are the ones that can be toggled in the app.
+  /// Returns personas that can have their unlock status changed by the user.
+  /// Excludes locked personas (party members) and level-progression personas.
   Map<String, Persona> get unlockablePersonas {
     final Map<String, Persona> unlockable = {};
     _personas.forEach((key, persona) {
@@ -240,7 +284,8 @@ class PersonaData {
     return unlockable;
   }
 
-  /// Returns a map of unlocked personas for most of the app logic.
+  /// Returns all personas currently available for use.
+  /// Filters out locked personas.
   Map<String, Persona> get personas {
     final Map<String, Persona> unlockedPersonas = {};
     _personas.forEach((key, persona) {
@@ -251,11 +296,36 @@ class PersonaData {
     return unlockedPersonas;
   }
 
-  /// Returns a map of all shadows in the game.
+  ///
+  /// Returns a map where keys are shadow names and values are PersonaShadow objects.
   Map<String, PersonaShadow> get shadows => _shadows;
 
+  /// Gets a persona by its exact name from the internal data.
+  ///
+  /// [name] The exact name of the persona to retrieve.
+  Persona? getPersonaByName(String name) {
+    return _personas[name];
+  }
+
+  /// Gets a skill by its exact name from the internal data.
+  ///
+  /// [name] The exact name of the skill to retrieve.
+  PersonaSkill? getSkillByName(String name) {
+    return _skills[name];
+  }
+
+  /// Gets a shadow by its exact name from the internal data.
+  ///
+  /// [name] The exact name of the shadow to retrieve.
+  PersonaShadow? getShadowByName(String name) {
+    return _shadows[name];
+  }
+
   /// Creates a PersonaData instance from a given path.
-  /// The path should point to the directory containing the JSON files.
+  ///
+  /// [path] The path to the directory containing the JSON files.
+  ///
+  /// Returns a new PersonaData instance ready for initialization.
   factory PersonaData.fromPath(String path) {
     return PersonaData(PersonaConfigReader(path));
   }

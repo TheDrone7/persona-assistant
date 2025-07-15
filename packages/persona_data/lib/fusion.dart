@@ -3,11 +3,13 @@ import 'types/persona.dart';
 import 'package:pair/pair.dart';
 
 class FusionCalculator {
-  // Key1 + Key2 = val2
+  /// Key1 + Key2 = val2
   final Map<Arcana, Map<Arcana, Arcana>> fusionChart = {};
-  // Key = val1 + val2
+
+  /// Key = val1 + val2
   final Map<Arcana, List<Pair<Arcana, Arcana>>> reverseFusionChart = {};
-  // ignore arcana
+
+  /// ignore arcana
   final Map<String, List<String>> specialFusions = {};
 
   /// Persona levels for each arcana that can be fused to create a new persona.
@@ -25,6 +27,8 @@ class FusionCalculator {
   /// Sets up the fusion chart based on the provided fusion table from the json file.
   /// This NEEDS to be called AFTER setting up the special fusions.
   /// And BEFORE adding the personas or using the calculator.
+  ///
+  /// [fusionTable] The fusion table from the json file.
   void _setupTable(List<dynamic> fusionTable) {
     fusionChart.clear();
     reverseFusionChart.clear();
@@ -57,6 +61,8 @@ class FusionCalculator {
 
   /// Sets up the special fusions based on the provided specials list from the json file.
   /// This NEEDS to be called BEFORE setting up the fusion table.
+  ///
+  /// [specialsList] The specials list from the json file.
   void _setupSpecials(Map<String, dynamic> specialsList) {
     specialFusions.clear();
 
@@ -68,6 +74,8 @@ class FusionCalculator {
   }
 
   /// Adds a persona to the calculations for fusion.
+  ///
+  /// [persona] The persona to add to the calculations.
   void addPersona(Persona persona) {
     if (persona.unlockMethod == PersonaUnlockMethod.locked) {
       return;
@@ -95,6 +103,8 @@ class FusionCalculator {
   }
 
   /// Removes a persona from the calculations for fusion.
+  ///
+  /// [persona] The persona to remove from the calculations.
   void removePersona(Persona persona) {
     final arcana = persona.arcana;
     final level = persona.level;
@@ -104,6 +114,11 @@ class FusionCalculator {
     personaCache.removeWhere((key, val) => val.name == persona.name);
   }
 
+  /// Initializes the fusion calculator.
+  ///
+  /// [personas] The list of personas to add to the calculations.
+  /// [fusionTable] The fusion table from the json file.
+  /// [specialsList] The specials list from the json file.
   void initialize(
     List<Persona> personas,
     List<dynamic> fusionTable,
@@ -124,7 +139,9 @@ class FusionCalculator {
     }
   }
 
-  /// Returns the fusion result for the given arcana.
+  /// Returns the fusion results for the given persona when fused with other arcanas.
+  ///
+  /// [source] The persona to get the fusion results for.
   List<Pair<Persona, Persona>> getFusionResultsWithOther(Persona source) {
     final arcana = source.arcana;
     final level = source.level;
@@ -177,6 +194,9 @@ class FusionCalculator {
     return result;
   }
 
+  /// Returns the fusion results for the given persona when fused with the same arcana.
+  ///
+  /// [source] The persona to get the fusion results for.
   List<Pair<Persona, Persona>> getFusionResultsWithSame(Persona source) {
     final arcana = source.arcana;
     final level = source.level;
@@ -221,6 +241,9 @@ class FusionCalculator {
     return result;
   }
 
+  /// Returns all of the fusion results for the given persona.
+  ///
+  /// [source] The persona to get the fusion results for.
   List<Pair<Persona, Persona>> getFusionResults(Persona source) {
     final resultsWithOther = getFusionResultsWithOther(source);
     final resultsWithSame = getFusionResultsWithSame(source);
@@ -228,6 +251,9 @@ class FusionCalculator {
     return [...resultsWithOther, ...resultsWithSame];
   }
 
+  /// Returns the fission options for the given persona when ingredient personas belong to different arcanas.
+  ///
+  /// [target] The persona to get the fission options for.
   List<Pair<Persona, Persona>> getFissionOptionsFromOthers(Persona target) {
     final targetArcana = target.arcana;
     final targetLevel = target.level;
@@ -287,6 +313,9 @@ class FusionCalculator {
     return result;
   }
 
+  /// Returns the fission options for the given persona when ingredient personas belong to the same arcana.
+  ///
+  /// [target] The persona to get the fission options for.
   List<Pair<Persona, Persona>> getFissionOptionsFromSame(Persona target) {
     final List<Pair<Persona, Persona>> result = [];
     final targetArcana = target.arcana;
@@ -343,6 +372,9 @@ class FusionCalculator {
     return result;
   }
 
+  /// Returns all of the fission options for the given persona.
+  ///
+  /// [target] The persona to get the fission options for.
   List<Pair<Persona, Persona>> getFissionOptions(Persona target) {
     final resultsFromOthers = getFissionOptionsFromOthers(target);
     final resultsFromSame = getFissionOptionsFromSame(target);

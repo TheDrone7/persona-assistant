@@ -13,8 +13,10 @@ enum CombatElement {
   almighty;
 
   @override
+  /// Returns the string representation of the combat element.
   String toString() => name[0].toUpperCase() + name.substring(1);
 
+  /// The path to the image of the combat element (must be prefixed with the proper asset location).
   String get imagePath => 'images/skills/${name.toLowerCase()}.png';
 }
 
@@ -28,6 +30,7 @@ enum Ailment {
   rage;
 
   @override
+  /// Returns the string representation of the ailment.
   String toString() => name[0].toUpperCase() + name.substring(1, 3);
 }
 
@@ -48,9 +51,10 @@ enum InheritanceElement {
   support;
 
   @override
+  /// Returns the string representation of the inheritance element.
   String toString() => name[0].toUpperCase() + name.substring(1);
 
-  /// Returns the path to the image of the inheritance element (must be prefixed with the proper asset location).
+  /// The path to the image of the inheritance element (must be prefixed with the proper asset location).
   String get imagePath => 'images/skills/${name.toLowerCase()}.png';
 }
 
@@ -83,11 +87,13 @@ enum Arcana {
   @override
   String toString() => name[0].toUpperCase() + name.substring(1);
 
-  /// Returns the path to the image of the arcana (must be prefixed with the proper asset location).
+  /// The path to the image of the arcana (must be prefixed with the proper asset location).
   /// For example, if the arcana is "Fool", the path will be "images/arcana/fool.png".
   String get imagePath => 'images/arcana/${name.toLowerCase()}.png';
 
   /// Returns the arcana from a string name.
+  ///
+  /// [name] The string name of the arcana.
   static Arcana fromString(String name) {
     for (var value in Arcana.values) {
       if (value.name.toLowerCase() == name.toLowerCase()) {
@@ -121,12 +127,16 @@ enum ResistanceCode {
   /// The percentage damage value associated with this resistance code.
   final int damageValue;
 
+  /// Creates a new ResistanceCode object.
   const ResistanceCode(this.short, this.desc, this.damageValue);
 
   @override
+  /// Returns the string representation of the resistance code.
   String toString() => short;
 
-  /// Returns a ResistanceCode from a single letter.
+  /// Returns a ResistanceCode from a single letter
+  ///
+  /// [code] The single letter code to convert to a ResistanceCode.
   static ResistanceCode fromString(String code) =>
       ResistanceCode.values.firstWhere(
         (resistance) => resistance.name == code.toLowerCase(),
@@ -186,6 +196,8 @@ enum InheritanceTypes {
   }
 
   /// Create an InheritanceTypes from a string name.
+  ///
+  /// [code] The string representation of the inheritance types.
   static InheritanceTypes fromString(String? code) {
     for (var value in InheritanceTypes.values) {
       if (value.name == code) {

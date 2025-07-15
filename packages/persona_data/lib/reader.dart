@@ -1,18 +1,41 @@
 import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
 
+/// Reads the Persona data from the JSON files.
 class PersonaConfigReader {
+  /// The path to the directory containing the JSON files.
   final String dirPath;
+
+  /// The data for the personas.
   final Map<String, dynamic> _personaData = {};
+
+  /// The data for the unlockable personas.
   final List<dynamic> _unlockData = [];
+
+  /// The data for the enemies.
   final Map<String, dynamic> _enemyData = {};
+
+  /// The data for the fusion chart.
   final Map<String, dynamic> _fusionData = {};
+
+  /// The data for the party.
   final Map<String, dynamic> _partyData = {};
+
+  /// The data for the skills.
   final Map<String, dynamic> _skillData = {};
+
+  /// The data for the special recipes.
   final Map<String, dynamic> _specialData = {};
+
+  /// Whether the data has been loaded.
   bool _isLoaded = false;
+
+  /// Creates a new PersonaConfigReader.
+  ///
+  /// [dirPath] The path to the directory containing the JSON files.
   PersonaConfigReader(this.dirPath);
 
+  /// Loads the Persona data from the JSON files.
   Future<void> loadConfig() async {
     try {
       final String personaString = await rootBundle.loadString(
@@ -92,13 +115,30 @@ class PersonaConfigReader {
     }
   }
 
+  /// The root directory of the JSON files.
   String get rootDir => dirPath.endsWith('/') ? dirPath : '$dirPath/';
+
+  /// The data for the personas.
   Map<String, dynamic> get personaData => _personaData;
+
+  /// The data for the unlockable personas.
   List<dynamic> get unlockData => _unlockData;
+
+  /// The data for the enemies.
   Map<String, dynamic> get enemyData => _enemyData;
+
+  /// The data for the fusion chart.
   Map<String, dynamic> get fusionData => _fusionData;
+
+  /// The data for the party.
   Map<String, dynamic> get partyData => _partyData;
+
+  /// The data for the skills.
   Map<String, dynamic> get skillData => _skillData;
+
+  /// The data for the special recipes.
   Map<String, dynamic> get specialData => _specialData;
+
+  /// Whether the data has been loaded.
   bool get isReady => _isLoaded;
 }

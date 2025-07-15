@@ -15,6 +15,7 @@ enum SkillType {
   special,
   passive;
 
+  /// The path to the image of the skill (must be prefixed with the proper asset location).
   String get imagePath =>
       'images/skills/${name == 'attack'
           ? 'almighty'
@@ -52,6 +53,7 @@ enum SkillCostType { gauge, hp, sp, none }
 
 /// Represents a Persona's skill.
 class PersonaSkill {
+  /// Creates a new PersonaSkill instance.
   PersonaSkill({
     required this.id,
     required this.name,
@@ -126,7 +128,10 @@ class PersonaSkill {
 
   /// Creates a PersonaSkill instance from a JSON object.
   ///
-  /// The JSON object is as expected from skill-data.json asset file.
+  /// The [id] is the unique identifier for the skill.
+  /// The [json] is the JSON object containing the skill data.
+  ///
+  /// Returns the PersonaSkill object.
   factory PersonaSkill.fromJson(int id, Map<String, dynamic> json) {
     if (!json.containsKey('a') ||
         !json.containsKey('b') ||
@@ -286,22 +291,38 @@ class PersonaSkill {
     );
   }
 
-  /// Check if the skill is unique.
+  /// Whether the skill is unique (rank > 89).
   bool get isUnique => rank > 89;
 
-  /// A path to the image for the skill icon.
+  /// The path to the image for the skill icon.
   String get imagePath =>
       type == SkillType.attack ? element.imagePath : type.imagePath;
 
   /// Adds a persona that can learn this skill and the level at which it learns it.
+  ///
+  /// The [personaName] is the name of the persona that can learn the skill.
+  /// The [lvl] is the level at which the persona learns the skill.
   void addPersona(String personaName, int lvl) {
     if (!personas.containsKey(personaName)) {
       personas[personaName] = lvl;
     }
   }
+
+  /// Removes a persona that can learn this skill.
+  ///
+  /// The [personaName] is the name of the persona that can no longer learn the skill.
+  void removePersona(String personaName) {
+    personas.remove(personaName);
+  }
 }
 
 /// Parse the skill effect text from the format string.
+///
+/// The [format] is the format of the skill effect.
+/// The [num] is the number of the skill effect.
+/// The [text] is the text of the skill effect.
+/// The [pwr] is the power of the skill effect.
+/// The [type] is the type of the skill effect.
 String _parseSkillEffect(
   String format,
   int num,

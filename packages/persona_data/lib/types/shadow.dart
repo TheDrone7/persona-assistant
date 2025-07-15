@@ -43,6 +43,7 @@ class PersonaShadow {
   /// Whether the shadow is a boss or not.
   final bool isBoss;
 
+  /// Creates a new PersonaShadow object.
   PersonaShadow({
     required this.ailments,
     required this.affinities,
@@ -59,7 +60,11 @@ class PersonaShadow {
     this.isBoss = false,
   });
 
-  /// Parses the resistances from a string representation.
+  /// Creates a new PersonaShadow object from a JSON object.
+  /// The [name] is used as the key to find the Persona in the JSON.
+  /// The [json] is the JSON object containing the Persona data.
+  ///
+  /// Returns the PersonaShadow object.
   factory PersonaShadow.fromJson(String name, Map<String, dynamic> json) {
     Map<CombatElement, ResistanceCode> resistances = parseResistances(
       json['resists'] as String,
