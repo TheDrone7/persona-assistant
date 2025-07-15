@@ -41,7 +41,10 @@ class InfoTab extends StatelessWidget {
         ],
         const SectionSpacing(),
         const SectionHeader(title: 'Persona Stats'),
-        DetailedPersonaPageStatsBox(stats: persona.stats),
+        DetailedPersonaPageStatsBox(
+          stats: persona.stats,
+          formattedPrice: persona.formattedPrice,
+        ),
         const SectionSpacing(),
         const SectionHeader(title: 'Combat Affinities'),
         DetailedPersonaPageAffinitiesBox(affinities: persona.resistances),

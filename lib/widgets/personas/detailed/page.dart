@@ -6,9 +6,19 @@ import 'fusions.dart';
 import 'fissions.dart';
 
 /// A detailed page displaying all information about a [Persona].
+///
+/// This page provides a comprehensive view of a persona with three main tabs:
+/// - Info: Basic persona information, stats, and details
+/// - Fusions: Available fusion combinations with this persona
+/// - Fissions: Available fission combinations to create this persona
 class DetailedPersonaPage extends StatefulWidget {
-  /// The persona to display.
+  /// The persona to display detailed information for.
   final Persona persona;
+
+  /// Creates a [DetailedPersonaPage] widget.
+  ///
+  /// The [persona] parameter is required and represents the persona
+  /// whose detailed information will be displayed.
   const DetailedPersonaPage({super.key, required this.persona});
 
   @override
@@ -16,21 +26,29 @@ class DetailedPersonaPage extends StatefulWidget {
 }
 
 class _DetailedPersonaPageState extends State<DetailedPersonaPage> {
+  /// The currently selected tab index.
+  /// 0 = Info, 1 = Fusions, 2 = Fissions
   int _selectedIndex = 0;
 
+  /// Builds the content for the currently selected tab.
+  ///
+  /// Returns the appropriate tab content widget based on [_selectedIndex].
   Widget _buildTabContent() {
     switch (_selectedIndex) {
       case 0:
         return InfoTab(persona: widget.persona);
       case 1:
-        return const FusionsTab();
+        return FusionsTab(persona: widget.persona);
       case 2:
-        return const FissionsTab();
+        return FissionsTab(persona: widget.persona);
       default:
         return const SizedBox.shrink();
     }
   }
 
+  /// Handles tab selection changes.
+  ///
+  /// [index] - The index of the newly selected tab
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -82,10 +100,20 @@ class _DetailedPersonaPageState extends State<DetailedPersonaPage> {
   }
 }
 
+/// A custom navigation bar icon widget that includes spacing below the icon.
+///
+/// This widget is used to create consistent spacing in the bottom navigation bar
+/// icons, providing better visual alignment and touch targets.
 class _NavBarIconWithSpacing extends StatelessWidget {
+  /// The icon to display.
   final IconData icon;
+
+  /// The label text (used for accessibility).
   final String label;
 
+  /// Creates a [_NavBarIconWithSpacing] widget.
+  ///
+  /// Both [icon] and [label] are required parameters.
   const _NavBarIconWithSpacing({required this.icon, required this.label});
 
   @override
@@ -94,7 +122,7 @@ class _NavBarIconWithSpacing extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         FaIcon(icon),
-        const SizedBox(height: 8), // Adjust this value for more/less spacing
+        const SizedBox(height: 8), // Spacing for better visual alignment
       ],
     );
   }
