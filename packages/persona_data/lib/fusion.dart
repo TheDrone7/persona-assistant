@@ -263,7 +263,7 @@ class FusionCalculator {
   /// [target] The persona to get the fission options for.
   List<FusionResult> getFissionOptionsFromOthers(Persona target) {
     final List<FusionResult> result = [];
-    
+
     final targetArcana = target.arcana;
     final targetLevel = target.level;
 
