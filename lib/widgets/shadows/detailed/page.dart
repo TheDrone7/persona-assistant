@@ -3,6 +3,7 @@ import 'package:persona_data/lib.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:persona_assistant/widgets/common/section_header.dart';
 import 'package:persona_assistant/widgets/common/section_spacing.dart';
+import 'dart:ui';
 
 import 'arcana.dart';
 import 'stats.dart';
@@ -19,47 +20,65 @@ class DetailedShadowPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(shadow.name),
-        leading: IconButton(
-          icon: const FaIcon(FontAwesomeIcons.arrowLeft),
-          onPressed: () => Navigator.of(context).pop(),
+    return Stack(
+      children: [
+        Image.asset(
+          'assets/images/bg1.jpg',
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          fit: BoxFit.cover,
         ),
-      ),
-      body: ListView(
-        children: [
-          DetailedShadowPageArcanaBox(
-            arcana: shadow.arcana,
-            level: shadow.level,
-            areaEncountered: shadow.areaEncountered,
-            isBoss: shadow.isBoss,
+        Scaffold(
+          backgroundColor: Colors.transparent,
+          appBar: AppBar(
+            flexibleSpace: ClipRect(
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
+                child: Container(color: Colors.transparent),
+              ),
+            ),
+            title: Text(shadow.name),
+            leading: IconButton(
+              icon: const FaIcon(FontAwesomeIcons.xmark),
+              onPressed: () =>
+                  Navigator.of(context).popUntil((Route r) => r.isFirst),
+            ),
           ),
-          const SectionSpacing(),
-          const SectionHeader(title: 'Shadow Stats'),
-          DetailedShadowPageStatsBox(
-            stats: shadow.stats,
-            hp: shadow.hp,
-            mp: shadow.mp,
-            xp: shadow.experience,
+          body: ListView(
+            children: [
+              DetailedShadowPageArcanaBox(
+                arcana: shadow.arcana,
+                level: shadow.level,
+                areaEncountered: shadow.areaEncountered,
+                isBoss: shadow.isBoss,
+              ),
+              const SectionSpacing(),
+              const SectionHeader(title: 'Shadow Stats'),
+              DetailedShadowPageStatsBox(
+                stats: shadow.stats,
+                hp: shadow.hp,
+                mp: shadow.mp,
+                xp: shadow.experience,
+              ),
+              const SectionSpacing(),
+              const SectionHeader(title: 'Combat Affinities'),
+              DetailedShadowPageAffinitiesBox(affinities: shadow.affinities),
+              const SectionSpacing(),
+              const SectionHeader(title: 'Ailment Affinities'),
+              DetailedShadowPageAilmentsBox(ailments: shadow.ailments),
+              if (shadow.drops.isNotEmpty) ...[
+                const SectionSpacing(),
+                const SectionHeader(title: 'Drops'),
+                DetailedShadowPageDropsList(drops: shadow.drops),
+              ],
+              const SectionSpacing(),
+              const SectionHeader(title: 'Skills'),
+              DetailedShadowPageSkillsList(skills: shadow.skills),
+              const SectionSpacing(),
+            ],
           ),
-          const SectionSpacing(),
-          const SectionHeader(title: 'Combat Affinities'),
-          DetailedShadowPageAffinitiesBox(affinities: shadow.affinities),
-          const SectionSpacing(),
-          const SectionHeader(title: 'Ailment Affinities'),
-          DetailedShadowPageAilmentsBox(ailments: shadow.ailments),
-          if (shadow.drops.isNotEmpty) ...[
-            const SectionSpacing(),
-            const SectionHeader(title: 'Drops'),
-            DetailedShadowPageDropsList(drops: shadow.drops),
-          ],
-          const SectionSpacing(),
-          const SectionHeader(title: 'Skills'),
-          DetailedShadowPageSkillsList(skills: shadow.skills),
-          const SectionSpacing(),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
