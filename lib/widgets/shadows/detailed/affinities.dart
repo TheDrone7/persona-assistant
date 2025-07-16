@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:persona_data/lib.dart';
 import 'package:catppuccin_flutter/catppuccin_flutter.dart';
-import 'package:persona_assistant/widgets/common/detailed_shared.dart';
+import 'package:persona_assistant/widgets/common/detailed/shared.dart';
 
 /// Displays a table of combat affinities for a Shadow, including damage values.
 class DetailedShadowPageAffinitiesBox extends StatelessWidget {

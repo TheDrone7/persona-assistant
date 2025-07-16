@@ -3,7 +3,7 @@ import 'package:persona_data/lib.dart';
 import 'package:persona_assistant/state/state.dart';
 import 'package:provider/provider.dart';
 import 'package:persona_assistant/widgets/skills/detailed/page.dart';
-import 'package:persona_assistant/widgets/common/detailed_shared.dart';
+import 'package:persona_assistant/widgets/common/detailed/shared.dart';
 
 /// Displays a table of skills for a Shadow.
 class DetailedShadowPageSkillsList extends StatelessWidget {

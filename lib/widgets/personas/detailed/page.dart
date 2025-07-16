@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:persona_data/lib.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'dart:ui';
 import 'info.dart';
 import 'fusions.dart';
 import 'fissions.dart';
@@ -57,45 +58,62 @@ class _DetailedPersonaPageState extends State<DetailedPersonaPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.persona.name),
-        leading: IconButton(
-          icon: const FaIcon(FontAwesomeIcons.xmark),
-          onPressed: () =>
-              Navigator.of(context).popUntil((Route r) => r.isFirst),
+    return Stack(
+      children: [
+        Image.asset(
+          'assets/images/bg1.jpg',
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          fit: BoxFit.cover,
         ),
-      ),
-      body: _buildTabContent(),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
-        showSelectedLabels: true,
-        showUnselectedLabels: false,
-        items: const [
-          BottomNavigationBarItem(
-            icon: _NavBarIconWithSpacing(
-              icon: FontAwesomeIcons.circleInfo,
-              label: 'Info',
+        Scaffold(
+          backgroundColor: Colors.transparent,
+          appBar: AppBar(
+            flexibleSpace: ClipRect(
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
+                child: Container(color: Colors.transparent),
+              ),
             ),
-            label: 'Info',
-          ),
-          BottomNavigationBarItem(
-            icon: _NavBarIconWithSpacing(
-              icon: FontAwesomeIcons.arrowsTurnToDots,
-              label: 'Fusions',
+            title: Text(widget.persona.name),
+            leading: IconButton(
+              icon: const FaIcon(FontAwesomeIcons.xmark),
+              onPressed: () =>
+                  Navigator.of(context).popUntil((Route r) => r.isFirst),
             ),
-            label: 'Fusions',
           ),
-          BottomNavigationBarItem(
-            icon: _NavBarIconWithSpacing(
-              icon: FontAwesomeIcons.arrowsToCircle,
-              label: 'Fissions',
-            ),
-            label: 'Fissions',
+          body: _buildTabContent(),
+          bottomNavigationBar: BottomNavigationBar(
+            currentIndex: _selectedIndex,
+            onTap: _onItemTapped,
+            showSelectedLabels: true,
+            showUnselectedLabels: false,
+            items: const [
+              BottomNavigationBarItem(
+                icon: _NavBarIconWithSpacing(
+                  icon: FontAwesomeIcons.circleInfo,
+                  label: 'Info',
+                ),
+                label: 'Info',
+              ),
+              BottomNavigationBarItem(
+                icon: _NavBarIconWithSpacing(
+                  icon: FontAwesomeIcons.arrowsTurnToDots,
+                  label: 'Fusions',
+                ),
+                label: 'Fusions',
+              ),
+              BottomNavigationBarItem(
+                icon: _NavBarIconWithSpacing(
+                  icon: FontAwesomeIcons.arrowsToCircle,
+                  label: 'Fissions',
+                ),
+                label: 'Fissions',
+              ),
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

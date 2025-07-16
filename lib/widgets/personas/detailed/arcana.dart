@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:persona_data/lib.dart';
-import 'package:persona_assistant/widgets/common/detailed_shared.dart';
+import 'package:persona_assistant/widgets/common/detailed/shared.dart';
 
 /// Displays the arcana box for a Persona, including arcana, level, and special fusion info.
 class DetailedPersonaPageArcanaBox extends StatelessWidget {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:persona_data/lib.dart';
-import 'package:persona_assistant/widgets/common/detailed_shared.dart';
+import 'package:persona_assistant/widgets/common/detailed/shared.dart';
 
 /// Displays a table of stats for a Shadow, including HP, MP, and XP.
 class DetailedShadowPageStatsBox extends StatelessWidget {
