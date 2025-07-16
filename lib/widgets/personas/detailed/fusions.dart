@@ -1,14 +1,17 @@
-import 'package:flutter/material.dart';
-import 'package:persona_data/lib.dart';
-import 'package:persona_assistant/state/state.dart';
-import 'package:persona_assistant/constants/sort_options.dart';
-import 'package:persona_assistant/utilities/fusion_sort.dart';
-import 'package:persona_assistant/types/filters.dart';
-import 'package:provider/provider.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'dart:ui';
-import 'fusion_card.dart';
+
+import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:persona_data/lib.dart';
+import 'package:provider/provider.dart';
+
+import 'package:persona_assistant/constants/sort_options.dart';
+import 'package:persona_assistant/state/state.dart';
+import 'package:persona_assistant/types/filters.dart';
+import 'package:persona_assistant/utilities/fusion_sort.dart';
+
 import '../../common/fusion_sort_button.dart';
+import 'fusion_card.dart';
 
 /// A tab widget that displays available fusion results for a given persona.
 ///
@@ -52,18 +55,21 @@ class _FusionsTabState extends State<FusionsTab> {
         ClipRect(
           child: BackdropFilter(
             filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
-                          child: Container(
-                decoration: BoxDecoration(
-                  color: Theme.of(context).appBarTheme.backgroundColor?.withAlpha(200) ?? 
-                         Theme.of(context).colorScheme.surface.withAlpha(200),
-                  border: Border(
-                    bottom: BorderSide(
-                      color: Theme.of(context).colorScheme.outline.withAlpha(120),
-                      width: 1,
-                    ),
+            child: Container(
+              decoration: BoxDecoration(
+                color:
+                    Theme.of(
+                      context,
+                    ).appBarTheme.backgroundColor?.withAlpha(200) ??
+                    Theme.of(context).colorScheme.surface.withAlpha(200),
+                border: Border(
+                  bottom: BorderSide(
+                    color: Theme.of(context).colorScheme.outline.withAlpha(120),
+                    width: 1,
                   ),
                 ),
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+              ),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

@@ -1,7 +1,9 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:persona_data/lib.dart';
-import 'package:persona_assistant/widgets/common/detailed/shared.dart';
-import 'dart:ui';
+
+import '../../common/detailed/shared.dart';
 
 /// Displays a table of stats for a Persona, including estimated price.
 class DetailedPersonaPageStatsBox extends StatelessWidget {
@@ -96,7 +98,9 @@ class DetailedPersonaPageStatsBox extends StatelessWidget {
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
                 decoration: BoxDecoration(
-                  color: Theme.of(context).listTileTheme.tileColor!.withAlpha(150),
+                  color: Theme.of(
+                    context,
+                  ).listTileTheme.tileColor!.withAlpha(150),
                   border: Border.all(
                     color: Theme.of(context).dividerColor.withAlpha(50),
                   ),

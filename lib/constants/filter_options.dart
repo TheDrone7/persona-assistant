@@ -1,6 +1,6 @@
-import 'package:persona_assistant/types/extensions.dart';
-import 'package:persona_assistant/types/filters.dart';
 import 'package:persona_data/lib.dart';
+import '../types/extensions.dart';
+import '../types/filters.dart';
 
 /// Filter options for personas, including all Arcana types.
 final List<FilterOption> personaFilterOptions = [

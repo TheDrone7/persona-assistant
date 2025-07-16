@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:persona_assistant/widgets/common/detailed/shared.dart';
+import '../../common/detailed/shared.dart';
 
 /// Displays a table of item drops for a Shadow.
 class DetailedShadowPageDropsList extends StatelessWidget {
@@ -62,10 +62,7 @@ class DetailedShadowPageDropsList extends StatelessWidget {
           1: FlexColumnWidth(2.0),
         },
         defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-        children: [
-          dropListHeader(),
-          ...drops.entries.map(dropRow),
-        ],
+        children: [dropListHeader(), ...drops.entries.map(dropRow)],
       ),
     );
   }

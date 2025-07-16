@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'dart:ui';
+import 'package:flutter/material.dart';
 
 /// A reusable table cell widget for detailed views in persona and shadow pages.
 ///
@@ -35,7 +35,7 @@ class DetailedTableCell extends StatelessWidget {
         backgroundColor ??
         Theme.of(context).listTileTheme.tileColor?.withAlpha(150) ??
         Theme.of(context).colorScheme.surface.withAlpha(150);
-    
+
     return ClipRect(
       child: BackdropFilter(
         filter: ImageFilter.blur(sigmaX: blurSigma, sigmaY: blurSigma),

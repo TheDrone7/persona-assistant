@@ -1,9 +1,11 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:persona_data/lib.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:persona_assistant/widgets/common/section_header.dart';
-import 'package:persona_assistant/widgets/common/section_spacing.dart';
-import 'dart:ui';
+
+import '../../common/section_header.dart';
+import '../../common/section_spacing.dart';
 
 import 'arcana.dart';
 import 'stats.dart';

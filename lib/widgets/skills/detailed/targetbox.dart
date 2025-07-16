@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:persona_assistant/widgets/common/card.dart' as common;
 import 'package:persona_data/lib.dart';
+
+import '../../common/card.dart' as common;
 
 class DetailedSkillTargetBox extends StatelessWidget {
   final SkillTarget target;

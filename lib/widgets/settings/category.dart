@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:persona_data/lib.dart';
-import 'package:provider/provider.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:persona_assistant/state/state.dart';
+import 'package:provider/provider.dart';
+
+import 'package:persona_data/lib.dart';
+import '../../state/state.dart';
 
 /// A settings category for unlocking personas by a specific method.
 class UnlockSettingsCategory extends StatelessWidget {

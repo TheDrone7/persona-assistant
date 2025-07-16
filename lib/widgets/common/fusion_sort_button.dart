@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:persona_assistant/constants/sort_options.dart';
-import 'package:persona_assistant/types/filters.dart';
+import '../../constants/sort_options.dart';
+import '../../types/filters.dart';
 import 'filters_button.dart';
 
 /// A reusable sort button for fusion and fission tabs.
@@ -11,7 +11,7 @@ import 'filters_button.dart';
 class FusionSortButton extends StatefulWidget {
   /// The number of ingredients in the fusion/fission (typically 2).
   final int ingredientCount;
-  
+
   /// Whether this is for fusions (true) or fissions (false).
   /// This determines which sort options are available.
   final bool isFusion;
@@ -37,7 +37,7 @@ class _FusionSortButtonState extends State<FusionSortButton> {
   @override
   void initState() {
     super.initState();
-    _sortOrder = widget.isFusion 
+    _sortOrder = widget.isFusion
         ? fusionSortOptions(widget.ingredientCount).first
         : fissionSortOptions(widget.ingredientCount).first;
   }
@@ -50,17 +50,14 @@ class _FusionSortButtonState extends State<FusionSortButton> {
   }
 
   void _showSortOptions(BuildContext context) {
-    final options = widget.isFusion 
+    final options = widget.isFusion
         ? fusionSortOptions(widget.ingredientCount)
         : fissionSortOptions(widget.ingredientCount);
-        
+
     showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {
-        return _SortOptionsModal(
-          options: options,
-          onChanged: _setSortOrder,
-        );
+        return _SortOptionsModal(options: options, onChanged: _setSortOrder);
       },
     );
   }
@@ -78,10 +75,12 @@ class _FusionSortButtonState extends State<FusionSortButton> {
       ),
       child: IconButton(
         onPressed: () => _showSortOptions(context),
-        icon: _sortOrder.icon ?? FaIcon(
-          FontAwesomeIcons.sort,
-          color: Theme.of(context).colorScheme.onPrimary,
-        ),
+        icon:
+            _sortOrder.icon ??
+            FaIcon(
+              FontAwesomeIcons.sort,
+              color: Theme.of(context).colorScheme.onPrimary,
+            ),
         style: IconButton.styleFrom(
           foregroundColor: Theme.of(context).colorScheme.onPrimary,
           backgroundColor: Colors.transparent,
@@ -121,4 +120,4 @@ class _SortOptionsModal extends StatelessWidget {
       },
     );
   }
-} 
+}

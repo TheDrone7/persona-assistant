@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:persona_data/lib.dart';
 
-import 'typebox.dart';
+import 'card.dart';
+import 'effect.dart';
+import 'learnt.dart';
 import 'statbox.dart';
 import 'targetbox.dart';
-import 'effect.dart';
-import 'card.dart';
-import 'learnt.dart';
+import 'typebox.dart';
 
 class DetailedSkillPage extends StatelessWidget {
   final PersonaSkill skill;

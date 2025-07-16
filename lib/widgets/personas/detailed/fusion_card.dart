@@ -147,7 +147,9 @@ class FusionCard extends StatelessWidget {
                         children: [
                           _buildPersonaCard(context, persona1),
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 16.0,
+                            ),
                             child: FaIcon(icon),
                           ),
                           _buildPersonaCard(context, persona2),
@@ -161,7 +163,9 @@ class FusionCard extends StatelessWidget {
                           Container(
                             width: 100,
                             height: 1.5,
-                            color: Theme.of(context).colorScheme.outline.withAlpha(50),
+                            color: Theme.of(
+                              context,
+                            ).colorScheme.outline.withAlpha(50),
                           ),
                         ],
                       ),
@@ -176,9 +180,8 @@ class FusionCard extends StatelessWidget {
                           ),
                           Text(
                             totalPrice,
-                            style: Theme.of(
-                              context,
-                            ).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold),
+                            style: Theme.of(context).textTheme.bodyLarge
+                                ?.copyWith(fontWeight: FontWeight.bold),
                           ),
                         ],
                       ),
@@ -194,7 +197,9 @@ class FusionCard extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(
-                  color: Theme.of(context).colorScheme.onSecondary.withAlpha(80),
+                  color: Theme.of(
+                    context,
+                  ).colorScheme.onSecondary.withAlpha(80),
                   width: 1.5,
                 ),
               ),

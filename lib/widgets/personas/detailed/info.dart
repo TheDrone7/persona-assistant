@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:persona_data/lib.dart';
-import 'package:persona_assistant/widgets/common/section_header.dart';
-import 'package:persona_assistant/widgets/common/section_spacing.dart';
+
 import 'package:persona_assistant/types/padding.dart';
-import 'arcana.dart';
-import 'stats.dart';
+import '../../common/section_header.dart';
+import '../../common/section_spacing.dart';
+
 import 'affinities.dart';
-import 'skills.dart';
+import 'arcana.dart';
 import 'inherits.dart';
+import 'skills.dart';
+import 'stats.dart';
 import 'unlock.dart';
 
 class InfoTab extends StatelessWidget {

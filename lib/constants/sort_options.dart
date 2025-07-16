@@ -1,5 +1,5 @@
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:persona_assistant/types/filters.dart';
+import '../types/filters.dart';
 
 /// Sort options for personas, by arcana, level, or name.
 final List<SortOption> personaSortOptions = [

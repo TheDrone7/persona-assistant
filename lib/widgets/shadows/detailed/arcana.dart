@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:persona_data/lib.dart';
-import 'package:persona_assistant/widgets/common/detailed/shared.dart';
+
+import '../../common/detailed/shared.dart';
 
 /// Displays the arcana box for a Shadow, including arcana, level, area, and boss info.
 class DetailedShadowPageArcanaBox extends StatelessWidget {

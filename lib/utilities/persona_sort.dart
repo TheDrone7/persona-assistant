@@ -1,5 +1,5 @@
 import 'package:persona_data/lib.dart';
-import 'package:persona_assistant/types/filters.dart';
+import '../types/filters.dart';
 
 /// Sorts a list of Persona objects.
 ///
@@ -11,7 +11,7 @@ import 'package:persona_assistant/types/filters.dart';
 /// Returns a new sorted list of Persona objects.
 List<Persona> sortPersonas(List<Persona> personas, String sortType) {
   final sortedList = List<Persona>.from(personas);
-  
+
   switch (sortType) {
     case 'level_asc':
       sortedList.sort((a, b) => a.level.compareTo(b.level));
@@ -37,7 +37,7 @@ List<Persona> sortPersonas(List<Persona> personas, String sortType) {
       });
       break;
   }
-  
+
   return sortedList;
 }
 
@@ -64,7 +64,9 @@ List<Persona> filterPersonas(
   }
 
   // Apply unlocks filter
-  filteredList = filteredList.where((p) => personaUnlocks[p.name] ?? true).toList();
+  filteredList = filteredList
+      .where((p) => personaUnlocks[p.name] ?? true)
+      .toList();
 
   return filteredList;
-} 
+}

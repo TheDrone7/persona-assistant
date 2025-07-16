@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 
 /// A list item widget with a blurred background and a styled border, supporting tap interaction.

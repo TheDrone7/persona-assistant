@@ -3,9 +3,9 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
-import 'package:persona_assistant/state/state.dart';
-import 'package:persona_assistant/constants/sort_options.dart';
-import 'package:persona_assistant/constants/filter_options.dart';
+import '../../constants/filter_options.dart';
+import '../../constants/sort_options.dart';
+import '../../state/state.dart';
 import '../common/sort_and_filter_controls.dart';
 
 /// Widget for displaying sorting and filtering controls for Shadows.

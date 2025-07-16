@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:persona_assistant/widgets/common/card.dart' as common;
+import '../../common/card.dart' as common;
 
 class DetailedPersonaUnlockMethodBox extends StatelessWidget {
   final String details;

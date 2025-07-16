@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:persona_assistant/types/extensions.dart';
-import 'package:persona_assistant/widgets/common/card.dart' as common;
+
+import '../../common/card.dart' as common;
 
 class DetailedSkillEffectBox extends StatelessWidget {
   final String effectText;

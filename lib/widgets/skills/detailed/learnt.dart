@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:persona_assistant/widgets/personas/detailed/page.dart';
 import 'package:provider/provider.dart';
 import 'package:persona_assistant/state/state.dart';
+import '../../personas/detailed/page.dart';
 
 class DetailedSkillLearntBox extends StatelessWidget {
   final Map<String, int> personas;

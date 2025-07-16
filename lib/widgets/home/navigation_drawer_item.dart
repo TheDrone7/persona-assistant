@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 
 /// A widget representing a single item in the navigation drawer, with selection and icon support.

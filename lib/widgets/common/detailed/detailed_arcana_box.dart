@@ -1,6 +1,6 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:persona_data/lib.dart';
-import 'dart:ui';
 
 /// A reusable arcana box widget for detailed persona and shadow pages.
 ///
@@ -41,10 +41,7 @@ class DetailedArcanaBox extends StatelessWidget {
               ),
             ),
           ),
-          padding: const EdgeInsets.symmetric(
-            vertical: 16.0,
-            horizontal: 24.0,
-          ),
+          padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -62,9 +59,10 @@ class DetailedArcanaBox extends StatelessWidget {
                   children: [
                     Text(
                       title,
-                      style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                        color: Theme.of(context).colorScheme.onPrimary,
-                      ),
+                      style: Theme.of(context).textTheme.headlineMedium!
+                          .copyWith(
+                            color: Theme.of(context).colorScheme.onPrimary,
+                          ),
                     ),
                     const SizedBox(height: 4.0),
                     Text(

@@ -1,5 +1,5 @@
 import 'package:persona_data/lib.dart';
-import 'package:persona_assistant/types/filters.dart';
+import '../types/filters.dart';
 
 /// Sorts a list of PersonaSkill objects.
 ///
@@ -11,7 +11,7 @@ import 'package:persona_assistant/types/filters.dart';
 /// Returns a new sorted list of PersonaSkill objects.
 List<PersonaSkill> sortSkills(List<PersonaSkill> skills, String sortType) {
   final sortedList = List<PersonaSkill>.from(skills);
-  
+
   switch (sortType) {
     case 'name_asc':
       sortedList.sort((a, b) => a.name.compareTo(b.name));
@@ -55,7 +55,7 @@ List<PersonaSkill> sortSkills(List<PersonaSkill> skills, String sortType) {
       );
       break;
   }
-  
+
   return sortedList;
 }
 
@@ -95,4 +95,4 @@ List<PersonaSkill> filterSkills(
   }
 
   return filteredList;
-} 
+}

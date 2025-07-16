@@ -1,5 +1,5 @@
 import 'package:persona_data/lib.dart';
-import 'package:persona_assistant/types/filters.dart';
+import '../types/filters.dart';
 
 /// Sorts a list of PersonaShadow objects.
 ///
@@ -11,7 +11,7 @@ import 'package:persona_assistant/types/filters.dart';
 /// Returns a new sorted list of PersonaShadow objects.
 List<PersonaShadow> sortShadows(List<PersonaShadow> shadows, String sortType) {
   final sortedList = List<PersonaShadow>.from(shadows);
-  
+
   switch (sortType) {
     case 'level_desc':
       sortedList.sort(
@@ -56,7 +56,7 @@ List<PersonaShadow> sortShadows(List<PersonaShadow> shadows, String sortType) {
       );
       break;
   }
-  
+
   return sortedList;
 }
 
@@ -77,8 +77,7 @@ List<PersonaShadow> filterShadows(
   if (shadowFilter.value != 'all' && shadowFilter.value != 'boss') {
     filteredList = filteredList
         .where(
-          (s) =>
-              s.areaEncountered.toLowerCase().startsWith(shadowFilter.value),
+          (s) => s.areaEncountered.toLowerCase().startsWith(shadowFilter.value),
         )
         .toList();
   } else if (shadowFilter.value == 'boss') {
@@ -86,4 +85,4 @@ List<PersonaShadow> filterShadows(
   }
 
   return filteredList;
-} 
+}

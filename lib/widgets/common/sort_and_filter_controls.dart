@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:persona_assistant/types/filters.dart';
-
+import '../../types/filters.dart';
 import 'filters_button.dart';
 
 /// A widget that provides controls for sorting and filtering using modal bottom sheets.

@@ -1,26 +1,26 @@
-import 'package:mobx/mobx.dart';
-import 'package:persona_data/lib.dart';
 import 'package:flutter/material.dart';
+import 'package:mobx/mobx.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:persona_data/lib.dart';
 
-import 'package:persona_assistant/types/filters.dart';
-import 'package:persona_assistant/constants/filter_options.dart';
-import 'package:persona_assistant/constants/sort_options.dart';
+import '../types/filters.dart';
+import '../constants/filter_options.dart';
+import '../constants/sort_options.dart';
 
 // Sorts
-import 'package:persona_assistant/utilities/persona_sort.dart';
-import 'package:persona_assistant/utilities/skill_sort.dart';
-import 'package:persona_assistant/utilities/shadow_sort.dart';
+import '../utilities/persona_sort.dart';
+import '../utilities/skill_sort.dart';
+import '../utilities/shadow_sort.dart';
 
 // Pages
-import '../widgets/skills/list.dart';
 import '../widgets/personas/list.dart';
 import '../widgets/shadows/list.dart';
+import '../widgets/skills/list.dart';
 
 // Filters
 import '../widgets/personas/filters.dart';
-import '../widgets/skills/filters.dart';
 import '../widgets/shadows/filters.dart';
+import '../widgets/skills/filters.dart';
 
 part 'state.g.dart';
 

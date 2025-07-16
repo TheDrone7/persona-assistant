@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:persona_assistant/state/state.dart';
+import 'package:provider/provider.dart';
 
+import 'package:persona_assistant/state/state.dart';
 import 'persona.dart';
 
 /// The main page widget for displaying a list of personas.

@@ -2,14 +2,15 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:provider/provider.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 
 import '../../constants/navigation.dart';
-import 'navigation_drawer_item.dart';
+import '../../state/state.dart';
+import '../common/outlined_icon.dart';
 import '../settings/unlocks.dart';
-import 'package:persona_assistant/state/state.dart';
-import 'package:persona_assistant/widgets/common/outlined_icon.dart';
+
+import 'navigation_drawer_item.dart';
 
 /// The main home page widget with navigation drawer, app bar, and dynamic content.
 class NavigationHomePage extends StatelessWidget {

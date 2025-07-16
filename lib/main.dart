@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'state/state.dart';
-import 'theme.dart';
 import 'widgets/home/home.dart';
+
+import 'theme.dart';
 
 final store = AppState();
 

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:persona_assistant/state/state.dart';
 import 'package:persona_data/lib.dart';
 import 'package:provider/provider.dart';
-import 'package:persona_assistant/widgets/skills/detailed/page.dart';
-import 'package:persona_assistant/widgets/common/detailed/shared.dart';
+
+import 'package:persona_assistant/state/state.dart';
+import '../../common/detailed/shared.dart';
+import '../../skills/detailed/page.dart';
 
 /// Displays a table of skills for a Persona, including the level learned.
 class DetailedPersonaPageSkillsList extends StatelessWidget {

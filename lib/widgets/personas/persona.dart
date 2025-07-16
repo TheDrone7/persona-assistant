@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:persona_data/lib.dart';
 
-import 'package:persona_assistant/widgets/common/styled_list_item.dart';
-
+import '../common/styled_list_item.dart';
 import 'detailed/page.dart';
 
 /// A list item widget for displaying a Persona in the persona list.
