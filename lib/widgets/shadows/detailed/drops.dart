@@ -64,7 +64,7 @@ class DetailedShadowPageDropsList extends StatelessWidget {
         defaultVerticalAlignment: TableCellVerticalAlignment.middle,
         children: [
           dropListHeader(),
-          ...drops.entries.where((entry) => entry.value < 100).map(dropRow),
+          ...drops.entries.map(dropRow),
         ],
       ),
     );
