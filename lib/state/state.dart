@@ -169,8 +169,6 @@ abstract class _AppState with Store {
         return SkillsPage();
       case 2:
         return ShadowsListPage();
-      case 3:
-        return Center(child: Text('Recipe Generator'));
       default:
         throw UnsupportedError('Invalid screen index: $screenIndex');
     }

@@ -20,9 +20,4 @@ final List<NavDestination> destinations = [
     selectedIcon: FaIcon(FontAwesomeIcons.bookOpen),
     label: 'Shadow List',
   ),
-  NavDestination(
-    icon: FaIcon(FontAwesomeIcons.bookBookmark),
-    selectedIcon: FaIcon(FontAwesomeIcons.bookOpen),
-    label: 'Recipe Generator',
-  ),
 ];
