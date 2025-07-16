@@ -1,3 +1,4 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:persona_data/lib.dart';
@@ -115,70 +116,91 @@ class FusionCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.primary.withAlpha(120),
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: Theme.of(context).colorScheme.onSecondary.withAlpha(80),
-          width: 1.5,
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withAlpha(25),
-            spreadRadius: 4,
-            blurRadius: 8,
-            offset: const Offset(0, 2),
+      child: Stack(
+        children: [
+          // Background container with blur effect
+          Container(
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.primary.withAlpha(150),
+              borderRadius: BorderRadius.circular(12),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withAlpha(25),
+                  spreadRadius: 4,
+                  blurRadius: 8,
+                  offset: const Offset(0, 2),
+                ),
+              ],
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Persona pair display
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          _buildPersonaCard(context, persona1),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                            child: FaIcon(icon),
+                          ),
+                          _buildPersonaCard(context, persona2),
+                        ],
+                      ),
+                      const SizedBox(height: 24),
+                      // Divider line
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            width: 100,
+                            height: 1.5,
+                            color: Theme.of(context).colorScheme.outline.withAlpha(50),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 16),
+                      // Cost display
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Estimated cost: ',
+                            style: Theme.of(context).textTheme.bodyLarge,
+                          ),
+                          Text(
+                            totalPrice,
+                            style: Theme.of(
+                              context,
+                            ).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+          // Border container on top
+          Positioned.fill(
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(
+                  color: Theme.of(context).colorScheme.onSecondary.withAlpha(80),
+                  width: 1.5,
+                ),
+              ),
+            ),
           ),
         ],
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Persona pair display
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                _buildPersonaCard(context, persona1),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: FaIcon(icon),
-                ),
-                _buildPersonaCard(context, persona2),
-              ],
-            ),
-            const SizedBox(height: 24),
-            // Divider line
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  width: 100,
-                  height: 1.5,
-                  color: Theme.of(context).colorScheme.outline.withAlpha(50),
-                ),
-              ],
-            ),
-            const SizedBox(height: 16),
-            // Cost display
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Estimated cost: ',
-                  style: Theme.of(context).textTheme.bodyLarge,
-                ),
-                Text(
-                  totalPrice,
-                  style: Theme.of(
-                    context,
-                  ).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-          ],
-        ),
       ),
     );
   }

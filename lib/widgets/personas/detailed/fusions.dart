@@ -6,6 +6,7 @@ import 'package:persona_assistant/utilities/fusion_sort.dart';
 import 'package:persona_assistant/types/filters.dart';
 import 'package:provider/provider.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'dart:ui';
 import 'fusion_card.dart';
 import '../../common/fusion_sort_button.dart';
 
@@ -48,24 +49,39 @@ class _FusionsTabState extends State<FusionsTab> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Available Fusions (${sortedFusions.length})',
-                style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                  color: Theme.of(context).colorScheme.onSecondary,
-                  fontWeight: FontWeight.bold,
+        ClipRect(
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
+                          child: Container(
+                decoration: BoxDecoration(
+                  color: Theme.of(context).appBarTheme.backgroundColor?.withAlpha(200) ?? 
+                         Theme.of(context).colorScheme.surface.withAlpha(200),
+                  border: Border(
+                    bottom: BorderSide(
+                      color: Theme.of(context).colorScheme.outline.withAlpha(120),
+                      width: 1,
+                    ),
+                  ),
                 ),
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Available Fusions (${sortedFusions.length})',
+                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                      color: Theme.of(context).colorScheme.onSecondary,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  FusionSortButton(
+                    ingredientCount: 1,
+                    isFusion: true,
+                    onSortChanged: _setSortOrder,
+                  ),
+                ],
               ),
-              FusionSortButton(
-                ingredientCount: 1,
-                isFusion: true,
-                onSortChanged: _setSortOrder,
-              ),
-            ],
+            ),
           ),
         ),
         // Fusion results list
