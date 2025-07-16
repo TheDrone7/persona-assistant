@@ -55,31 +55,11 @@ List<FusionResult> sortFusionResults(
           ),
         );
         break;
-      case 'cost_asc':
-        sortedList.sort(
-          (a, b) => a.ingredients[ingredientIndex].price.compareTo(
-            b.ingredients[ingredientIndex].price,
-          ),
-        );
-        break;
-      case 'cost_desc':
-        sortedList.sort(
-          (a, b) => b.ingredients[ingredientIndex].price.compareTo(
-            a.ingredients[ingredientIndex].price,
-          ),
-        );
-        break;
     }
   } else {
     switch (sortType) {
       case 'total_desc':
         sortedList.sort((a, b) => b.estimatedCost.compareTo(a.estimatedCost));
-        break;
-      case 'result_cost_asc':
-        sortedList.sort((a, b) => a.result.price.compareTo(b.result.price));
-        break;
-      case 'result_cost_desc':
-        sortedList.sort((a, b) => b.result.price.compareTo(a.result.price));
         break;
       case 'result_level_asc':
         sortedList.sort((a, b) => a.result.level.compareTo(b.result.level));
