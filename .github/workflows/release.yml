@@ -22,6 +22,8 @@ jobs:
         with:
           channel: stable
           flutter-version: 3.27.x
+      - name: Upgrade Flutter
+        run: flutter upgrade
       - name: Install dependencies
         run: flutter pub get
       - name: Build APK
