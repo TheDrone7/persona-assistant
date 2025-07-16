@@ -1,9 +1,8 @@
 name: Build and Release
 on:
-  workflow_dispatch:
   push:
-    branches:
-      - main
+    tags:
+      - 'v*'
 
 jobs:
   build:
@@ -50,3 +49,4 @@ jobs:
           body: 'Release v$VERSION'
           generateReleaseNotes: true
           allowUpdates: true
+          token: ${{ secrets.TOKEN }}
