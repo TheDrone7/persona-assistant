@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 
 /// A reusable table cell widget for detailed views in persona and shadow pages.
@@ -17,16 +16,12 @@ class DetailedTableCell extends StatelessWidget {
   /// Alignment for the child widget. Defaults to center.
   final AlignmentGeometry alignment;
 
-  /// Blur sigma value for the backdrop filter. Defaults to 5.0.
-  final double blurSigma;
-
   const DetailedTableCell({
     super.key,
     required this.child,
     this.padding = const EdgeInsets.all(8.0),
     this.backgroundColor,
     this.alignment = Alignment.center,
-    this.blurSigma = 5.0,
   });
 
   @override
@@ -36,16 +31,11 @@ class DetailedTableCell extends StatelessWidget {
         Theme.of(context).listTileTheme.tileColor?.withAlpha(150) ??
         Theme.of(context).colorScheme.surface.withAlpha(150);
 
-    return ClipRect(
-      child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: blurSigma, sigmaY: blurSigma),
-        child: Container(
-          padding: padding,
-          decoration: BoxDecoration(color: color),
-          alignment: alignment,
-          child: child,
-        ),
-      ),
+    return Container(
+      padding: padding,
+      decoration: BoxDecoration(color: color),
+      alignment: alignment,
+      child: child,
     );
   }
 }

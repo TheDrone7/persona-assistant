@@ -28,7 +28,7 @@ class Card extends StatelessWidget {
           color: Theme.of(context).colorScheme.onSurface.withAlpha(50),
           width: 1.0,
         ),
-        color: Theme.of(context).colorScheme.primary.withAlpha(120),
+        color: Theme.of(context).colorScheme.primary.withAlpha(150),
       ),
       child: child,
     );

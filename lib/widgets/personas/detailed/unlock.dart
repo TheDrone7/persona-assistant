@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import '../../common/card.dart' as common;
 
@@ -15,24 +17,29 @@ class DetailedPersonaUnlockMethodBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 12.0),
-      child: common.Card(
-        child: Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                short,
-                style: Theme.of(
-                  context,
-                ).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.bold),
+      child: ClipRect(
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 4.0, sigmaY: 4.0),
+          child: common.Card(
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    short,
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: 4.0),
+                  Text(
+                    details.isNotEmpty ? details : 'No specific unlock method',
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                ],
               ),
-              SizedBox(height: 4.0),
-              Text(
-                details.isNotEmpty ? details : 'No specific unlock method',
-                style: Theme.of(context).textTheme.bodyMedium,
-              ),
-            ],
+            ),
           ),
         ),
       ),

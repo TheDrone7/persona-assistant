@@ -1,3 +1,4 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:p3r_data/lib.dart';
 
@@ -36,90 +37,106 @@ class DetailedShadowPageStatsBox extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Table(
-            border: TableBorder.all(
-              color: Theme.of(context).dividerColor.withAlpha(50),
-            ),
-            columnWidths: const <int, TableColumnWidth>{
-              0: FlexColumnWidth(),
-              1: FlexColumnWidth(),
-              2: FlexColumnWidth(),
-              3: FlexColumnWidth(),
-              4: FlexColumnWidth(),
-              5: FlexColumnWidth(),
-            },
-            defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-            children: [
-              TableRow(
+          ClipRRect(
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
+              child: Table(
+                border: TableBorder.all(
+                  color: Theme.of(context).dividerColor.withAlpha(50),
+                ),
+                columnWidths: const <int, TableColumnWidth>{
+                  0: FlexColumnWidth(),
+                  1: FlexColumnWidth(),
+                  2: FlexColumnWidth(),
+                  3: FlexColumnWidth(),
+                  4: FlexColumnWidth(),
+                  5: FlexColumnWidth(),
+                },
+                defaultVerticalAlignment: TableCellVerticalAlignment.middle,
                 children: [
-                  DetailedTableCell(child: Text('HP', style: tStyle)),
-                  DetailedTableCell(child: Text(hp.toString(), style: tStyle)),
-                  DetailedTableCell(child: Text('MP', style: tStyle)),
-                  DetailedTableCell(child: Text(mp.toString(), style: tStyle)),
-                  DetailedTableCell(child: Text('XP', style: tStyle)),
-                  DetailedTableCell(child: Text(xp.toString(), style: tStyle)),
+                  TableRow(
+                    children: [
+                      DetailedTableCell(child: Text('HP', style: tStyle)),
+                      DetailedTableCell(
+                        child: Text(hp.toString(), style: tStyle),
+                      ),
+                      DetailedTableCell(child: Text('MP', style: tStyle)),
+                      DetailedTableCell(
+                        child: Text(mp.toString(), style: tStyle),
+                      ),
+                      DetailedTableCell(child: Text('XP', style: tStyle)),
+                      DetailedTableCell(
+                        child: Text(xp.toString(), style: tStyle),
+                      ),
+                    ],
+                  ),
                 ],
               ),
-            ],
+            ),
           ),
           const SizedBox(height: 8.0),
-          Table(
-            border: TableBorder.all(
-              color: Theme.of(context).dividerColor.withAlpha(50),
+          ClipRRect(
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
+              child: Table(
+                border: TableBorder.all(
+                  color: Theme.of(context).dividerColor.withAlpha(50),
+                ),
+                columnWidths: const <int, TableColumnWidth>{
+                  0: FlexColumnWidth(),
+                  1: FlexColumnWidth(),
+                  2: FlexColumnWidth(),
+                  3: FlexColumnWidth(),
+                  4: FlexColumnWidth(),
+                },
+                defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+                children: [
+                  TableRow(
+                    children: [
+                      DetailedTableCell(child: Text('Str', style: tStyle)),
+                      DetailedTableCell(child: Text('Mag', style: tStyle)),
+                      DetailedTableCell(child: Text('End', style: tStyle)),
+                      DetailedTableCell(child: Text('Agi', style: tStyle)),
+                      DetailedTableCell(child: Text('Lck', style: tStyle)),
+                    ],
+                  ),
+                  TableRow(
+                    children: [
+                      DetailedTableCell(
+                        child: Text(
+                          stats[PersonaStats.strength]?.toString() ?? '0',
+                          style: tStyle,
+                        ),
+                      ),
+                      DetailedTableCell(
+                        child: Text(
+                          stats[PersonaStats.magic]?.toString() ?? '0',
+                          style: tStyle,
+                        ),
+                      ),
+                      DetailedTableCell(
+                        child: Text(
+                          stats[PersonaStats.endurance]?.toString() ?? '0',
+                          style: tStyle,
+                        ),
+                      ),
+                      DetailedTableCell(
+                        child: Text(
+                          stats[PersonaStats.agility]?.toString() ?? '0',
+                          style: tStyle,
+                        ),
+                      ),
+                      DetailedTableCell(
+                        child: Text(
+                          stats[PersonaStats.luck]?.toString() ?? '0',
+                          style: tStyle,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
-            columnWidths: const <int, TableColumnWidth>{
-              0: FlexColumnWidth(),
-              1: FlexColumnWidth(),
-              2: FlexColumnWidth(),
-              3: FlexColumnWidth(),
-              4: FlexColumnWidth(),
-            },
-            defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-            children: [
-              TableRow(
-                children: [
-                  DetailedTableCell(child: Text('Str', style: tStyle)),
-                  DetailedTableCell(child: Text('Mag', style: tStyle)),
-                  DetailedTableCell(child: Text('End', style: tStyle)),
-                  DetailedTableCell(child: Text('Agi', style: tStyle)),
-                  DetailedTableCell(child: Text('Lck', style: tStyle)),
-                ],
-              ),
-              TableRow(
-                children: [
-                  DetailedTableCell(
-                    child: Text(
-                      stats[PersonaStats.strength]?.toString() ?? '0',
-                      style: tStyle,
-                    ),
-                  ),
-                  DetailedTableCell(
-                    child: Text(
-                      stats[PersonaStats.magic]?.toString() ?? '0',
-                      style: tStyle,
-                    ),
-                  ),
-                  DetailedTableCell(
-                    child: Text(
-                      stats[PersonaStats.endurance]?.toString() ?? '0',
-                      style: tStyle,
-                    ),
-                  ),
-                  DetailedTableCell(
-                    child: Text(
-                      stats[PersonaStats.agility]?.toString() ?? '0',
-                      style: tStyle,
-                    ),
-                  ),
-                  DetailedTableCell(
-                    child: Text(
-                      stats[PersonaStats.luck]?.toString() ?? '0',
-                      style: tStyle,
-                    ),
-                  ),
-                ],
-              ),
-            ],
           ),
         ],
       ),

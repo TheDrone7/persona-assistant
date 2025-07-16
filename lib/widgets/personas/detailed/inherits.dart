@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 import 'package:catppuccin_flutter/catppuccin_flutter.dart';
@@ -25,63 +27,68 @@ class DetailedPersonaPageInheritanceBox extends StatelessWidget {
 
     return Padding(
       padding: EdgeInsetsGeometry.symmetric(horizontal: 16.0, vertical: 0),
-      child: Table(
-        border: TableBorder.all(
-          color: Theme.of(context).dividerColor.withAlpha(50),
+      child: ClipRect(
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 4.0, sigmaY: 4.0),
+          child: Table(
+            border: TableBorder.all(
+              color: Theme.of(context).dividerColor.withAlpha(50),
+            ),
+            columnWidths: const <int, TableColumnWidth>{
+              0: FlexColumnWidth(),
+              1: FlexColumnWidth(),
+              2: FlexColumnWidth(),
+              3: FlexColumnWidth(),
+            },
+            defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+            children: [
+              TableRow(
+                children: InheritanceElement.values
+                    .sublist(0, 6)
+                    .map(
+                      (e) => DetailedTableCell(
+                        padding: EdgeInsets.all(4.0),
+                        child: Image.asset('assets/p3r/${e.imagePath}'),
+                      ),
+                    )
+                    .toList(),
+              ),
+              TableRow(
+                children: InheritanceElement.values
+                    .sublist(0, 6)
+                    .map(
+                      (e) => DetailedTableCell(
+                        padding: EdgeInsets.all(4.0),
+                        child: iconToShow(inheritances[e] ?? false),
+                      ),
+                    )
+                    .toList(),
+              ),
+              TableRow(
+                children: InheritanceElement.values
+                    .sublist(6)
+                    .map(
+                      (e) => DetailedTableCell(
+                        padding: EdgeInsets.all(4.0),
+                        child: Image.asset('assets/p3r/${e.imagePath}'),
+                      ),
+                    )
+                    .toList(),
+              ),
+              TableRow(
+                children: InheritanceElement.values
+                    .sublist(6)
+                    .map(
+                      (e) => DetailedTableCell(
+                        padding: EdgeInsets.all(4.0),
+                        child: iconToShow(inheritances[e] ?? false),
+                      ),
+                    )
+                    .toList(),
+              ),
+            ],
+          ),
         ),
-        columnWidths: const <int, TableColumnWidth>{
-          0: FlexColumnWidth(),
-          1: FlexColumnWidth(),
-          2: FlexColumnWidth(),
-          3: FlexColumnWidth(),
-        },
-        defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-        children: [
-          TableRow(
-            children: InheritanceElement.values
-                .sublist(0, 6)
-                .map(
-                  (e) => DetailedTableCell(
-                    padding: EdgeInsets.all(4.0),
-                    child: Image.asset('assets/p3r/${e.imagePath}'),
-                  ),
-                )
-                .toList(),
-          ),
-          TableRow(
-            children: InheritanceElement.values
-                .sublist(0, 6)
-                .map(
-                  (e) => DetailedTableCell(
-                    padding: EdgeInsets.all(4.0),
-                    child: iconToShow(inheritances[e] ?? false),
-                  ),
-                )
-                .toList(),
-          ),
-          TableRow(
-            children: InheritanceElement.values
-                .sublist(6)
-                .map(
-                  (e) => DetailedTableCell(
-                    padding: EdgeInsets.all(4.0),
-                    child: Image.asset('assets/p3r/${e.imagePath}'),
-                  ),
-                )
-                .toList(),
-          ),
-          TableRow(
-            children: InheritanceElement.values
-                .sublist(6)
-                .map(
-                  (e) => DetailedTableCell(
-                    padding: EdgeInsets.all(4.0),
-                    child: iconToShow(inheritances[e] ?? false),
-                  ),
-                )
-                .toList(),
-          ),
-        ],
       ),
     );
   }

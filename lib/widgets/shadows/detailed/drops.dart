@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import '../../common/detailed/shared.dart';
 
@@ -53,16 +55,21 @@ class DetailedShadowPageDropsList extends StatelessWidget {
 
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 0),
-      child: Table(
-        border: TableBorder.all(
-          color: Theme.of(context).dividerColor.withAlpha(50),
+      child: ClipRRect(
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
+          child: Table(
+            border: TableBorder.all(
+              color: Theme.of(context).dividerColor.withAlpha(50),
+            ),
+            columnWidths: const <int, TableColumnWidth>{
+              0: FlexColumnWidth(5.0),
+              1: FlexColumnWidth(2.0),
+            },
+            defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+            children: [dropListHeader(), ...drops.entries.map(dropRow)],
+          ),
         ),
-        columnWidths: const <int, TableColumnWidth>{
-          0: FlexColumnWidth(5.0),
-          1: FlexColumnWidth(2.0),
-        },
-        defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-        children: [dropListHeader(), ...drops.entries.map(dropRow)],
       ),
     );
   }

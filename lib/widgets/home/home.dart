@@ -11,6 +11,7 @@ import '../common/outlined_icon.dart';
 import '../settings/unlocks.dart';
 
 import 'navigation_drawer_item.dart';
+import 'package:p3r_data/lib.dart';
 
 /// The main home page widget with navigation drawer, app bar, and dynamic content.
 class NavigationHomePage extends StatelessWidget {
@@ -18,6 +19,18 @@ class NavigationHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Precache all Arcana images
+    for (final arcana in Arcana.values) {
+      precacheImage(AssetImage('assets/p3r/${arcana.imagePath}'), context);
+    }
+    // Precache all CombatElement images
+    for (final element in CombatElement.values) {
+      precacheImage(AssetImage('assets/p3r/${element.imagePath}'), context);
+    }
+    // Precache all InheritanceElement images
+    for (final element in InheritanceElement.values) {
+      precacheImage(AssetImage('assets/p3r/${element.imagePath}'), context);
+    }
     final AppState state = Provider.of<AppState>(context);
 
     return Stack(

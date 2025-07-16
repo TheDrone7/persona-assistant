@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:p3r_data/lib.dart';
 import 'package:catppuccin_flutter/catppuccin_flutter.dart';
@@ -45,40 +47,45 @@ class DetailedShadowPageAilmentsBox extends StatelessWidget {
 
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 0),
-      child: Table(
-        border: TableBorder.all(
-          color: Theme.of(context).dividerColor.withAlpha(50),
+      child: ClipRRect(
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
+          child: Table(
+            border: TableBorder.all(
+              color: Theme.of(context).dividerColor.withAlpha(50),
+            ),
+            columnWidths: const <int, TableColumnWidth>{
+              0: FlexColumnWidth(),
+              1: FlexColumnWidth(),
+              2: FlexColumnWidth(),
+              3: FlexColumnWidth(),
+              4: FlexColumnWidth(),
+              5: FlexColumnWidth(),
+            },
+            defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+            children: [
+              TableRow(
+                children: Ailment.values
+                    .map(
+                      (a) => DetailedTableCell(
+                        child: Text(a.toString(), style: tStyle),
+                      ),
+                    )
+                    .toList(),
+              ),
+              TableRow(
+                children: Ailment.values
+                    .map((a) => DetailedTableCell(child: affinityText(a)))
+                    .toList(),
+              ),
+              TableRow(
+                children: Ailment.values
+                    .map((a) => DetailedTableCell(child: affinityDamage(a)))
+                    .toList(),
+              ),
+            ],
+          ),
         ),
-        columnWidths: const <int, TableColumnWidth>{
-          0: FlexColumnWidth(),
-          1: FlexColumnWidth(),
-          2: FlexColumnWidth(),
-          3: FlexColumnWidth(),
-          4: FlexColumnWidth(),
-          5: FlexColumnWidth(),
-        },
-        defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-        children: [
-          TableRow(
-            children: Ailment.values
-                .map(
-                  (a) => DetailedTableCell(
-                    child: Text(a.toString(), style: tStyle),
-                  ),
-                )
-                .toList(),
-          ),
-          TableRow(
-            children: Ailment.values
-                .map((a) => DetailedTableCell(child: affinityText(a)))
-                .toList(),
-          ),
-          TableRow(
-            children: Ailment.values
-                .map((a) => DetailedTableCell(child: affinityDamage(a)))
-                .toList(),
-          ),
-        ],
       ),
     );
   }
