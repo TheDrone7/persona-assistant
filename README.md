@@ -14,6 +14,8 @@ A mobile app for Persona 3 Reload fusion data, inspired by the original [megaten
 - **Modern UI**: Catppuccin theme, neumorphic design.
 - **Offline Data**: Uses local data, does not need network connection.
 
+P.S. Check out the [screenshots](screenshots/gallery.md) for a preview of the app's UI!
+
 ---
 
 ## Huge Credits & Inspiration
