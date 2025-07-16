@@ -16,7 +16,7 @@ final List<FilterOption> skillFilterOptions = [
         FilterOption(label: e.name.capitalize(), value: e.name.toLowerCase()),
   ),
   ...SkillType.values
-      .where((t) => t != SkillType.attack)
+      .where((t) => t != SkillType.attack && t != SkillType.special)
       .map(
         (t) => FilterOption(
           label: t.name.capitalize(),
@@ -35,8 +35,8 @@ final List<FilterOption> shadowFilterOptions = [
   FilterOption(label: 'Tziah', value: 'tziah'),
   FilterOption(label: 'Harabah', value: 'harabah'),
   FilterOption(label: 'Adamah', value: 'adamah'),
-  FilterOption(label: 'Tutorial', value: 'tutorial'),
-  FilterOption(label: 'Ultimate', value: 'ultimate'),
-  FilterOption(label: 'Boss', value: 'boss'),
   FilterOption(label: 'Other', value: 'unknown'),
+  FilterOption(label: 'Tutorial', value: 'tutorial'),
+  FilterOption(label: 'Boss', value: 'boss'),
+  FilterOption(label: 'Ultimate', value: 'ultimate'),
 ];
