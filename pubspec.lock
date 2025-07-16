@@ -432,6 +432,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.0"
+  p3r_data:
+    dependency: "direct main"
+    description:
+      path: "packages/p3r_data"
+      relative: true
+    source: path
+    version: "0.0.1"
   package_config:
     dependency: transitive
     description:
@@ -504,13 +511,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.0"
-  persona_data:
-    dependency: "direct main"
-    description:
-      path: "packages/persona_data"
-      relative: true
-    source: path
-    version: "0.0.1"
   platform:
     dependency: transitive
     description:

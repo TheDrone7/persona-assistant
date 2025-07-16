@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:persona_data/lib.dart';
+import 'package:p3r_data/lib.dart';
 import 'package:catppuccin_flutter/catppuccin_flutter.dart';
 
 import '../../common/detailed/shared.dart';

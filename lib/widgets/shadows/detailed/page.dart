@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:persona_data/lib.dart';
+import 'package:p3r_data/lib.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../common/section_header.dart';

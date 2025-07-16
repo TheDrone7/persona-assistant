@@ -1,4 +1,4 @@
-import 'package:persona_data/lib.dart';
+import 'package:p3r_data/lib.dart';
 
 /// Sorts a list of FusionResult objects.
 ///

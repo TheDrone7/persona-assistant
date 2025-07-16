@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
 
-import 'package:persona_data/lib.dart';
+import 'package:p3r_data/lib.dart';
 import '../../state/state.dart';
 
 /// A settings category for unlocking personas by a specific method.

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:persona_data/lib.dart';
+import 'package:p3r_data/lib.dart';
 import '../../common/detailed/shared.dart';
 
 /// Displays the arcana box for a Persona, including arcana, level, and special fusion info.

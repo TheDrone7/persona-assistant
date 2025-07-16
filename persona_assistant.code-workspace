@@ -5,8 +5,8 @@
       "name": "Persona Assistant",
 		},
 		{
-			"path": "packages/persona_data",
-      "name": "Data Package"
+			"path": "packages/p3r_data",
+      "name": "Persona 3 Reload Data"
 		}
 	],
   "settings": {
@@ -17,6 +17,7 @@
       "**/.DS_Store": true,
       "**/Thumbs.db": true,
       "**/packages": true
-    }
+    },
+    "liveServer.settings.multiRootWorkspaceName": "Persona Assistant"
   }
 }

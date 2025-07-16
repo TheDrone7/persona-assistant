@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:persona_data/lib.dart';
+import 'package:p3r_data/lib.dart';
 
 import '../types/filters.dart';
 import '../constants/filter_options.dart';

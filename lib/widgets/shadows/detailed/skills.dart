@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:persona_data/lib.dart';
+import 'package:p3r_data/lib.dart';
 
 import 'package:persona_assistant/state/state.dart';
 import '../../skills/detailed/page.dart';

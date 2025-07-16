@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:catppuccin_flutter/catppuccin_flutter.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:persona_data/lib.dart';
+import 'package:p3r_data/lib.dart';
 
 import '../../common/detailed/detailed_table_cell.dart';
 

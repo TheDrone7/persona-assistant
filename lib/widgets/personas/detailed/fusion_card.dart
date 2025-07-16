@@ -1,7 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:persona_data/lib.dart';
+import 'package:p3r_data/lib.dart';
 import 'page.dart';
 
 /// A card widget that displays a fusion or fission pair with their details.

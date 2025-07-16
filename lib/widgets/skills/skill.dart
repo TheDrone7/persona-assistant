@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:persona_data/lib.dart';
+import 'package:p3r_data/lib.dart';
 
 import '../../types/extensions.dart';
 import '../common/styled_list_item.dart';

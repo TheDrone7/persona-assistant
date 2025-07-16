@@ -1,6 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:persona_data/lib.dart';
+import 'package:p3r_data/lib.dart';
 
 /// A reusable arcana box widget for detailed persona and shadow pages.
 ///

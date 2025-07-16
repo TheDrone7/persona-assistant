@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart' show WidgetsFlutterBinding;
 import 'package:flutter_test/flutter_test.dart';
-import 'package:persona_data/lib.dart';
+import 'package:p3r_data/lib.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
