@@ -1,6 +1,6 @@
 import 'package:intl/intl.dart';
-import 'config.dart';
 import 'affinities.dart';
+import 'config.dart';
 
 /// A Persona's stats
 enum PersonaStats { strength, magic, endurance, agility, luck }

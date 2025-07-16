@@ -1,7 +1,8 @@
-import 'types/config.dart';
-import 'types/persona.dart';
 import 'package:pair/pair.dart';
+
+import 'types/config.dart';
 import 'types/fusions.dart';
+import 'types/persona.dart';
 
 class FusionCalculator {
   /// Key1 + Key2 = val2

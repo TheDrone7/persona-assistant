@@ -1,5 +1,5 @@
-import 'config.dart';
 import 'affinities.dart';
+import 'config.dart';
 import 'persona.dart';
 
 /// Represents a Shadow in the game.

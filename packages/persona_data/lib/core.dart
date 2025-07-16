@@ -1,11 +1,12 @@
-import 'package:flutter/foundation.dart';
 import 'dart:async' show Future;
+import 'package:flutter/foundation.dart';
 
-import 'reader.dart';
-import 'fusion.dart';
-import 'types/skill.dart';
 import 'types/persona.dart';
 import 'types/shadow.dart';
+import 'types/skill.dart';
+
+import 'fusion.dart';
+import 'reader.dart';
 
 /// The base class for managing all Persona data.
 class PersonaData {
