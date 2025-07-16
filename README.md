@@ -4,12 +4,6 @@ A mobile app for Persona 3 Reload fusion data, inspired by the original [megaten
 
 ---
 
-## Huge Credits & Inspiration
-
-This project is heavily inspired by and only possible thanks to [aqiu384/megaten-fusion-tool](https://github.com/aqiu384/megaten-fusion-tool). All data, much of the logic, and the core idea are derived from that amazing project. Please check out the original for the full feature set and web experience!
-
----
-
 ## Features
 
 - **Persona List**: Browse, filter, and sort all personas.
@@ -18,7 +12,13 @@ This project is heavily inspired by and only possible thanks to [aqiu384/megaten
 - **Detailed Persona View**: Tabs for info, fusion recipes, and fission sources for each persona.
 - **Unlock Tracking**: Mark personas as unlocked by various methods (e.g., story, requests, fusion).
 - **Modern UI**: Catppuccin theme, neumorphic design.
-- **Offline Data**: Uses local data from the [p3r_data](../packages/p3r_data) package, derived from the original fusion tool.
+- **Offline Data**: Uses local data, does not need network connection.
+
+---
+
+## Huge Credits & Inspiration
+
+This project is heavily inspired by and only possible thanks to [aqiu384/megaten-fusion-tool](https://github.com/aqiu384/megaten-fusion-tool). All data, much of the logic, and the core idea are derived from that amazing project. Please check out the original for the full feature set and web experience!
 
 ---
 
